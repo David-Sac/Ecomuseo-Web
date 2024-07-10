@@ -29,8 +29,7 @@ jobs:
       - name: Run Migrations and Seed Database
         run: |
           cd /home/nrodas/www/ecomuseo
-          php artisan migrate:fresh --seed --force
-
+          php artisan migrate:fresh --seed
       - name: Build Assets
         run: |
           cd /home/nrodas/www/ecomuseo
