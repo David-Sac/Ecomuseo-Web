@@ -1,0 +1,45 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: self-hosted  # Indica que se usará un runner self-hosted
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Clear existing files
+        run: |
+          sudo rm -rf /var/www/ecomuseo/*
+
+      - name: Install Dependencies
+        run: |
+          composer install
+
+      - name: Set Permissions
+        run: |
+          sudo chown -R www-data:www-data /var/www/ecomuseo/storage && sudo chown -R www-data:www-data /var/www/ecomuseo/bootstrap/cache
+
+      - name: Run Migrations and Seed Database
+        run: |
+          php artisan migrate:fresh --seed
+
+      - name: Build Assets
+        run: |
+          npm run build
+
+      - name: Copy files to server
+        run: |
+          cp -r ./* /var/www/ecomuseo/
+
+      - name: Configure Laravel on server
+        run: |
+          cd /var/www/ecomuseo
+          php artisan config:cache
+          php artisan route:cache
+          php artisan optimize
