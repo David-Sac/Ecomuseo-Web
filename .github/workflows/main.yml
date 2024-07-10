@@ -21,19 +21,25 @@ jobs:
         run: |
           cp -r ./* /home/nrodas/www/ecomuseo/
 
-      - name: Install Dependencies
+      - name: Install PHP Dependencies
         run: |
           cd /home/nrodas/www/ecomuseo
           composer install
 
-      - name: Run Migrations and Seed Database
+      - name: Install Node.js Dependencies
         run: |
           cd /home/nrodas/www/ecomuseo
-          php artisan migrate:fresh --seed
+          npm install
+
       - name: Build Assets
         run: |
           cd /home/nrodas/www/ecomuseo
           npm run build
+
+      - name: Run Migrations and Seed Database
+        run: |
+          cd /home/nrodas/www/ecomuseo
+          php artisan migrate:fresh --seed --force
 
       - name: Configure Laravel on server
         run: |
