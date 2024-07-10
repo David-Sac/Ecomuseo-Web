@@ -7,7 +7,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{{ asset('css/welcome.css') }}">
         <script src="{{ asset('js/welcome.js') }}"></script>
-        <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
         {{-- <title>ECOMUSEO</title> --}}
         <title>Ecomuseo LLAQTA AMARU - YOREN KUWAI</title>
 
