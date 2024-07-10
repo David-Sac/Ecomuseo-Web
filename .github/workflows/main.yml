@@ -45,4 +45,3 @@ jobs:
         run: |
           cd /home/nrodas/www/ecomuseo
           php artisan config:cache
-          php artisan route:cache
