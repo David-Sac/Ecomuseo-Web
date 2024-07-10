@@ -1,45 +1,16 @@
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
+/* CAROUSEL */
+
+.carousel{
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  background: url(../images/welcome/fachada_ecomuseo.jpg);
+  background-size: cover;
+  background-position: center;
 }
 
-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000; /* Asegura que el header esté por encima de otros elementos */
-    background-color: #f5f5f5;
-    border-bottom: 4px solid #ccc;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Añade una sombra para mejorar la visibilidad */
-}
 
-.main-navigation {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-}
-
-.main-content {
-    margin-top: 80px; /* Ajusta este valor a la altura de tu header */
-}
-
-.full-screen-banner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: calc(100vh - 80px); /* Ajusta la altura restando la altura del header */
-    background: url(../images/welcome/fachada_ecomuseo.jpg) no-repeat center center;
-    background-size: contain; /* Asegura que la imagen se escale para caber en el contenedor */
-    background-attachment: fixed; /* Fija la imagen de fondo */
-    color: white;
-    text-align: center;
-    padding: 20px;
-    box-sizing: border-box; /* Incluye el padding en el tamaño total del elemento */
-}
-
+/* ACTIVIDADES */
 .actividades {
     background-color: rgb(255, 255, 255);
     padding: 2rem 0;
@@ -82,6 +53,7 @@ header {
     border-radius: 0.5rem 0.5rem 0 0; /* Opcional: bordes redondeados en la parte superior */
 }
 
+
 .actividades .box-container .box .actividad {
     padding: 1rem;
 }
@@ -104,51 +76,15 @@ header {
     text-decoration: none;
 }
 
-.imagen-abajo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh; /* Ocupa toda la altura del viewport */
-    background: url(../images/welcome/Photo_Agro.jpg) no-repeat center center;
-    background-size: cover;
-}
 
-@media (max-width: 768px) {
-    .main-navigation {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 10px;
-    }
 
-    .main-content {
-        margin-top: 100px; /* Ajusta este valor si es necesario */
-    }
+/* Imagen Abajo */
 
-    .full-screen-banner {
-        height: calc(100vh - 80px); /* Asegura que el banner ocupe toda la pantalla menos la altura del header */
-        background-size: contain; /* Ajusta el tamaño de fondo para que quepa en el viewport */
-        padding: 10px; /* Reduce el padding para dispositivos móviles */
-    }
-
-    .actividades h1 {
-        font-size: 40px;
-        line-height: 44px;
-    }
-
-    .actividades .box-container {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .actividades .box-container .box {
-        width: 90%; /* Ajusta el ancho de los elementos para móviles */
-    }
-
-    .mapa iframe {
-        height: 200px; /* Reduce la altura del mapa en dispositivos móviles */
-    }
-
-    .imagen-abajo {
-        height: 50vh; /* Reduce la altura de la imagen para dispositivos móviles */
-    }
+.imagen-abajo{
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  background: url(../images/welcome/Photo_Agro.jpg);
+  background-size: cover;
+  background-position: center;
 }
