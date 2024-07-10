@@ -13,17 +13,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Clear existing files
+      - name: Clear existing files except storage and bootstrap/cache
         run: |
-          sudo rm -rf /var/www/ecomuseo/*
+          find /var/www/ecomuseo/ -mindepth 1 -maxdepth 1 ! -name 'storage' ! -name 'bootstrap' -exec rm -rf {} +
+          find /var/www/ecomuseo/storage -mindepth 1 -exec rm -rf {} +
+          find /var/www/ecomuseo/bootstrap/cache -mindepth 1 -exec rm -rf {} +
 
       - name: Install Dependencies
         run: |
           composer install
-
-      - name: Set Permissions
-        run: |
-          sudo chown -R www-data:www-data /var/www/ecomuseo/storage && sudo chown -R www-data:www-data /var/www/ecomuseo/bootstrap/cache
 
       - name: Run Migrations and Seed Database
         run: |
