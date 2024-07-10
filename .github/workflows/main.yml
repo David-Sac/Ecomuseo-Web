@@ -34,6 +34,12 @@ jobs:
       run: |
         cd /home/nmarin/www/ecomuseo
         php artisan migrate:fresh --seed --force
+    - name: Set Permissions for storage and cache directories
+      run: |
+        chmod -R 775 /home/nmarin/www/ecomuseo/storage
+        chmod -R 775 /home/nmarin/www/ecomuseo/bootstrap/cache
+        chown -R $(whoami):$(whoami) /home/nmarin/www/ecomuseo/storage
+        chown -R $(whoami):$(whoami) /home/nmarin/www/ecomuseo/bootstrap/cache
     - name: Configure Laravel on server
       run: |
         cd /home/nmarin/www/ecomuseo
