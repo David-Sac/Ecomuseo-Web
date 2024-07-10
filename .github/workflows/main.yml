@@ -15,7 +15,7 @@ jobs:
 
       - name: Clear existing files
         run: |
-          sudo rm -rf /home/nrodas/www/ecomuseo/*
+          rm -rf /home/nrodas/www/ecomuseo/*
 
       - name: Install Dependencies
         run: |
