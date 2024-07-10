@@ -23,7 +23,7 @@ jobs:
           
       - name: Run Migrations and Seed Database
         run: |
-          php artisan migrate:fresh --seed
+          php artisan migrate:fresh --seed --force
 
       - name: Build Assets
         run: |
