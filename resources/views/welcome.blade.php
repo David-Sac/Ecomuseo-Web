@@ -49,5 +49,8 @@
             <section class="imagen-abajo">
             </section>
         </main>
+        <footer>
+            @include('partials.footer')
+        </footer>
     </body>
 </html>

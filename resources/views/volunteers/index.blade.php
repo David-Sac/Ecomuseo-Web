@@ -11,7 +11,7 @@
 <header>
     @include('partials.header_new')
 </header>
-<main>
+<main class="volunteer-previews-container">
     <center><h1 style="margin: 20px 0px 0px 20px;">VOLUNTARIADO</h1></center>
     <div style="display: flex; justify-content: center;">
         <div class="payment-info-container" style="width: 70%;">

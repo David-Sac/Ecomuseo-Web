@@ -4,6 +4,9 @@ body {
     margin: 0;
     padding: 0;
 }
+.donation-previews-container{
+    margin-top: 100px; /* Ajusta este valor según la altura de tu header */
+}
 
 .payment-info-container {
     width: 50%;

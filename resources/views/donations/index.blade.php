@@ -16,7 +16,7 @@
 <header>
     @include('partials.header_new')
 </header>
-<main>
+<main class="donation-previews-container">
     <h1 style="margin: 20px 0px 0px 20px;">DONACIONES</h1>
     <div style="display: flex; justify-content: center;">
         <div class="payment-info-container" style="width: 45%; margin-right: 10px;">

@@ -6,7 +6,11 @@
     <title>Blogs | Ecomuseo LLAQTA AMARU - YOYEN KUWA</title>
     {{-- <link rel="stylesheet" href="styles.css"> --}}
     <link rel="stylesheet" href="{{ asset('css/public_index_blog.css') }}">
-
+    <style>
+        .blog-previews-container {
+            margin-top: 100px; /* Ajusta este valor según la altura de tu header */
+        }
+    </style>
 </head>
 <body>
     <!-- Header de la página -->
