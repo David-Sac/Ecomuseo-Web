@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
+use App\Models\Components;
 use Illuminate\Support\Facades\Auth;
 // Importa el middleware Role de Spatie
 use Spatie\Permission\Middleware\RoleMiddleware;
@@ -46,7 +47,8 @@ Route::get('/google-auth/redirect', function () {
     if($user->hasRole("Admin")){
         return redirect('/dashboard');
     } else {
-        return view('welcome');
+        $components = Components::all();
+        return view('welcome', compact('components'));
     }
 
     // $user->token
