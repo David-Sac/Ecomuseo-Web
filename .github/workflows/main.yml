@@ -15,26 +15,39 @@ jobs:
     - name: Clear existing files
       run: |
         rm -rf /home/nmarin/www/ecomuseo/*
+    
     - name: Copy files to server
       run: |
         cp -r ./* /home/nmarin/www/ecomuseo/
+    
+    - name: Create validation directory and copy validation file
+      run: |
+        mkdir -p /home/nmarin/www/ecomuseo/public/.well-known/pki-validation
+        cp /home/nmarin/ssl/.well-known/pki-validation/5C7BD47E624AE4211AD980F7154A03DD.txt /home/nmarin/www/ecomuseo/public/.well-known/pki-validation/
+    
     - name: Install PHP Dependencies
       run: |
         cd /home/nmarin/www/ecomuseo
         composer install
+    
     - name: Install Node.js Dependencies
       run: |
         cd /home/nmarin/www/ecomuseo
         npm install
+    
     - name: Build Assets
       run: |
         cd /home/nmarin/www/ecomuseo
         npm run build
+    
     - name: Run Migrations and Seed Database
       run: |
         cd /home/nmarin/www/ecomuseo
         php artisan migrate:fresh --seed --force
-    - name: Configure Laravel on server
+    
+    - name: Clear and Cache Configurations
       run: |
         cd /home/nmarin/www/ecomuseo
+        php artisan config:clear
+        php artisan cache:clear
         php artisan config:cache
