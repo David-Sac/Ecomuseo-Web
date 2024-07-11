@@ -9,6 +9,11 @@
         <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
         <title>Ecomuseo LLAQTA AMARU -YOREN KUWAI</title>
 
+        <style>
+            .tours {
+                margin-top: 100px; /* Ajusta este valor según la altura de tu header */
+            }
+        </style>
     </head>
     <body>
         <header>
@@ -22,7 +27,6 @@
                 <div class="custom-button-container">
                     <a href="{{ route('visits.publicVisits') }}" class="custom-button">Mis Tours</a>
                     {{-- <a href="#" class="custom-button">Mis Tours</a> --}}
-
                 </div>
             @endauth
 
@@ -64,10 +68,9 @@
             </div>
         </section>
 
-
-        <!-- <footer>
+        <footer>
             @include('partials.footer')
-        </footer> -->
+        </footer>
     </body>
 </html>
 
@@ -81,4 +84,4 @@
         $('#reservationModal').modal('show');
       });
     });
-  </script>
+</script>
