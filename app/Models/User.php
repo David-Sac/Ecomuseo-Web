@@ -58,4 +58,11 @@ class User extends Authenticatable
         return $this->hasMany(Blog::class, 'author_id');
     }
 
+    public function tasks()
+    {
+        return $this->belongsToMany(Task::class, 'task_volunteer', 'volunteer_id', 'task_id')
+                    ->withPivot('assigned_date', 'completed_date', 'status')
+                    ->withTimestamps();
+    }
+
 }

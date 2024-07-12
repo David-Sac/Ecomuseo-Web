@@ -27,13 +27,16 @@ class TaskController extends Controller
 
     public function index(): View
     {
+        // Cargar las tareas junto con los voluntarios asignados
         $tasks = Task::with('volunteers')
             ->where('status', '!=', 'inactive')
             ->orderBy('created_at', 'desc')
-            ->latest()
             ->paginate(10);
 
-        return view('tasks.index', compact('tasks'));
+        // Cargar los usuarios con el rol 'volunteer'
+        $volunteers = User::role('volunteer')->get();
+
+        return view('tasks.index', compact('tasks', 'volunteers'));
     }
 
     public function create(): View
@@ -57,7 +60,7 @@ class TaskController extends Controller
             'title' => 'required|string|max:250',
             'content' => 'required|string|max:255',
             'type' => 'required',
-            'volunteer_id' => 'required'
+            'volunteer_id' => 'required|exists:users,id'
         ]);
 
         $newTask = Task::create([
@@ -66,10 +69,7 @@ class TaskController extends Controller
             'type' => $request->type
         ]);
 
-        $taskId = $newTask->id;
-
         $volunteerId = $request->input('volunteer_id');
-
         $newTask->volunteers()->attach($volunteerId, ['assigned_date' => now()]);
 
         return redirect()->route('tasks.index')->withSuccess('Tarea creada con éxito.');
@@ -77,15 +77,15 @@ class TaskController extends Controller
 
     public function edit(Task $task): View
     {
-        $volunteers = Volunteer::with(['user'])
-            ->where('status', 'active')->get();
+        // Cargar los usuarios con el rol 'volunteer'
+        $volunteers = User::role('volunteer')->get();
 
-        $task = Task::findOrFail($task->id);
+        // Obtener el primer voluntario asignado a la tarea, si existe
+        $volunteerId = $task->volunteers->isNotEmpty() ? $task->volunteers->first()->pivot->volunteer_id : null;
 
-        $volunteerId = $task->volunteers->first()->pivot->volunteer_id;
-
-        return view('tasks.edit', compact(['task', 'volunteers', 'volunteerId']));
+        return view('tasks.edit', compact('task', 'volunteers', 'volunteerId'));
     }
+
 
     public function update(Request $request, Task $task): RedirectResponse
     {

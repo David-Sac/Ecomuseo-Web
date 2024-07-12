@@ -113,6 +113,8 @@ Route::post('/donations/export', [DonationController::class, 'export'])->name('d
 
 Route::post('/tasks/{task}/complete', [TaskController::class, 'complete'])->name('tasks.complete');
 Route::post('/tasks/export', [TaskController::class, 'export'])->name('tasks.export');
+Route::post('/tasks/{task}/approve', [TaskController::class, 'approve'])->name('tasks.approve');
+Route::post('/tasks/{task}/decline', [TaskController::class, 'decline'])->name('tasks.decline');
 /* Route::post('/tasks/{task}/decline', [TaskController::class, 'decline'])->name('tasks.decline'); */
 
 
