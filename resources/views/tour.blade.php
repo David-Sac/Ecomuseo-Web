@@ -59,6 +59,15 @@
                                 @endforeach
                             </ul>
                         </div>
+                        <div class="tour-volunteer">
+                            @if ($tour->volunteers->isNotEmpty())
+                                <strong>Guía:</strong><br>
+                                <span>{{ $tour->volunteers->first()->name }}</span><br>
+                                <span>{{ $tour->volunteers->first()->phone }}</span>
+                            @else
+                                <span>No hay voluntario asignado</span>
+                            @endif
+                        </div>
                         <!-- Contenedor del botón de reserva -->
                         <div class="reserve-button-container">
                             @if ($tour->available_seats > 0)
