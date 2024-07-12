@@ -9,6 +9,8 @@ use Illuminate\Http\Response;
 //use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\App;
 use App\Models\Task;
+use App\Models\User;
+
 use App\Models\Volunteer;
 use Carbon\Carbon;
 
@@ -36,11 +38,12 @@ class TaskController extends Controller
 
     public function create(): View
     {
-        $volunteers = Volunteer::with(['user'])
-            ->where('status', 'active')->get();
+
+        $volunteers = User::role('Volunteer')->get();
 
         return view('tasks.create', compact('volunteers'));
     }
+
 
     public function show(Task $task): View
     {
