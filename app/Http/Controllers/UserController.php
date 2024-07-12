@@ -55,17 +55,12 @@ class UserController extends Controller
         $input = $request->all();
         $input['password'] = Hash::make($request->password);
 
-        // Asignar un valor predeterminado si 'dni' no está presente
-        if (!isset($input['dni'])) {
-            $input['dni'] = 'default_dni_value';
-
         $user = User::create($input);
         $user->assignRole($request->roles);
 
         return redirect()->route('users.index')
                 ->withSuccess('Nuevo usuario añadido correctamente.');
     }
-}
 
     /**
      * Display the specified resource.
@@ -80,7 +75,7 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-     public function edit(User $user): View
+    public function edit(User $user): View
     {
         // Check Only Super Admin can update his own Profile
         if ($user->hasRole('Admin')){
@@ -103,9 +98,9 @@ class UserController extends Controller
     {
         $input = $request->all();
 
-        if(!empty($request->password)){
+        if (!empty($request->password)) {
             $input['password'] = Hash::make($request->password);
-        }else{
+        } else {
             $input = $request->except('password');
         }
 
@@ -115,16 +110,14 @@ class UserController extends Controller
 
         // Verifica si el usuario tiene el rol "volunteer"
         $volunteer = Volunteer::where('user_id', $user->id)->first();
-        if ($user->hasRole('Volunteer')&& $volunteer) {
+        if ($user->hasRole('Volunteer') && $volunteer) {
             $volunteer->update(['status' => 'active', 'approved_date' => now()]);
         }
-        // else {
-        //     $volunteer->update(['status' => 'inactive', 'inactive_date' => now()]);
-        // }
 
         return redirect()->back()
                 ->withSuccess('El usuario ha sido actualizado correctamente');
     }
+
 
 
     /**

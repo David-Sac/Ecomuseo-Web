@@ -23,9 +23,12 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:250',
-            'email' => 'required|string|email:rfc,dns|max:250|unique:users,email,'.$this->user->id,
+            'email' => 'required|string|email:rfc,dns|max:250|unique:users,email,' . $this->user->id,
             'password' => 'nullable|string|min:8|confirmed',
-            'roles' => 'required'
+            'roles' => 'required',
+            'dni' => 'nullable|string|max:20|unique:users,dni,' . $this->user->id, // Campo opcional
+            'phone' => 'nullable|string|max:15', // Campo opcional
+            'birthdate' => 'nullable|date', // Campo opcional
         ];
     }
 }
