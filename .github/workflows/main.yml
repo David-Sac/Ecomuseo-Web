@@ -40,10 +40,10 @@ jobs:
         cd /home/nmarin/www/ecomuseo
         npm run build
     
-    - name: Run Migrations and Seed Database
-      run: |
-        cd /home/nmarin/www/ecomuseo
-        php artisan migrate:fresh --seed --force
+    # - name: Run Migrations and Seed Database
+    #   run: |
+    #     cd /home/nmarin/www/ecomuseo
+    #     php artisan migrate:fresh --seed --force
     
     - name: Clear and Cache Configurations
       run: |
