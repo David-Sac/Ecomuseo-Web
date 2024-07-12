@@ -31,8 +31,8 @@
                         <div class="col-md-6">
                             <select class="form-control @error('volunteer_id') is-invalid @enderror" id="volunteer_id" name="volunteer_id">
                                 @foreach ($volunteers as $volunteer)
-                                <option value="{{ $volunteer->id }}" {{ $task->volunteers->first()->pivot->volunteer_id == $volunteer->id ? 'selected' : '' }}>
-                                    {{ $volunteer->user->name }}
+                                <option value="{{ $volunteer->id }}" {{ $volunteerId == $volunteer->id ? 'selected' : '' }}>
+                                    {{ $volunteer->name }}
                                 </option>
                                 @endforeach
                             </select>
