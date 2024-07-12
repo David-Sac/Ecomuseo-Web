@@ -1,13 +1,8 @@
-
-
-
 @extends('layouts.app_new')
 
 @section('content')
-
 <div class="row justify-content-center">
     <div class="col-md-8">
-
         <div class="card">
             <div class="card-header">Añadir Tour</div>
             <div class="card-body">
@@ -25,6 +20,26 @@
                         </div>
                     </div>
 
+                    <!-- Añadir el selector de visibilidad -->
+                    <div class="mb-3 row">
+                        <label for="visibility_period" class="col-md-4 col-form-label text-md-end">Periodo de Visibilidad</label>
+                        <div class="col-md-6">
+                            <select class="form-control @error('visibility_period') is-invalid @enderror" id="visibility_period" name="visibility_period">
+                                <option value="1 día" {{ old('visibility_period', $tour->visibility_period ?? '') == '1 día' ? 'selected' : '' }}>1 día</option>
+                                <option value="2 días" {{ old('visibility_period', $tour->visibility_period ?? '') == '2 días' ? 'selected' : '' }}>2 días</option>
+                                <option value="1 semana" {{ old('visibility_period', $tour->visibility_period ?? '') == '1 semana' ? 'selected' : '' }}>1 semana</option>
+                                <option value="2 semanas" {{ old('visibility_period', $tour->visibility_period ?? '') == '2 semanas' ? 'selected' : '' }}>2 semanas</option>
+                                <option value="1 mes" {{ old('visibility_period', $tour->visibility_period ?? '') == '1 mes' ? 'selected' : '' }}>1 mes</option>
+                                <option value="2 meses" {{ old('visibility_period', $tour->visibility_period ?? '') == '2 meses' ? 'selected' : '' }}>2 meses</option>
+                                <option value="3 meses" {{ old('visibility_period', $tour->visibility_period ?? '') == '3 meses' ? 'selected' : '' }}>3 meses</option>
+                            </select>
+                            @error('visibility_period')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
+
                     <!-- Campo para la descripción del tour -->
                     <div class="mb-3 row">
                         <label for="description" class="col-md-4 col-form-label text-md-end text-start">Descripción</label>
@@ -35,7 +50,6 @@
                             @enderror
                         </div>
                     </div>
-
 
                     <!-- Campo para la fecha y hora de inicio del tour -->
                     <div class="mb-3 row">
@@ -99,6 +113,23 @@
                         </div>
                     </div>
 
+                    <!-- Lista de voluntarios para seleccionar -->
+                    <div class="mb-3 row">
+                        <label for="volunteer_id" class="col-md-4 col-form-label text-md-end text-start">Asignar Voluntario</label>
+                        <div class="col-md-6">
+                            <select class="form-control @error('volunteer_id') is-invalid @enderror" id="volunteer_id" name="volunteer_id">
+                                @foreach ($volunteers as $volunteer)
+                                    <option value="{{ $volunteer->id }}" {{ old('volunteer_id') == $volunteer->id ? 'selected' : '' }}>
+                                        {{ $volunteer->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('volunteer_id')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
                     <!-- Botón de envío -->
                     <div class="mb-3 row">
                         <input type="submit" class="col-md-3 offset-md-5 btn btn-primary" value="Añadir Tour">
@@ -109,6 +140,4 @@
         </div>
     </div>
 </div>
-
 @endsection
-

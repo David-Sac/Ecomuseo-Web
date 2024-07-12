@@ -24,6 +24,7 @@ return new class extends Migration
             $table->dateTime('end_date');
             $table->integer('max_people');
             $table->string('contact_info');
+            $table->string('visibility_period')->default('1_dia');
             $table->timestamps();
         });
     }

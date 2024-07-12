@@ -36,15 +36,24 @@ class AdminUserSeeder extends Seeder
         ]);
         $visitor->assignRole('Visitor');
 
-        $volunteer = User::create([
-            'name' => 'voluntario',
+        $volunteer1 = User::create([
+            'name' => 'voluntario1',
             'dni' => '87965472',
-            'phone' => '123456789',
+            'phone' => '945291643',
             'birthdate' => '1990-01-01',
             'email' => 'voluntario@voluntario.com',
             'password' => Hash::make('12345678')
         ]);
-        $volunteer->assignRole('Volunteer');
+        $volunteer1->assignRole('Volunteer');
 
+        $volunteer2 = User::create([
+            'name' => 'voluntario2',
+            'dni' => '87965473',
+            'phone' => '965311540',
+            'birthdate' => '1991-01-01',
+            'email' => 'voluntario2@voluntario.com',
+            'password' => Hash::make('12345678')
+        ]);
+        $volunteer2->assignRole('Volunteer');
     }
 }

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Carbon\Carbon;
 class Tour extends Model
 {
     use HasFactory;
@@ -16,6 +16,7 @@ class Tour extends Model
         'end_date',
         'max_people',
         'contact_info',
+        'visibility_period',
     ];
 
     public function components()
@@ -26,6 +27,11 @@ class Tour extends Model
     public function visits()
     {
         return $this->hasMany(Visit::class);
+    }
+
+    public function volunteers()
+    {
+        return $this->belongsToMany(User::class, 'tour_volunteer', 'tour_id', 'volunteer_id');
     }
 
     // Método para calcular los cupos disponibles
