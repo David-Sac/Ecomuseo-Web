@@ -65,4 +65,8 @@ class User extends Authenticatable
                     ->withTimestamps();
     }
 
+    public function tours()
+    {
+        return $this->belongsToMany(Tour::class, 'tour_volunteer', 'volunteer_id', 'tour_id');
+    }
 }

@@ -18,6 +18,33 @@
                     @endif
 
                     @if (Auth::user()->hasRole('Volunteer'))
+                    {{-- {{ __('You are logged in!') }} --}}
+                    @canany(['create-user', 'edit-user', 'delete-user'])
+                        <a class="btn btn-success btn-lg" href="{{ route('users.index') }}">
+                            <i class="bi bi-people"></i> Gestionar usuarios</a>
+                    @endcanany
+                    @canany(['create-component', 'edit-component', 'delete-component'])
+                        <a class="btn btn-warning btn-lg" href="{{ route('components.index') }}">
+                            <i class="bi bi-house-gear"></i> Gestionar Componentes</a>
+                    @endcanany
+                    @canany(['create-tour', 'edit-tour', 'delete-tour'])
+                        <a class="btn btn-secondary btn-lg" href="{{ route('tours.index') }}">
+                            <i class="bi bi-bezier2"></i> Gestionar Tours</a>
+                    @endcanany
+                    <br/><br/>
+                    @canany(['create-blog', 'edit-blog', 'delete-blog'])
+                        <a class="btn btn-primary btn-lg" href="{{ route('blogs.index') }}">
+                            <i class="bi bi-newspaper"></i> Gestionar Blogs</a>
+                    @endcanany
+                    @canany(['edit-donation', 'delete-donation'])
+                        <a class="btn btn-success btn-lg" href="{{ route('donations.show') }}">
+                            <i class="bi bi-coin"></i> Gestionar Donaciones</a>
+                    @endcanany
+                    @canany(['create-volunteer', 'edit-volunteer', 'delete-volunteer'])
+                        <a class="btn btn-danger btn-lg" href="{{ route('volunteers.show') }}">
+                            <i class="bi bi-wrench"></i> Voluntarios</a>
+                    @endcanany
+                    <br/><br/>
                         @forelse ($volunteers as $volunteer)
                             @if ($volunteer->user->id == auth()->user()->id)
                                 <table class="table table-striped table-responsive">
@@ -108,9 +135,6 @@
                         @canany(['create-volunteer', 'edit-volunteer', 'delete-volunteer'])
                             <a class="btn btn-danger btn-lg" href="{{ route('volunteers.show') }}">
                                 <i class="bi bi-wrench"></i> Voluntarios</a>
-                        @endcanany
-                        @canany(['create-volunteer', 'edit-volunteer', 'delete-volunteer'])
-                        <br/> <!-- usar para otro boton -->
                         @endcanany
                         <br/><br/>
                     @endif

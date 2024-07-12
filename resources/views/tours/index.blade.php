@@ -14,14 +14,16 @@
         <table class="table table-striped table-bordered">
             <thead>
                 <tr>
-                <th scope="col">#</th>
-                <th scope="col">Título</th>
-                <th scope="col">Descripción</th>
-                <th scope= "col">Inicio del Tour</th>
-                <th scope= "col">Fin del Tour</th>
-                <th scope="col">Capacidad</th>
-                <th scope="col">Componentes Involucrados</th> <!-- Nueva columna para componentes -->
-                <th scope="col">Acciones</th>
+                    <th scope="col">#</th>
+                    <th scope="col">Título</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col">Inicio del Tour</th>
+                    <th scope="col">Fin del Tour</th>
+                    <th scope="col">Capacidad</th>
+                    <th scope="col">Componentes Involucrados</th> <!-- Nueva columna para componentes -->
+                    <th scope="col">Voluntario</th> <!-- Nueva columna para voluntario -->
+                    <th scope="col">Periodo de Visibilidad</th> <!-- Nueva columna para periodo de visibilidad -->
+                    <th scope="col">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -38,6 +40,15 @@
                             <span class="badge bg-secondary">{{ $component->titleComponente }}</span>
                         @endforeach
                     </td>
+                    <td>
+                        @if ($tour->volunteers->isNotEmpty())
+                            <strong>Nombre:</strong> {{ $tour->volunteers->first()->name }}<br>
+                            <strong>Teléfono:</strong> {{ $tour->volunteers->first()->phone }}
+                        @else
+                            No asignado
+                        @endif
+                    </td>
+                    <td>{{ $tour->visibility_period }}</td>
                     <td>
                         <form action="{{ route('tours.destroy', $tour->id) }}" method="post">
                             @csrf
@@ -56,7 +67,7 @@
                     </td>
                 </tr>
                 @empty
-                    <td colspan="6">
+                    <td colspan="10">
                         <span class="text-danger">
                             <strong>Tour no encontrado!</strong>
                         </span>

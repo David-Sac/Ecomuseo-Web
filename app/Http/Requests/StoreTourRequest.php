@@ -36,6 +36,8 @@ class StoreTourRequest extends FormRequest
             'contact_info' => 'required|string',
             'components' => 'required',
             'components.*' => 'exists:components,id',
+            'volunteer_id' => 'required|exists:users,id',
+            'visibility_period' => 'required|string|in:1 día,2 días,1 semana,2 semanas,1 mes,2 meses,3 meses'
         ];
     }
 
