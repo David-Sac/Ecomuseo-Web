@@ -73,17 +73,25 @@ header {
     border-radius: .5rem;
     background-color: #AAE983;
     overflow: hidden;
-}
-
-.actividades .box-container .box .actividad img {
-    width: 100%; /* Ajusta el ancho al contenedor */
-    height: 300px; /* Altura fija para todas las imágenes */
-    object-fit: cover; /* Asegura que la imagen cubra el espacio disponible sin distorsionarse */
-    border-radius: 0.5rem 0.5rem 0 0; /* Opcional: bordes redondeados en la parte superior */
+    padding-bottom: 1rem; /* Añade espacio para el botón */
+    min-height: 400px; /* Asegura suficiente altura para todo el contenido */
 }
 
 .actividades .box-container .box .actividad {
     padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
+.actividades .box-container .box .actividad img {
+    width: 100%;
+    height: auto; /* Deja que la altura se ajuste automáticamente */
+    max-height: 200px; /* Ajusta este valor para controlar el espacio que ocupa la imagen */
+    object-fit: contain; /* Asegura que la imagen se muestre completa dentro del contenedor */
+    border-radius: 0.5rem 0.5rem 0 0;
 }
 
 .actividades .box-container .box .actividad h3 {
@@ -102,6 +110,8 @@ header {
     padding: 0.5rem 1rem;
     border-radius: 5px;
     text-decoration: none;
+    flex-shrink: 0; /* Evita que el botón se encoja */
+    margin-bottom: 1rem; /* Asegura que el botón no esté pegado al borde inferior */
 }
 
 .imagen-abajo {
@@ -114,6 +124,27 @@ header {
 }
 
 @media (max-width: 768px) {
+    .actividades h1 {
+        font-size: 40px;
+        line-height: 44px;
+    }
+
+    .actividades .box-container {
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem 0; /* Ajusta el padding para móviles */
+    }
+
+    .actividades .box-container .box {
+        width: 90%; /* Ajusta el ancho de los elementos para móviles */
+        margin-bottom: 1rem; /* Espacio entre elementos */
+    }
+
+    .actividades .box-container .box .actividad img {
+        height: auto; /* Permite que las imágenes se adapten a la altura según el contenido */
+        max-height: 150px; /* Limita la altura de la imagen en móviles */
+    }
+
     .main-navigation {
         flex-direction: column;
         align-items: flex-start;
@@ -128,20 +159,6 @@ header {
         height: calc(100vh - 80px); /* Asegura que el banner ocupe toda la pantalla menos la altura del header */
         background-size: contain; /* Ajusta el tamaño de fondo para que quepa en el viewport */
         padding: 10px; /* Reduce el padding para dispositivos móviles */
-    }
-
-    .actividades h1 {
-        font-size: 40px;
-        line-height: 44px;
-    }
-
-    .actividades .box-container {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .actividades .box-container .box {
-        width: 90%; /* Ajusta el ancho de los elementos para móviles */
     }
 
     .mapa iframe {
