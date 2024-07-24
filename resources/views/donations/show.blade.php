@@ -53,7 +53,7 @@
                             <th scope="col">Teléfono</th>
                             <th scope="col">Email</th>
                             <th scope="col">Info</th>
-                            <th scope="col">Monto</th>
+                            <th scope="col">Cantidad</th>
                             <th scope="col">Acciones</th>
                         </tr>
                     </thead>

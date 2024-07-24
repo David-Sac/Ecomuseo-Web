@@ -48,8 +48,8 @@
                 </div>
                 <!-- Monto -->
                 <div id="monto-container" class="mt-4" style="{{ old('type') == 'dinero' ? '' : 'display: none;' }}">
-                    <x-input-label for="monto" :value="__('Monto')" />
-                    <x-text-input id="monto" class="block mt-1 w-full" type="number" step="0.01" name="monto" value="{{ old('monto') }}" placeholder="Monto de la donación"/>
+                    <x-input-label for="monto" :value="__('Cantidad')" />
+                    <x-text-input id="monto" class="block mt-1 w-full" type="number" step="0.01" name="monto" value="{{ old('monto') }}" placeholder="Cantidad de la donación"/>
                     <x-input-error :messages="$errors->get('monto')" class="mt-2 text-danger" />
                 </div>
                 <!-- Razon Social -->
