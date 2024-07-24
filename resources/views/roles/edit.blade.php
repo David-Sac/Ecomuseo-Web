@@ -30,22 +30,24 @@
                     </div>
 
                     <div class="mb-3 row">
-                        <label for="permissions" class="col-md-4 col-form-label text-md-end text-start">Permissions</label>
+                        <label for="permissions" class="col-md-4 col-form-label text-md-end text-start">Permisos</label>
                         <div class="col-md-6">
-                            <select class="form-select @error('permissions') is-invalid @enderror" multiple aria-label="Permissions" id="permissions" name="permissions[]" style="height: 210px;">
-                                @forelse ($permissions as $permission)
-                                    <option value="{{ $permission->id }}" {{ in_array($permission->id, $rolePermissions ?? []) ? 'selected' : '' }}>
+                            @forelse ($permissions as $permission)
+                                <div class="form-check">
+                                    <input class="form-check-input @error('permissions') is-invalid @enderror" type="checkbox" name="permissions[]" value="{{ $permission->id }}" id="permission_{{ $permission->id }}" {{ in_array($permission->id, $rolePermissions ?? []) ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="permission_{{ $permission->id }}">
                                         {{ $permission->name }}
-                                    </option>
-                                @empty
-
-                                @endforelse
-                            </select>
+                                    </label>
+                                </div>
+                            @empty
+                                <p>No hay permisos disponibles</p>
+                            @endforelse
                             @if ($errors->has('permissions'))
                                 <span class="text-danger">{{ $errors->first('permissions') }}</span>
                             @endif
                         </div>
                     </div>
+
 
                     <div class="mb-3 row">
                         <input type="submit" class="col-md-3 offset-md-5 btn btn-primary" value="Update Role">

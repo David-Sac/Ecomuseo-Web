@@ -85,29 +85,35 @@
                     </div>
 
                     <div class="mb-3 row">
-                        <label for="roles" class="col-md-4 col-form-label text-md-end text-start">Rol</label>
+                        <label for="roles" class="col-md-4 col-form-label text-md-end text-start">Roles</label>
                         <div class="col-md-6">
-                            <select class="form-select @error('roles') is-invalid @enderror" multiple aria-label="Roles" id="roles" name="roles[]">
-                                @forelse ($roles as $role)
-                                    @if ($role != 'Super Admin')
-                                        <option value="{{ $role }}" {{ in_array($role, $userRoles ?? []) ? 'selected' : '' }}>
+                            @forelse ($roles as $role)
+                                @if ($role != 'Super Admin')
+                                    <div class="form-check">
+                                        <input class="form-check-input @error('roles') is-invalid @enderror" type="checkbox" name="roles[]" value="{{ $role }}" id="role_{{ $role }}" {{ in_array($role, $userRoles ?? []) ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="role_{{ $role }}">
                                             {{ $role }}
-                                        </option>
-                                    @else
-                                        @if (Auth::user()->hasRole('Super Admin'))
-                                            <option value="{{ $role }}" {{ in_array($role, $userRoles ?? []) ? 'selected' : '' }}>
+                                        </label>
+                                    </div>
+                                @else
+                                    @if (Auth::user()->hasRole('Super Admin'))
+                                        <div class="form-check">
+                                            <input class="form-check-input @error('roles') is-invalid @enderror" type="checkbox" name="roles[]" value="{{ $role }}" id="role_{{ $role }}" {{ in_array($role, $userRoles ?? []) ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="role_{{ $role }}">
                                                 {{ $role }}
-                                            </option>
-                                        @endif
+                                            </label>
+                                        </div>
                                     @endif
-                                @empty
-                                @endforelse
-                            </select>
+                                @endif
+                            @empty
+                                <p>No hay roles disponibles</p>
+                            @endforelse
                             @if ($errors->has('roles'))
                                 <span class="text-danger">{{ $errors->first('roles') }}</span>
                             @endif
                         </div>
                     </div>
+
 
                     <div class="mb-3 row">
                         <input type="submit" class="col-md-3 offset-md-5 btn btn-primary" value="Actualizar Usuario">
