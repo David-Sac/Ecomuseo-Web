@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Models\Volunteer;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Task;
 
 class HomeController extends Controller
 {
@@ -26,14 +28,12 @@ class HomeController extends Controller
      */
     public function index(): View
     {
-        $volunteers = Volunteer::with(['user'])
-            ->where('volunteers.status', '!=', 'inactive') // Filtra por estado 'active'
-            ->whereHas('tasks', function ($query) {
-                $query->where('task_volunteer.status', 'pending'); // Filtra por tareas con estado 'pending'
-            })
-            ->latest()
-            ->paginate(10);
+        $user = Auth::user();
 
-        return view('home', compact('volunteers'));
+        // Recupera todas las tareas asignadas al usuario actual que no han sido canceladas.
+        $tasks = $user->tasks()->wherePivot('status', '!=', 'cancelled')->get();
+
+        return view('home', compact('tasks'));
     }
+
 }

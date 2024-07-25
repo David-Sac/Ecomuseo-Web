@@ -12,15 +12,24 @@
                     <div class="mb-3 row">
                         <label for="type" class="col-md-4 col-form-label text-md-end">Tipo</label>
                         <div class="col-md-6">
-                            <select class="form-control @error('type') is-invalid @enderror" id="type" name="type">
-                                <option value="tour" {{ old('type') == 'tour' ? 'selected' : '' }}>Tour</option>
-                                <option value="blog" {{ old('type') == 'blog' ? 'selected' : '' }}>Blog</option>
-                                <option value="donation" {{ old('type') == 'donation' ? 'selected' : '' }}>Donaciones</option>
-                                <option value="component" {{ old('type') == 'component' ? 'selected' : '' }}>Componente</option>
+                            <select class="form-control @error('type') is-invalid @enderror" id="type" name="type" onchange="filterVolunteers()">
+                                <option value="">Seleccione tipo</option>
+                                <option value="create-blog">Blog</option>
+                                <option value="create-tour">Tour</option>
+                                <option value="create-donation">Donaciones</option>
+                                <option value="create-component">Componente</option>
                             </select>
                             @error('type')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
+                        </div>
+                    </div>
+
+                    <!-- Label para mostrar el tipo de voluntario requerido -->
+                    <div class="mb-3 row">
+                        <label class="col-md-4 col-form-label text-md-end">Requerido para:</label>
+                        <div class="col-md-6">
+                            <p id="volunteerTypeRequired" class="form-control-plaintext"></p>
                         </div>
                     </div>
 
@@ -29,8 +38,15 @@
                         <label for="volunteer_id" class="col-md-4 col-form-label text-md-end">Asignar a</label>
                         <div class="col-md-6">
                             <select class="form-control @error('volunteer_id') is-invalid @enderror" id="volunteer_id" name="volunteer_id">
+                                <option value="">Seleccione un voluntario</option>
                                 @foreach ($volunteers as $volunteer)
-                                    <option value="{{ $volunteer->id }}" {{ old('volunteer_id') == $volunteer->id ? 'selected' : '' }}>{{ $volunteer->name }}</option>
+                                    @php
+                                        $permissions = $volunteer->roles->flatMap->permissions->pluck('name')->unique();
+                                        $roles = $volunteer->roles->pluck('name');
+                                    @endphp
+                                    <option value="{{ $volunteer->id }}" data-permissions="{{ $permissions->join(',') }}" data-roles="{{ $roles->join(',') }}">
+                                        {{ $volunteer->name }}
+                                    </option>
                                 @endforeach
                             </select>
                             @error('volunteer_id')
@@ -38,7 +54,6 @@
                             @enderror
                         </div>
                     </div>
-
                     <!-- Campo para el título de la tarea -->
                     <div class="mb-3 row">
                         <label for="title" class="col-md-4 col-form-label text-md-end">Título</label>
@@ -69,4 +84,39 @@
         </div>
     </div>
 </div>
+
+<script>
+    function filterVolunteers() {
+        const type = document.getElementById('type').value;
+        const volunteers = document.getElementById('volunteer_id').options;
+        let volunteersTypes = new Set();
+
+        for (const volunteer of volunteers) {
+            if (volunteer.value === "") continue;
+
+            const permissions = volunteer.getAttribute('data-permissions').split(',');
+            const isVisible = permissions.includes(type);
+            volunteer.style.display = isVisible ? 'block' : 'none';
+
+            // Añadir roles al conjunto si el voluntario es visible
+            if (isVisible) {
+                const roles = volunteer.getAttribute('data-roles').split(',');
+                roles.forEach(role => {
+                    if ((type === 'create-blog' || type === 'create-tour') && role.includes('Volunteer senior')) {
+                        volunteersTypes.add('Volunteer senior');
+                    } else if ((type === 'create-donation' || type === 'create-component') && role.includes('Volunteer junior')) {
+                        volunteersTypes.add('Volunteer junior');
+                    }
+                });
+            }
+        }
+
+        // Actualizar el texto de los roles requeridos
+        document.getElementById('volunteerTypeRequired').textContent = volunteersTypes.size > 0 ? Array.from(volunteersTypes).join(', ') : 'No hay voluntarios disponibles para este tipo de tarea';
+    }
+
+    document.getElementById('type').addEventListener('change', filterVolunteers); // Ejecutar filtro al cambiar el tipo
+    </script>
+
+
 @endsection
