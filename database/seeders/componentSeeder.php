@@ -60,5 +60,17 @@ class componentSeeder extends Seeder
             | Recursos y Apoyo a la Comunidad      | - Materiales Educativos: <br><br>Para elaborar materiales educativos para el ecomuseo, produciría una serie de folletos, carteles, guías, infografías, podcasts, videos y otros recursos que contengan información relevante y atractiva sobre la selva. También adaptaría estos materiales a los diferentes niveles educativos y grupos de interés, para que sean accesibles y comprensibles para todos los visitantes.<br><br>  <br><br>- Colaboración con Organizaciones: <br><br>Para establecer una colaboración con organizaciones que trabajen en la selva, identificaría a las entidades que tengan objetivos y valores afines al ecomuseo, como las ONG, las universidades, los medios de comunicación, las empresas, etc. También buscaría formas de cooperación y alianza que beneficien tanto al ecomuseo como a las organizaciones, como el intercambio de información, el apoyo logístico, la difusión, el patrocinio, etc.<br><br>  <br><br>- Asesoramiento para la Acción Ambiental: <br><br>Para brindar un asesoramiento para la acción ambiental en el ecomuseo, ofrecería una orientación y una capacitación a los visitantes que quieran realizar acciones concretas para mejorar el ambiente de la selva, como el reciclaje, la reforestación, la denuncia, la movilización, etc. También les proporciona herramientas y contactos que les faciliten la implementación y el seguimiento de estas acciones. |',
             'rutaImagenComponente' => 'images/componentes/interpretación.jpg',
         ]);
+        DB::table('components')->insert([
+            'titleComponente' => 'Isula Huayo',
+            'description' => 'Exploración profunda del Isula Huayo en el ecosistema amazónico',
+            'contentComponente' => '| Categoría | Detalles Específicos |
+            |-----------|-----------------------|
+            | Biología  | Isula Huayo, conocida científicamente como "Isla de los monos", es un área rica en biodiversidad ubicada en la región amazónica. Esta área es crucial para el estudio de diversas especies de flora y fauna. |
+            | Conservación | Los esfuerzos de conservación en Isula Huayo incluyen programas de educación ambiental y proyectos de reforestación para preservar su diversidad biológica única. |
+            | Impacto Humano | Se discuten las interacciones entre las comunidades locales y el ecosistema de Isula Huayo, enfocándose en cómo la actividad humana afecta y a la vez depende de este ecosistema. |
+            | Tecnología y Ciencia | Avances en tecnologías de monitoreo y estudios científicos que ayudan a comprender mejor los patrones ecológicos de Isula Huayo. |
+            | Programas Educativos | Iniciativas educativas que involucran a la comunidad local y visitantes en la conservación y el conocimiento del ecosistema de Isula Huayo. |',
+            'rutaImagenComponente' => 'images/componentes/isula_huayo.jpeg',
+        ]);
     }
 }
