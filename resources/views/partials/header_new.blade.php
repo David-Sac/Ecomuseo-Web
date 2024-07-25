@@ -23,7 +23,7 @@
                     @if (Route::has('login'))
                         {{-- <div class="auth-links" id="auth-links"> --}}
                             @auth
-                                @role('Super Admin|Admin|Volunteer')
+                                @role('Super Admin|Admin|Volunteer junior|Volunteer senior')
                                     <a href="{{ url('/home') }}" class="intranet-btn">INTRANET</a>
                                     <form method="POST" action="{{ route('logout') }}">
                                         @csrf

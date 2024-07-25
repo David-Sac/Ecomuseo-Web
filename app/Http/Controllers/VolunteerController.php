@@ -70,31 +70,49 @@ class VolunteerController extends Controller
         }
     }
 
-    public function approve($id): RedirectResponse
+    public function approve(Volunteer $volunteer, Request $request)
     {
-        $volunteer = Volunteer::findOrFail($id);
-        $volunteer->status = 'active';
-        $volunteer->approved_date = now();
-        $volunteer->save();
+        $volunteer->update([
+            'status' => 'active',
+            'approved_date' => now(),
+        ]);
 
         $user = $volunteer->user;
-        $user->assignRole('Volunteer');
+        $user->assignRole($request->type);
 
-        return redirect()->route('volunteers.show')->with('success', 'Voluntario aprobado con éxito.');
+        // if ($request->ajax()) {
+        return response()->json(['success' => true, 'message' => 'Voluntario aprobado con éxito']);
+        // }
+
+        // return redirect()->route('volunteers.show')->with('success', 'Voluntario aprobado con éxito.');
     }
 
-    public function decline($id): RedirectResponse
+
+
+    public function decline(Volunteer $volunteer)
     {
-        $volunteer = Volunteer::findOrFail($id);
-        $volunteer->status = 'inactive';
-        $volunteer->inactive_date = now();
-        $volunteer->save();
+        $volunteer->update([
+            'status' => 'inactive',
+            'inactive_date' => now(),
+        ]);
 
         $user = $volunteer->user;
-        $user->removeRole('Volunteer');
 
-        return redirect()->route('volunteers.show')->with('success', 'Voluntario rechazado con éxito.');
+        if ($user->hasRole('Volunteer junior')) {
+            $user->removeRole('Volunteer junior');
+        }
+        if ($user->hasRole('Volunteer senior')) {
+            $user->removeRole('Volunteer senior');
+        }
+
+        // Comprobar si la solicitud es de tipo AJAX
+        // if (request()->wantsJson()) {
+        return response()->json(['message' => 'Voluntario rechazado con éxito']);
+        // }
+
+        // return redirect()->route('volunteers.show')->with('success', 'Voluntario rechazado con éxito.');
     }
+
 
     public function destroy($id): RedirectResponse
     {
