@@ -65,9 +65,12 @@
                             <td>
                                 {{-- <button type="button" class="btn btn-success bi-check-lg approve-btn" data-id="{{ $task->id }}"></button>
                                 <button type="button" class="btn btn-danger bi-x-lg decline-btn" data-id="{{ $task->id }}"></button> --}}
-                                @can('edit-task')
-                                    <a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-primary btn-sm">Editar</a>
-                                @endcan
+                                @if ($task->volunteers->first()->pivot->status == 'Pending')
+                                    @can('edit-task')
+                                        <a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-primary btn-sm">Editar</a>
+                                    @endcan
+                                @endif
+
                                 <form action="{{ route('tasks.destroy', $task->id) }}" method="post" style="display:inline;">
                                     @csrf
                                     @method('DELETE')

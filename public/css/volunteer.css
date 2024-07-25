@@ -14,6 +14,19 @@
     border: 1px solid #dee2e6;
     border-color: black;
 }
+.role-badge {
+    display: inline-block;
+    margin-right: 5px; /* Agrega un margen a la derecha de cada cuadro */
+    margin-bottom: 5px; /* Agrega un margen en la parte inferior para separar cuadros en líneas diferentes */
+    padding: 4px 8px; /* Ajusta el padding para que no sea demasiado grande */
+    font-size: 10px; /* Reduce el tamaño de la fuente */
+    font-weight: bold;
+    color: white;
+    background-color: #00BFFF; /* Color celeste */
+    border-radius: 10px; /* Bordes redondeados */
+    text-align: center;
+    white-space: nowrap; /* Evita que los nombres de roles se partan en múltiples líneas */
+}
 
 /* Estilos para las filas de la tabla basados en el estado de la visita */
 .pending {

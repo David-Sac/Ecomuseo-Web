@@ -48,7 +48,8 @@ class RoleAndPermissionSeeder extends Seeder
         $superAdmin = Role::create(['name' => 'Super Admin']);
         $admin = Role::create(['name' => 'Admin']);
         $visitor = Role::create(['name' => 'Visitor']);
-        $volunteerRole = Role::create(['name' => 'Volunteer']);
+        $volunteerSeniorRole = Role::create(['name' => 'Volunteer senior']);
+        $volunteerJuniorRole = Role::create(['name' => 'Volunteer junior']);
 
         $superAdmin->givePermissionTo([
             'create-role',
@@ -87,16 +88,19 @@ class RoleAndPermissionSeeder extends Seeder
             'approve_post'
         ]);
 
-        $volunteerRole->givePermissionTo([
-            'create-component',
-            'edit-component',
-            'delete-component',
+        $volunteerSeniorRole->givePermissionTo([
             'create-blog',
             'edit-blog',
             'delete-blog',
             'create-tour',
             'edit-tour',
             'delete-tour',
+        ]);
+
+        $volunteerJuniorRole->givePermissionTo([
+            'create-component',
+            'edit-component',
+            'delete-component',
             'create-donation',
             'edit-donation',
             'delete-donation',

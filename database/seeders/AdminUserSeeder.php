@@ -44,7 +44,7 @@ class AdminUserSeeder extends Seeder
             'email' => 'voluntario@voluntario.com',
             'password' => Hash::make('12345678')
         ]);
-        $volunteer1->assignRole('Volunteer');
+        $volunteer1->assignRole('Volunteer senior');
 
         $volunteer2 = User::create([
             'name' => 'voluntario2',
@@ -54,6 +54,6 @@ class AdminUserSeeder extends Seeder
             'email' => 'voluntario2@voluntario.com',
             'password' => Hash::make('12345678')
         ]);
-        $volunteer2->assignRole('Volunteer');
+        $volunteer2->assignRole('Volunteer junior');
     }
 }

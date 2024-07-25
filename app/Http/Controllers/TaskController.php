@@ -27,25 +27,26 @@ class TaskController extends Controller
 
     public function index(): View
     {
-        // Cargar las tareas junto con los voluntarios asignados
-        $tasks = Task::with('volunteers')
-            ->where('status', '!=', 'inactive')
-            ->orderBy('created_at', 'desc')
-            ->paginate(10);
+        // Cargar las tareas junto con los voluntarios asignados y sus roles
+        $tasks = Task::with(['volunteers' => function ($query) {
+            $query->with('roles');  // Asegúrate de cargar también los roles
+        }])->where('status', '!=', 'inactive')
+        ->orderBy('created_at', 'desc')
+        ->paginate(10);
 
-        // Cargar los usuarios con el rol 'volunteer'
-        $volunteers = User::role('volunteer')->get();
-
-        return view('tasks.index', compact('tasks', 'volunteers'));
+        return view('tasks.index', compact('tasks'));
     }
+
 
     public function create(): View
     {
-
-        $volunteers = User::role('Volunteer')->get();
+        // Cargar todos los voluntarios con sus roles y permisos
+        $volunteers = User::with(['roles.permissions'])->get();
 
         return view('tasks.create', compact('volunteers'));
     }
+
+
 
 
     public function show(Task $task): View
@@ -59,14 +60,19 @@ class TaskController extends Controller
         $request->validate([
             'title' => 'required|string|max:250',
             'content' => 'required|string|max:255',
-            'type' => 'required',
+            'type' => 'required|in:create-blog,create-tour,create-donation,create-component',  // Asegura que solo se envíen tipos válidos
             'volunteer_id' => 'required|exists:users,id'
         ]);
+
+        // Extraer solo la parte necesaria del tipo para guardar en la base de datos
+        $type = explode('-', $request->type)[1];  // Esto tomará "blog", "tour", etc., del valor "create-blog", "create-tour", etc.
 
         $newTask = Task::create([
             'title' => $request->title,
             'content' => $request->content,
-            'type' => $request->type
+            'type' => $type,  // Usar el valor ajustado
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
 
         $volunteerId = $request->input('volunteer_id');
@@ -74,6 +80,7 @@ class TaskController extends Controller
 
         return redirect()->route('tasks.index')->withSuccess('Tarea creada con éxito.');
     }
+
 
     public function edit(Task $task): View
     {

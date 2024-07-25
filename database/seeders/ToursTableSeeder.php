@@ -16,7 +16,7 @@ class ToursTableSeeder extends Seeder
     public function run(): void
     {
         // Obtenemos los voluntarios
-        $volunteers = User::role('Volunteer')->get();
+        $volunteers = User::role('Volunteer senior')->get();
         // 1 día,2 días,1 semana,2 semanas,1 mes,2 meses,3 meses
         $toursData = [
             [
