@@ -48,7 +48,7 @@ class TourController extends Controller
      public function create(): View
      {
          $components = Components::all();
-         $volunteers = User::role('volunteer')->get();
+         $volunteers = User::role('Volunteer junior')->get();
 
          return view('tours.create', compact('components', 'volunteers'));
      }

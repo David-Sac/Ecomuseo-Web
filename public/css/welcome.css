@@ -29,7 +29,7 @@ header {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end; /* Ajustado de 'center' a 'flex-end' para mover el texto al fondo */
     height: calc(100vh - 80px); /* Ajusta la altura restando la altura del header */
     background: url(../images/welcome/fachada_ecomuseo.jpg) no-repeat center center;
     background-size: contain; /* Asegura que la imagen se escale para caber en el contenedor */
@@ -40,6 +40,21 @@ header {
     box-sizing: border-box; /* Incluye el padding en el tamaño total del elemento */
 }
 
+.full-screen-banner h1, .full-screen-banner p {
+    background-color: rgba(0, 0, 0, 0.35); /* Gris medio con 50% de transparencia */
+    padding: 10px; /* Espacio alrededor del texto */
+    border-radius: 5px; /* Bordes redondeados ligeramente */
+}
+
+.full-screen-banner h1 {
+    font-size: 50px; /* Tamaño de fuente para el título */
+    font-weight: bold; /* Texto en negrita */
+}
+
+.full-screen-banner p {
+    font-size: 15px; /* Tamaño de fuente para el párrafo */
+    font-weight: bold; /* Texto en negrita */
+}
 .actividades {
     background-color: rgb(255, 255, 255);
     padding: 2rem 0;
@@ -114,13 +129,59 @@ header {
     margin-bottom: 1rem; /* Asegura que el botón no esté pegado al borde inferior */
 }
 
-.imagen-abajo {
+.contenedor {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh; /* Ocupa toda la altura del viewport */
-    background: url(../images/welcome/Photo_Agro.jpg) no-repeat center center;
-    background-size: cover;
+    padding-left: 200px;
+    padding-right: 200px;
+}
+
+.carousel {
+
+    position: relative;
+    overflow: hidden; /* Oculta cualquier cosa fuera del carrusel */
+}
+
+.carousel-container {
+    flex: 1;  /* Flexibilidad para ocupar espacio disponible */
+    padding: 15px;  /* Espacio alrededor del carrusel */
+}
+
+.carousel-item {
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-inner img {
+    width: 50%;  /* Las imágenes cubrirán completamente el ancho del carrusel */
+    height: 50%;  /* Las imágenes también cubrirán completamente la altura del carrusel */
+    /* object-fit: cover; */
+}
+
+/* Contenedor para el título y el mapa */
+.encuentranos-container {
+    text-align: center; /* Centra el texto del título */
+    padding: 20px; /* Espacio alrededor del contenido */
+    margin: 20px auto; /* Centra el contenedor y añade un margen exterior */
+    max-width: 80%; /* Limita el ancho máximo para que no acapare toda la pantalla */
+}
+
+/* Estilización del título */
+.encuentranos-container h2 {
+    margin-bottom: 15px; /* Espacio debajo del título */
+    color: #333; /* Color oscuro para el texto */
+    font-size: 30px; /* Tamaño de fuente más grande */
+}
+
+/* Estilización del mapa */
+.mapa {
+    border: 3px solid #ccc; /* Borde sólido gris claro */
+    border-radius: 10px; /* Bordes redondeados */
+    overflow: hidden; /* Oculta cualquier contenido que se desborde */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Sombra suave para profundidad */
+}
+
+.mapa iframe {
+    width: 100%; /* Asegura que el iframe ocupe todo el espacio disponible del contenedor */
+    height: 450px; /* Altura fija para el iframe */
 }
 
 @media (max-width: 768px) {
@@ -160,6 +221,20 @@ header {
         background-size: contain; /* Ajusta el tamaño de fondo para que quepa en el viewport */
         padding: 10px; /* Reduce el padding para dispositivos móviles */
     }
+    .full-screen-banner h1 {
+        font-size: 20px; /* Reduce el tamaño de fuente para el título para que se adapte mejor a pantallas pequeñas */
+        padding: 8px; /* Ajuste del padding para mantener la proporción */
+    }
+
+    .full-screen-banner p {
+        font-size: 10px; /* Reduce el tamaño de fuente para el párrafo para mayor comodidad de lectura en pantallas pequeñas */
+        padding: 5px; /* Ajuste del padding para mantener la legibilidad */
+    }
+
+    /* Asegurarse de que el fondo detrás del texto sigue siendo visible y efectivo en tamaños más pequeños */
+    .full-screen-banner h1, .full-screen-banner p {
+        background-color: rgba(0, 0, 0, 0.5); /* Oscurece un poco más para mejorar la legibilidad contra fondos potencialmente complejos */
+    }
 
     .mapa iframe {
         height: 200px; /* Reduce la altura del mapa en dispositivos móviles */
@@ -167,5 +242,17 @@ header {
 
     .imagen-abajo {
         height: 50vh; /* Reduce la altura de la imagen para dispositivos móviles */
+    }
+
+    .contenedor {
+        flex-direction: column;  /* Los elementos se apilan verticalmente en pantallas pequeñas */
+    }
+
+    .carousel-inner img {
+        max-height: 300px;  /* Menor altura para las imágenes en dispositivos móviles */
+    }
+
+    .mapa {
+        height: 300px;  /* Altura menor para el mapa en dispositivos móviles */
     }
 }
