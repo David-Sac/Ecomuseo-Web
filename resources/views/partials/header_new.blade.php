@@ -24,7 +24,7 @@
                         {{-- <div class="auth-links" id="auth-links"> --}}
                             @auth
                                 @role('Super Admin|Admin|Volunteer junior|Volunteer senior')
-                                    <a href="{{ url('/home') }}" class="intranet-btn">INTRANET</a>
+                                    <a href="{{ url('/home') }}" class="intranet-btn">Intranet</a>
                                     <form method="POST" action="{{ route('logout') }}">
                                         @csrf
                                         <a href="route('logout')"

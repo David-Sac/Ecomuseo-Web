@@ -10,7 +10,7 @@
             <div class="footer-section">
                 <div class="footer-links">
                     <h4>Enlaces</h4>
-                    <a href="#">Inicio</a>
+                    <a href="/">Inicio</a>
                     <a href="#">Nosotros</a>
                 </div>
             </div>
@@ -22,7 +22,7 @@
             </div>
             <div class="footer-section">
                 <h4>Redes Sociales</h4>
-                <a href="#" class="social-link">
+                <a href="https://www.tiktok.com/@espacioaprendizajee?_t=8oP7jguBgNZ&_r=1" class="social-link">
                     <img src="{{ asset('images/welcome/TikTok-Logo-PNG.png') }}" alt="Icono de TikTok">
                 </a>
             </div>
