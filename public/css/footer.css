@@ -10,72 +10,70 @@ body {
     text-transform: capitalize;
 }
 
-.contaider {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
 .footer {
     background-color: #315530;
-    padding: 80px 0;
-}
-
-.footer-row {
+    padding: 40px 0;
     display: flex;
-    flex-wrap: wrap;
+    justify-content: center;
 }
 
-.footer-links {
-    width: 25%;
-    padding: 0 15px;
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    max-width: 1200px;
+    width: 100%;
 }
 
-.footer-links h4 {
-    font-size: 20px;
-    color: #FFFFFF;
-    margin-bottom: 25px;
-    font-weight: 500;
-    border-bottom: 2px solid #00C3FF;
-    display: inline-block;
+.footer-section {
+    margin: 0 20px;
 }
 
-.footer-links ul li a {
+.footer-logo {
+    max-width: 100px;
+    margin-bottom: 20px;
+}
+
+.footer-links h4, .footer-section h4 {
     font-size: 18px;
-    text-decoration: none;
-    color: #FFFFFF;
-    display: block;
     margin-bottom: 15px;
-    transition: all .3s ease;
+    color: #cccccc;
 }
 
-.footer-links ul li a:hover {
-    color: #FFFFFF;
-    padding-left: 6px;
+.footer-links a, .footer-section p a {
+    color: #ffffff;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 10px;
+    transition: color .3s ease;
 }
 
-.social-link a {
-    display: inline-block;
-    min-height: 40px;
+.footer-section p {
+    margin-bottom: 10px;
+}
+
+.footer-links a:hover, .footer-section p a:hover {
+    color: #00C3FF;
+}
+
+.social-link img {
     width: 40px;
-    /*background-color: rgba(255, 255, 255, 0.2);*/
-    margin: 0 10px 10px 0;
-    text-align: center;
-    border-radius: 50%;
-    color: #FFFFFF;
-    transition: all .5 ease;
+    height: 40px;
+    transition: transform .3s ease;
 }
 
-.social-link a:hover {
-    background-color: #00C3FF;
+.social-link:hover img {
+    transform: scale(1.1);
 }
 
-@media(max-width:991px){
-    .footer-row {
+@media (max-width: 991px) {
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
         text-align: center;
     }
 
-    .footer-link {
-        width: 100%;
-        margin-bottom: 30px;
+    .footer-section {
+        margin-bottom: 20px;
     }
 }
