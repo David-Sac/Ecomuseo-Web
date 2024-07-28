@@ -86,10 +86,9 @@
         </div>
     </div>
 </main>
-
-<!-- <footer>
+<footer>
     @include('partials.footer')
-</footer> -->
+</footer>
 
 </body>
 </html>

@@ -26,7 +26,8 @@
 
     <!-- Sección de tours -->
     <section class="tours" id="tours">
-        <h1 class="titulo"><center><span>NUESTROS TOURS</span></h1></center>
+        <h1 class="titulo"><center><span>Nuestros tours</span></h1></center>
+        <center><p>Ven y interactúa con  las bondades naturales que conservamos.</p></center>
         @auth
             <div class="custom-button-container">
                 <a href="{{ route('visits.publicVisits') }}" class="custom-button">Mis Tours</a>
