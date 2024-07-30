@@ -16,9 +16,9 @@
             </div>
             <div class="footer-section">
                 <h4>Contacto</h4>
-                <p><a href="tel:641-754-0072">641-754-0072</a></p>
+                <p><a href="tel:951-256-785">951-256-785</a></p>
                 <p><a href="mailto:Gavin@Mak@rhyta.com">Gavin@Mak@rhyta.com</a></p>
-                <p><a href="#">1718 Park Boulevard Marshalltown, IA 50158</a></p>
+                <p><a href="#">Facultad de agronomia UNAP</a></p>
             </div>
             <div class="footer-section">
                 <h4>Redes Sociales</h4>
