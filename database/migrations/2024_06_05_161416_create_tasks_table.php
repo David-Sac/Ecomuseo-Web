@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
             $table->enum('type', ['tour', 'blog', 'donation', 'component'])->default('tour');
+            $table->json('components')->nullable();
             $table->string('title');
             $table->text('content');
             $table->enum('status', ['active', 'inactive'])->default('active');

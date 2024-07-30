@@ -10,8 +10,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\App;
 use App\Models\Task;
 use App\Models\User;
-
-use App\Models\Volunteer;
+use App\Models\Components;
 use Carbon\Carbon;
 
 class TaskController extends Controller
@@ -27,26 +26,33 @@ class TaskController extends Controller
 
     public function index(): View
     {
-        // Cargar las tareas junto con los voluntarios asignados y sus roles
-        $tasks = Task::with(['volunteers' => function ($query) {
-            $query->with('roles');  // Asegúrate de cargar también los roles
-        }])->where('status', '!=', 'inactive')
-        ->orderBy('created_at', 'desc')
-        ->paginate(10);
+        $tasks = Task::where('status', '!=', 'inactive')
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
+        // Para cada tarea, carga los detalles de los componentes
+        foreach ($tasks as $task) {
+            if (!empty($task->components)) {
+                $task->componentDetails = Components::whereIn('id', $task->components)->get();
+            } else {
+                $task->componentDetails = collect(); // Colección vacía si no hay componentes
+            }
+        }
 
         return view('tasks.index', compact('tasks'));
     }
 
 
+
+
     public function create(): View
     {
+        $components = Components::all();
         // Cargar todos los voluntarios con sus roles y permisos
         $volunteers = User::with(['roles.permissions'])->get();
 
-        return view('tasks.create', compact('volunteers'));
+        return view('tasks.create', compact('components', 'volunteers'));
     }
-
-
 
 
     public function show(Task $task): View
@@ -60,23 +66,23 @@ class TaskController extends Controller
         $request->validate([
             'title' => 'required|string|max:250',
             'content' => 'required|string|max:255',
-            'type' => 'required|in:create-blog,create-tour,create-donation,create-component',  // Asegura que solo se envíen tipos válidos
-            'volunteer_id' => 'required|exists:users,id'
+            'type' => 'required|in:create-blog,create-tour,create-donation,create-component',
+            'volunteer_id' => 'required|exists:users,id',
+            'components' => 'nullable|array',
+            'components.*' => 'exists:components,id',
         ]);
 
-        // Extraer solo la parte necesaria del tipo para guardar en la base de datos
-        $type = explode('-', $request->type)[1];  // Esto tomará "blog", "tour", etc., del valor "create-blog", "create-tour", etc.
+        $type = explode('-', $request->type)[1];
 
         $newTask = Task::create([
             'title' => $request->title,
             'content' => $request->content,
-            'type' => $type,  // Usar el valor ajustado
-            'created_at' => now(),
-            'updated_at' => now()
+            'type' => $type,
+            'status' => 'active',
+            'components' => $request->components ?? [],
         ]);
 
-        $volunteerId = $request->input('volunteer_id');
-        $newTask->volunteers()->attach($volunteerId, ['assigned_date' => now()]);
+        $newTask->volunteers()->attach($request->input('volunteer_id'), ['assigned_date' => now()]);
 
         return redirect()->route('tasks.index')->withSuccess('Tarea creada con éxito.');
     }
@@ -84,13 +90,22 @@ class TaskController extends Controller
 
     public function edit(Task $task): View
     {
-        // Cargar los usuarios con el rol 'volunteer'
-        $volunteers = User::role('volunteer')->get();
+        // Cargar todos los componentes disponibles
+        $components = Components::all();
+
+        // Cargar todos los voluntarios, suponiendo que estos son usuarios con un rol específico
+        // Modifica esto si usas un nombre de rol diferente o si tienes una lógica diferente para seleccionar voluntarios
+        $volunteers = User::whereHas('roles', function ($query) {
+            $query->where('name', 'like', '%volunteer%'); // Ajusta según tus nombres de roles
+        })->get();
 
         // Obtener el primer voluntario asignado a la tarea, si existe
         $volunteerId = $task->volunteers->isNotEmpty() ? $task->volunteers->first()->pivot->volunteer_id : null;
 
-        return view('tasks.edit', compact('task', 'volunteers', 'volunteerId'));
+        // Cargar los IDs de los componentes actualmente asociados a la tarea
+        $selectedComponents = $task->components ?? [];
+
+        return view('tasks.edit', compact('task', 'volunteers', 'volunteerId', 'components', 'selectedComponents'));
     }
 
 
@@ -100,18 +115,22 @@ class TaskController extends Controller
             'title' => 'required|string|max:250',
             'content' => 'required|string|max:255',
             'type' => 'required',
-            'volunteer_id' => 'required'
+            'volunteer_id' => 'required|exists:users,id',
+            'components' => 'nullable|array',
+            'components.*' => 'exists:components,id',
         ]);
+
+        // Extraer solo la parte relevante del tipo para guardar en la base de datos
+        $type = explode('-', $data['type'])[1]; // Esto toma "blog", "tour", etc.
 
         $task->update([
             'title' => $data['title'],
             'content' => $data['content'],
-            'type' => $data['type']
+            'type' => $type,
+            'components' => $data['components'] ?? [],
         ]);
 
-        $task->volunteers()->sync([
-            $data['volunteer_id'] => ['assigned_date' => now()],
-        ]);
+        $task->volunteers()->sync([$data['volunteer_id'] => ['assigned_date' => now()]]);
 
         return redirect()->route('tasks.index')->withSuccess('Tarea actualizada con éxito.');
     }
@@ -121,15 +140,20 @@ class TaskController extends Controller
         $startDate = Carbon::createFromFormat('Y-m-d', $request->input('start_date'))->startOfDay();
         $endDate = Carbon::createFromFormat('Y-m-d', $request->input('end_date'))->endOfDay();
 
-        $tasks = Task::with(['volunteers' => function ($query) {
-            $query->select('volunteers.id', 'volunteers.user_id');
-        }])
-            ->where('tasks.status', '!=', 'inactive')
-            ->whereDate('tasks.created_at', '>=', $startDate)
-            ->whereDate('tasks.created_at', '<=', $endDate)
-            ->select('tasks.id','tasks.type','tasks.title','tasks.content','tasks.status','tasks.created_at')
-            ->orderBy('tasks.created_at', 'desc')
+        $tasks = Task::where('status', '!=', 'inactive')
+            ->whereDate('created_at', '>=', $startDate)
+            ->whereDate('created_at', '<=', $endDate)
+            ->orderBy('created_at', 'desc')
             ->get();
+
+        // Para cada tarea, cargar los detalles de los componentes
+        foreach ($tasks as $task) {
+            if (!empty($task->components)) {
+                $task->componentDetails = Components::whereIn('id', $task->components)->get();
+            } else {
+                $task->componentDetails = collect(); // Colección vacía si no hay componentes
+            }
+        }
 
         $data = ['tasks' => $tasks, 'startDate' => $startDate, 'endDate' => $endDate];
 
@@ -147,10 +171,11 @@ class TaskController extends Controller
             $width = $fontMetrics->getTextWidth($text, $font, $size);
             $canvas->text($pageWidth - $width - 20, $pageHeight - 20, $text, $font, $size);
         });
+
         return $pdf->stream('Reporte_tareas_' . $startDate . '_' . $endDate . '.pdf');
-        //return $pdf->download('reporteTareas.pdf');
-        //return view('tasks.export', $data);
     }
+
+
 
     public function complete(Task $task): RedirectResponse
     {

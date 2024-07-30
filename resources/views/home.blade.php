@@ -52,9 +52,10 @@
                             <thead>
                                 <tr>
                                     <th scope="col">Tipo</th>
+                                    <th scope="col">Componentes</th> <!-- Nueva columna para componentes -->
                                     <th scope="col">Titulo</th>
                                     <th scope="col">Contenido</th>
-                                    <th scope="col">Status</th>
+                                    <th scope="col">Estado</th>
                                     <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
@@ -62,6 +63,15 @@
                                 @foreach ($tasks as $task)
                                     <tr>
                                         <td>{{ ucfirst($task->type) }}</td>
+                                        <td>
+                                            @if ($task->componentDetails->isNotEmpty())
+                                                @foreach ($task->componentDetails as $component)
+                                                    <span>{{ $component->titleComponente }}</span><br>
+                                                @endforeach
+                                            @else
+                                                <span>No asignados</span>
+                                            @endif
+                                        </td>
                                         <td>{{ ucfirst($task->title) }}</td>
                                         <td>{{ ucfirst($task->content) }}</td>
                                         <td>{{ ucfirst($task->pivot->status) }}</td>

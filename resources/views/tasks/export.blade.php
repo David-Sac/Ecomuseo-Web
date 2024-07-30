@@ -12,6 +12,7 @@
             <th scope="col">Tipo</th>
             <th scope="col">Título</th>
             <th scope="col">Contenido</th>
+            <th scope="col">Componentes</th> <!-- Nueva columna para componentes -->
             <th scope="col">Estado</th>
             <th scope="col">Asignado</th>
             <th scope="col">Completado</th>
@@ -25,11 +26,20 @@
                 <td>{{ ucfirst($task->type) }}</td>
                 <td>{{ $task->title }}</td>
                 <td>{{ $task->content }}</td>
+                <td>
+                    @if ($task->componentDetails->isNotEmpty())
+                        @foreach ($task->componentDetails as $component)
+                            {{ $component->titleComponente }}<br>
+                        @endforeach
+                    @else
+                        No asignados
+                    @endif
+                </td>
                 @if ($task->volunteers->isNotEmpty() && $task->volunteers->first()->pivot)
                     <td>{{ ucfirst($task->volunteers->first()->pivot->status) }}</td>
                     <td>{{ \Carbon\Carbon::parse($task->volunteers->first()->pivot->assigned_date)->format('d/m/Y') }}</td>
                     <td>{{ $task->volunteers->first()->pivot->completed_date ? \Carbon\Carbon::parse($task->volunteers->first()->pivot->completed_date)->format('d/m/Y') : 'No' }}</td>
-                    <td>{{ $task->volunteers->first()->user->name }}</td>
+                    <td>{{ optional($task->volunteers->first())->name }}</td>
                 @else
                     <td>No asignado</td>
                     <td>No asignado</td>
