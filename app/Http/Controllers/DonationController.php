@@ -55,7 +55,7 @@ class DonationController extends Controller
             'email_contacto' => ['required', 'string', 'lowercase', 'email', 'max:255'],
             'celular_contacto' => ['required', 'regex:/^(9)[0-9]{8}$/'],
             'info_adicional' => ['string', 'max:255'],
-            'monto' => ['required_if:type,dinero', 'numeric', 'min:0'], // Validación para el monto
+            'monto' => ['numeric', 'min:0'], // Validación para el monto
         ]);
 
         $donation = Donation::create([
@@ -67,7 +67,7 @@ class DonationController extends Controller
             'email_contacto' => $request->email_contacto,
             'requested_date' => now(),
             'additional_info' => $request->info_adicional,
-            'monto' => $request->type === 'dinero' ? $request->monto : null, // Aquí es donde se asigna el monto
+            'monto' => $request->monto, // Aquí es donde se asigna el monto
         ]);
 
         if (!$donation) {
