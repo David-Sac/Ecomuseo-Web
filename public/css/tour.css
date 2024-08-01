@@ -17,6 +17,9 @@
     justify-content: center;
 }
 
+a {
+    text-transform: none;
+}
 
 .tours .box .image-section img {
     max-width: 30%;
