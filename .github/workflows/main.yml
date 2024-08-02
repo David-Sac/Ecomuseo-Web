@@ -11,6 +11,10 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+      
+    - name: Change file permissions
+      run: |
+        chmod -R u+w /home/nmarin/www/ecomuseo/storage/app/public/cvs
 
     - name: Move files to tmp
       run: |
