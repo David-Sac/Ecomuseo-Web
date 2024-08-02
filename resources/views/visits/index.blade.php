@@ -14,7 +14,9 @@
                     <th scope="col">Usuario</th>
                     <th scope="col">Tour</th>
                     <th scope="col">Número de Personas</th>
-                    <th scope="col">Información Adicional</th>
+                    <th scope="col">Número de Teléfono</th>
+                    <th scope="col">Acompañantes</th>
+                    <th scope="col">Fecha Seleccionada</th>
                     <th scope="col">Estado</th>
                     <th scope="col">Fecha de Solicitud</th>
                     <th scope="col">Fecha de Aprobación</th>
@@ -23,13 +25,31 @@
             </thead>
             <tbody>
                 @forelse ($visits as $visit)
-                <tr class="{{ $visit->status }}" >
+                <tr class="{{ $visit->status }}">
                     <th scope="row">{{ $loop->iteration }}</th>
                     <td>{{ $visit->user->name }}</td>
-                    <td>{{ $visit->tour->name }}</td>
+                    <td>{{ $visit->tourSchedule->tour->name }}</td>
                     <td>{{ $visit->number_of_people }}</td>
-                    <td>{{ $visit->additional_info }}</td>
-                    <td >{{ ucfirst($visit->status) }}</td>
+                    <td>
+                        @php
+                            $additionalInfo = json_decode($visit->additional_info, true);
+                            echo $additionalInfo['contact_number'] ?? 'No se registró';
+                        @endphp
+                    </td>
+                    <td>
+                        @php
+                            $companions = $additionalInfo['companions'] ?? [];
+                            if (empty($companions)) {
+                                echo 'No se registró';
+                            } else {
+                                foreach ($companions as $companion) {
+                                    echo $companion['name'] . ' (' . $companion['age_group'] . '), ';
+                                }
+                            }
+                        @endphp
+                    </td>
+                    <td>{{ $visit->tourSchedule->day_of_week }} {{ date('g:i A', strtotime($visit->tourSchedule->start_time)) }}</td>
+                    <td>{{ ucfirst($visit->status) }}</td>
                     <td>{{ $visit->requested_date }}</td>
                     <td>{{ $visit->approved_date ? $visit->approved_date : 'N/A' }}</td>
                     <td>
@@ -37,23 +57,11 @@
                         <button type="button" class="btn btn-success bi-check-lg approve-btn" data-id="{{ $visit->id }}"></button>
                         <!-- Botón para declinar -->
                         <button type="button" class="btn btn-danger bi-x-lg decline-btn" data-id="{{ $visit->id }}"></button>
-                        {{-- <form action="{{ route('visits.destroy', $visit->id) }}" method="post"> --}}
-
-                            <a href="{{ route('visits.show', $visit->id) }}" class="btn btn-warning btn-sm"><i class="bi bi-eye"></i> Show</a>
-                            <!-- @can('edit-visit')
-                            <a href="{{ route('visits.edit', $visit->id) }}" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i> Edit</a>
-                            @endcan -->
-{{--
-                            @can('delete-tour')
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this tour?');"><i class="bi bi-trash"></i> Delete</button>
-                            @endcan
-                        </form> --}}
-
-
+                        <a href="{{ route('visits.show', $visit->id) }}" class="btn btn-warning btn-sm"><i class="bi bi-eye"></i> Show</a>
                     </td>
                 </tr>
                 @empty
-                    <td colspan="8">
+                    <td colspan="11">
                         <span class="text-danger">
                             <strong>No se encuentran visitas</strong>
                         </span>
@@ -68,7 +76,6 @@
 </div>
 @endsection
 
-{{-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <script>
@@ -93,8 +100,6 @@
     }
 </script>
 
-
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script>
@@ -106,6 +111,12 @@
                 _token: $('meta[name="csrf-token"]').attr('content'),
             }, function(response) {
                 window.location.reload();
+            }).fail(function(xhr) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: xhr.responseText,
+                });
             });
         });
 
@@ -116,8 +127,13 @@
                 _token: $('meta[name="csrf-token"]').attr('content'),
             }, function(response) {
                 window.location.reload();
+            }).fail(function(xhr) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: xhr.responseText,
+                });
             });
         });
     });
 </script>
-

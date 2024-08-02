@@ -24,7 +24,7 @@
                 <div class="mb-3 row">
                     <label class="col-md-4 col-form-label text-md-end"><strong>Tour:</strong></label>
                     <div class="col-md-6" style="line-height: 35px;">
-                        {{ $visit->tour->name }}
+                        {{ $visit->tourSchedule->tour->name }}
                     </div>
                 </div>
 
@@ -36,9 +36,35 @@
                 </div>
 
                 <div class="mb-3 row">
-                    <label class="col-md-4 col-form-label text-md-end"><strong>Información Adicional:</strong></label>
+                    <label class="col-md-4 col-form-label text-md-end"><strong>Número de Teléfono:</strong></label>
                     <div class="col-md-6" style="line-height: 35px;">
-                        {{ $visit->additional_info ?? 'N/A' }}
+                        @php
+                            $additionalInfo = json_decode($visit->additional_info, true);
+                            echo $additionalInfo['contact_number'] ?? 'No se registró';
+                        @endphp
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label class="col-md-4 col-form-label text-md-end"><strong>Acompañantes:</strong></label>
+                    <div class="col-md-6" style="line-height: 35px;">
+                        @php
+                            $companions = $additionalInfo['companions'] ?? [];
+                            if (empty($companions)) {
+                                echo 'No se registró';
+                            } else {
+                                foreach ($companions as $companion) {
+                                    echo $companion['name'] . ' (' . $companion['age_group'] . '), ';
+                                }
+                            }
+                        @endphp
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label class="col-md-4 col-form-label text-md-end"><strong>Fecha Seleccionada:</strong></label>
+                    <div class="col-md-6" style="line-height: 35px;">
+                        {{ $visit->tourSchedule->day_of_week }} {{ date('g:i A', strtotime($visit->tourSchedule->start_time)) }}
                     </div>
                 </div>
 
@@ -60,6 +86,25 @@
                     <label class="col-md-4 col-form-label text-md-end"><strong>Fecha de Aprobación:</strong></label>
                     <div class="col-md-6" style="line-height: 35px;">
                         {{ $visit->approved_date ? $visit->approved_date : 'N/A' }}
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label class="col-md-4 col-form-label text-md-end"><strong>Guía del Tour:</strong></label>
+                    <div class="col-md-6" style="line-height: 35px;">
+                        @if ($visit->tourSchedule->tour->volunteers->isNotEmpty())
+                            <p class="guide-info">
+                                <strong>El guía para esta aventura será:</strong>
+                                {{ $visit->tourSchedule->tour->volunteers->first()->name ?? 'No asignado' }}<br>
+                                <strong>Su número de contacto es:</strong>
+                                {{ $visit->tourSchedule->tour->volunteers->first()->phone ?? 'No disponible' }}
+                            </p>
+                        @else
+                            <p class="guide-info">
+                                <strong>El guía para esta aventura será:</strong> No asignado<br>
+                                <strong>Su número de contacto es:</strong> No disponible
+                            </p>
+                        @endif
                     </div>
                 </div>
 

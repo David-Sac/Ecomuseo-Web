@@ -91,6 +91,7 @@ Route::get('/components/public/{id}', [ComponentsController::class, 'publicShow'
 
 Route::get('/tour', [TourController::class, 'publicShow'])->name('tours.publicShow');
 
+Route::post('/visits/store', [VisitController::class, 'store'])->name('visits.store');
 
 Route::get('/my-visits', [VisitController::class, 'publicVisits'])->name('visits.publicVisits');
 

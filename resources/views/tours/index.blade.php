@@ -19,7 +19,6 @@
                     <th scope="col">Descripción</th>
                     <th scope="col">Inicio del Tour</th>
                     <th scope="col">Fin del Tour</th>
-                    <th scope="col">Capacidad</th>
                     <th scope="col">Componentes Involucrados</th> <!-- Nueva columna para componentes -->
                     <th scope="col">Voluntario</th> <!-- Nueva columna para voluntario -->
                     <th scope="col">Periodo de Visibilidad</th> <!-- Nueva columna para periodo de visibilidad -->
@@ -34,7 +33,6 @@
                     <td>{{ $tour->description }}</td>
                     <td>{{ $tour->start_date }}</td>
                     <td>{{ $tour->end_date }}</td>
-                    <td>{{ $tour->max_people }}</td>
                     <td>
                         @foreach ($tour->components as $component)
                             <span class="badge bg-secondary">{{ $component->titleComponente }}</span>
