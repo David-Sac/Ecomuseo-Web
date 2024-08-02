@@ -53,7 +53,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-primary">Reservar</button>
+                    <button type="submit" class="btn btn-primary" id="reserve-button">Reservar</button>
                 </div>
             </form>
         </div>
@@ -63,7 +63,10 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         $('#reservationForm').on('submit', function(event) {
+            event.preventDefault(); // Prevenir el envío normal del formulario
+
             var form = $(this);
+            $('#reserve-button').prop('disabled', true); // Desactivar el botón para evitar múltiples clics
 
             // Compilar información adicional de los acompañantes y el número de contacto
             var companions = [];
@@ -90,12 +93,14 @@
                     console.log(response);
                     // Aquí puedes agregar una notificación al usuario o cerrar el modal
                     $('#reservationModal').modal('hide');
+                    $('#reserve-button').prop('disabled', false); // Reactivar el botón
                 },
                 error: function(xhr, status, error) {
                     console.error('Error al realizar la reserva:');
                     console.error(xhr.responseText);
                     // Aquí puedes agregar una notificación de error al usuario
                     alert('Error al realizar la reserva. Inténtalo nuevamente.');
+                    $('#reserve-button').prop('disabled', false); // Reactivar el botón
                 }
             });
         });
