@@ -11,14 +11,27 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-  
+
+    - name: Move files to tmp
+      run: |
+        mkdir -p /home/nmarin/tmp
+        mv /home/nmarin/www/ecomuseo/storage/app/public/cvs/* /home/nmarin/tmp/
+    
     - name: Clear existing files
       run: |
         rm -rf /home/nmarin/www/ecomuseo/*
-    
+
     - name: Copy files to server
       run: |
         cp -r ./* /home/nmarin/www/ecomuseo/
+
+    - name: Create cvs directory
+      run: |
+        mkdir -p /home/nmarin/www/ecomuseo/storage/app/public/cvs
+
+    - name: Move files back to new cvs directory
+      run: |
+        mv /home/nmarin/tmp/* /home/nmarin/www/ecomuseo/storage/app/public/cvs/
     
     - name: Create validation directory and copy validation file
       run: |
