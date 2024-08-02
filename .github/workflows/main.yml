@@ -11,31 +11,16 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-      
-    - name: Change file permissions
+  
+    - name: Clear existing files but keep cvs folder
       run: |
-        chmod -R u+w /home/nmarin/www/ecomuseo/storage/app/public/cvs
-
-    - name: Move files to tmp
-      run: |
-        mkdir -p /home/nmarin/tmp
-        mv /home/nmarin/www/ecomuseo/storage/app/public/cvs/* /home/nmarin/tmp/
+        rsync -a --delete --exclude 'storage/app/public/cvs' /home/nmarin/www/ecomuseo/ /home/nmarin/www/ecomuseo_backup/
+        rsync -a --delete /home/nmarin/www/ecomuseo_backup/ /home/nmarin/www/ecomuseo/
+        rm -rf /home/nmarin/www/ecomuseo_backup/
     
-    - name: Clear existing files
-      run: |
-        rm -rf /home/nmarin/www/ecomuseo/*
-
     - name: Copy files to server
       run: |
         cp -r ./* /home/nmarin/www/ecomuseo/
-
-    - name: Create cvs directory
-      run: |
-        mkdir -p /home/nmarin/www/ecomuseo/storage/app/public/cvs
-
-    - name: Move files back to new cvs directory
-      run: |
-        mv /home/nmarin/tmp/* /home/nmarin/www/ecomuseo/storage/app/public/cvs/
     
     - name: Create validation directory and copy validation file
       run: |
