@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tours', function (Blueprint $table) {
+        Schema::create('tour_schedules', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->text('description');
-            $table->date('start_date'); // Almacenar solo la fecha
-            $table->date('end_date'); // Almacenar solo la fecha
-            $table->string('contact_info');
-            $table->string('visibility_period')->default('1_dia');
+            $table->foreignId('tour_id')->constrained()->onDelete('cascade');
+            $table->string('day_of_week');
+            $table->time('start_time');
+            $table->time('end_time');
+            $table->integer('max_capacity')->default(20);
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tours');
+        Schema::dropIfExists('tour_schedules');
     }
 };

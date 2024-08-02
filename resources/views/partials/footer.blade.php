@@ -11,14 +11,14 @@
                 <div class="footer-links">
                     <h4>Enlaces</h4>
                     <a href="/">Inicio</a>
-                    <a href="#">Nosotros</a>
+                    {{-- <a href="#">Nosotros</a> --}}
                 </div>
             </div>
             <div class="footer-section">
                 <h4>Contacto</h4>
-                <p><a href="tel:951-256-785">951-256-785</a></p>
-                <p><a href="mailto:Gavin@Mak@rhyta.com">Gavin@Mak@rhyta.com</a></p>
-                <p><a href="#">Facultad de agronomia UNAP</a></p>
+                <p><a href="tel:992 585 999">992-585-999</a></p>
+                <p><a href="ecomuseollaqtaamaruyorenkuwai@gmail.com">ecomuseollaqtaamaruyorenkuwai@gmail.com</a></p>
+                <p><a href="#">Facultad de agronomía UNAP</a></p>
             </div>
             <div class="footer-section">
                 <h4>Redes Sociales</h4>

@@ -8,7 +8,7 @@
 .tours .box .image-section {
     width: 30%;
     /* background: #eee; Color de fondo temporal para representar la zona de la imagen */
-    background: url('../images/tour/fondo_tours.jpeg') no-repeat center center;
+    /* background: url('../images/tour/fondo_tours.jpeg') no-repeat center center; */
     /* background: rgb(1, 255, 1); */
     background-size: cover;
     /* filter: blur(10px); */
@@ -118,3 +118,57 @@ a {
     background-color: #e6b800; /* Color amarillo más oscuro al pasar el mouse */
 }
 
+.tours {
+    margin-top: 100px; /* Ajusta este valor según la altura de tu header */
+}
+.sold-out {
+    color: red;
+    font-weight: bold;
+}
+.tour-box {
+    display: flex;
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin: 20px 0;
+    background-color: #f9f9f9;
+}
+.tour-image {
+    flex: 1;
+    /* padding: 10px; */
+    display: flex;
+    align-items: center; /* Centra verticalmente */
+    justify-content: center; /* Centra horizontalmente */
+}
+.tour-image img {
+    height: 200px; /* Altura fija para todas las imágenes */
+    width: 100%; /* Ancho máximo permitido por el contenedor */
+    object-fit: contain; /* Escala la imagen para que quepa dentro del contenedor sin recortarse */
+}
+
+.tour-info {
+    flex: 2;
+    padding: 10px;
+}
+.tour-info h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+.tour-info p {
+    margin: 5px 0;
+}
+.tour-info .days, .tour-info .hours, .tour-info .components, .tour-info .guide-info {
+    margin: 10px 0;
+}
+.reserve-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+.reserve-button:hover {
+    background-color: #45a049;
+}

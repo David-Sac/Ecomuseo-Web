@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('visits', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('tour_id')->constrained()->onDelete('cascade');
+            $table->foreignId('tour_schedule_id')->constrained()->onDelete('cascade');
             $table->integer('number_of_people');
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->date('requested_date');
@@ -23,11 +23,6 @@ return new class extends Migration
             $table->text('additional_info')->nullable();
             $table->timestamps();
         });
-
-        // Schema::create('visits', function (Blueprint $table) {
-        //     $table->id();
-        //     $table->timestamps();
-        // });
     }
 
     /**

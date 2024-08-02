@@ -11,7 +11,7 @@ class Visit extends Model
 
     protected $fillable = [
         'user_id',
-        'tour_id',
+        'tour_schedule_id',
         'number_of_people',
         'status',
         'requested_date',
@@ -24,8 +24,8 @@ class Visit extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function tour()
+    public function tourSchedule()
     {
-        return $this->belongsTo(Tour::class);
+        return $this->belongsTo(TourSchedule::class);
     }
 }

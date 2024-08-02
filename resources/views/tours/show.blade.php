@@ -15,16 +15,12 @@
                     <div class="col-md-6">{{ $tour->description }}</div>
                 </div>
                 <div class="row mb-3">
-                    <label class="col-md-4 col-form-label text-md-end"><strong>Fecha y Hora de Inicio:</strong></label>
+                    <label class="col-md-4 col-form-label text-md-end"><strong>Fecha de Inicio:</strong></label>
                     <div class="col-md-6">{{ $tour->start_date }}</div>
                 </div>
                 <div class="row mb-3">
-                    <label class="col-md-4 col-form-label text-md-end"><strong>Fecha y Hora de Fin:</strong></label>
+                    <label class="col-md-4 col-form-label text-md-end"><strong>Fecha de Fin:</strong></label>
                     <div class="col-md-6">{{ $tour->end_date }}</div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-md-4 col-form-label text-md-end"><strong>Capacidad Máxima:</strong></label>
-                    <div class="col-md-6">{{ $tour->max_people }}</div>
                 </div>
                 <div class="row mb-3">
                     <label class="col-md-4 col-form-label text-md-end"><strong>Información de Contacto:</strong></label>
@@ -37,6 +33,16 @@
                             <span class="badge bg-secondary">{{ $component->titleComponente }}</span>
                         @empty
                             <p>No hay componentes involucrados.</p>
+                        @endforelse
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-4 col-form-label text-md-end"><strong>Horarios del Tour:</strong></label>
+                    <div class="col-md-6">
+                        @forelse ($tour->schedules as $schedule)
+                            <p>{{ $schedule->day_of_week }}: {{ $schedule->start_time }} - {{ $schedule->end_time }} (Capacidad: {{ $schedule->max_capacity }})</p>
+                        @empty
+                            <p>No hay horarios definidos.</p>
                         @endforelse
                     </div>
                 </div>

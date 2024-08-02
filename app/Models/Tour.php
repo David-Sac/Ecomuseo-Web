@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Carbon\Carbon;
+
 class Tour extends Model
 {
     use HasFactory;
@@ -34,10 +34,8 @@ class Tour extends Model
         return $this->belongsToMany(User::class, 'tour_volunteer', 'tour_id', 'volunteer_id');
     }
 
-    // Método para calcular los cupos disponibles
-    public function getAvailableSeatsAttribute()
+    public function schedules()
     {
-        $reservedSeats = $this->visits()->whereIn('status', ['pending', 'approved'])->sum('number_of_people');
-        return $this->max_people - $reservedSeats;
+        return $this->hasMany(TourSchedule::class);
     }
 }
