@@ -30,7 +30,7 @@ class CompleteProfileController extends Controller
             'birthdate' => $request->birthdate,
         ]);
 
-        return redirect('/home')->with('success', 'Perfil completado con éxito.');
+        return redirect('/')->with('success', 'Perfil completado con éxito.');
     }
 }
 
