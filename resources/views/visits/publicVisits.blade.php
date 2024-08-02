@@ -9,13 +9,19 @@
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     <title>Mis Visitas | Ecomuseo LLAQTA AMARU - YOREN KUWAI</title>
 </head>
+<style>
+
+#visist {
+    margin-top: 100px;
+}
+</style>
 <body>
     <header>
         @include('partials.header_new')
     </header>
 
-    <div class="container">
-        <h2>Mis Visitas</h2>
+    <div class="container" id="visist">
+        <center><h2>Mis Visitas</h2></center>
         @foreach ($visits as $visit)
             <div class="table-container {{ $visit->status }}">
                 <div class="visit-header">
