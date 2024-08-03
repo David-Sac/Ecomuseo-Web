@@ -24,6 +24,20 @@
 
 <link rel="stylesheet" href="{{ asset('css/intranet/app_new.css') }}">
 
+<style>
+    .user-name-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 150px; /* Ajusta este valor según tus necesidades */
+    }
+    .user-name {
+        word-wrap: break-word;
+        word-break: break-all;
+        text-align: center;
+    }
+</style>
+
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
@@ -32,10 +46,8 @@
                     <img src="{{ asset('images/logo_vectorizado.svg') }}" alt="Logo" class="logo-svg">
                 </a>
 
-                {{-- <img src="{{ asset('images/logo_vectorizado.svg') }}" alt="Logo" href="{{ url('/') }}" class="logo-svg"> --}}
-
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
+                    <i class="bi bi-caret-down-fill"></i>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -60,30 +72,19 @@
                                 </li>
                             @endif
                         @else
-                            <!-- @canany(['create-role', 'edit-role', 'delete-role'])
-                                <li><a class="nav-link" href="{{ route('roles.index') }}">Gestionar Roles</a></li>
-                            @endcanany
-                            @canany(['create-user', 'edit-user', 'delete-user'])
-                                <li><a class="nav-link" href="{{ route('users.index') }}">gestionar Usuarios</a></li>
-                            @endcanany -->
-                            {{-- @canany(['create-product', 'edit-product', 'delete-product'])
-                                <li><a class="nav-link" href="{{ route('products.index') }}">Manage Products</a></li>
-                            @endcanany --}}
                             <!-- Settings Dropdown -->
                             <div class="hidden sm:flex sm:items-center sm:ms-6">
                                 <x-dropdown align="right" width="48">
                                     <x-slot name="trigger">
-                                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                                            <div>{{ Auth::user()->name }}</div>
+                                        <div class="user-name-container">
+                                            <div class="user-name">{{ Auth::user()->name }}</div>
+                                            <button class="inline-flex items-center px-3 py-2 border text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                                                <div class="bi bi-caret-down-fill">
 
-                                            <div class="ms-1">
-                                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                                </svg>
-                                            </div>
-                                        </button>
+                                                </div>
+                                            </button>
+                                        </div>
                                     </x-slot>
-                                    {{-- <div class="mt-3 space-y-1" name="content"> --}}
                                     <x-slot name="content">
                                         <x-dropdown-link :href="route('profile.edit')">
                                             {{ __('Profile') }}
@@ -100,7 +101,6 @@
                                             </x-dropdown-link>
                                         </form>
                                     </x-slot>
-                                    {{-- </div> --}}
                                 </x-dropdown>
                             </div>
                         @endguest

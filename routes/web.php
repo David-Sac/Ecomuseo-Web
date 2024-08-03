@@ -64,6 +64,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// Rutas accesibles sin autenticación
+Route::get('/tour', [TourController::class, 'publicShow'])->name('tours.publicShow');
+Route::get('/components/public/{id}', [ComponentsController::class, 'publicShow'])->name('components.publicShow');
+Route::get('/blog', [BlogController::class, 'publicIndex'])->name('blogs.public_index');
+Route::get('blog/{id}', [BlogController::class, 'publicShow'])->name('blogs.publicShow');
+
+
 Route::middleware(['auth', 'profile.complete'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
@@ -83,14 +90,10 @@ Route::middleware(['auth', 'profile.complete'])->group(function () {
         'volunteers' => VolunteerController::class,
     ]);
 
-    Route::get('/components/public/{id}', [ComponentsController::class, 'publicShow'])->name('components.publicShow');
-    Route::get('/tour', [TourController::class, 'publicShow'])->name('tours.publicShow');
     Route::post('/visits/store', [VisitController::class, 'store'])->name('visits.store');
     Route::get('/my-visits', [VisitController::class, 'publicVisits'])->name('visits.publicVisits');
     Route::post('/visits/{visit}/approve', [VisitController::class, 'approve'])->name('visits.approve');
     Route::post('/visits/{visit}/decline', [VisitController::class, 'decline'])->name('visits.decline');
-    Route::get('/blog', [BlogController::class, 'publicIndex'])->name('blogs.public_index');
-    Route::get('blog/{id}', [BlogController::class, 'publicShow'])->name('blogs.publicShow');
     Route::post('/blogs/{blog}/approve', [BlogController::class, 'approve'])->name('blogs.approve');
     Route::post('/blogs/{blog}/decline', [BlogController::class, 'decline'])->name('blogs.decline');
     Route::get('/donations/manage', [DonationController::class, 'show'])->name('donations.show');
@@ -109,4 +112,4 @@ Route::middleware(['auth', 'profile.complete'])->group(function () {
 Route::get('/complete-profile', [CompleteProfileController::class, 'create'])->name('complete-profile.create')->middleware('auth');
 Route::post('/complete-profile', [CompleteProfileController::class, 'store'])->name('complete-profile.store')->middleware('auth');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

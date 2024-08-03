@@ -32,10 +32,10 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'dni' => ['required', 'numeric', 'digits:8'],
+            'dni' => ['required', 'numeric', 'digits:8', 'unique:users,dni'],
             'phone' => ['required', 'regex:/^(9)[0-9]{8}$/'],
-            'birthdate' => ['required'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'birthdate' => ['required', 'date'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -50,13 +50,15 @@ class RegisteredUserController extends Controller
 
         if (User::count() == 1) {
             $user->assignRole('Admin');
-        }else {
+        } else {
             $user->assignRole('Visitor');
         }
+
         event(new Registered($user));
 
         Auth::login($user);
 
         return redirect(RouteServiceProvider::HOME);
     }
+
 }
