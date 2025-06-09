@@ -1,79 +1,92 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    list-style: none;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-body {
-    font-family: sans-serif;
-    text-transform: capitalize;
-}
-
+/* 2. Tipografía global para footer */
 .footer {
-    background-color: #315530;
-    padding: 40px 0;
-    display: flex;
-    justify-content: center;
+  background: linear-gradient(135deg, #2B4A36 0%, #315530 100%);
+  color: #e0e0e0;
+  padding: 60px 0;
+  font-family: Arial, sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.6;
 }
 
+/* 3. Contenedor y disposición */
 .footer-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: start;
-    max-width: 1200px;
-    width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 0 1rem;
 }
 
+/* 4. Secciones */
 .footer-section {
-    margin: 0 20px;
+  flex: 1 1 250px;
 }
 
-.footer-logo {
-    max-width: 100px;
-    margin-bottom: 20px;
+/* 5. Títulos de sección */
+.footer-section h4 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  color: #ffffff;
+  border-bottom: 2px solid rgba(255,255,255,0.2);
+  padding-bottom: 0.5rem;
 }
 
-.footer-links h4, .footer-section h4 {
-    font-size: 18px;
-    margin-bottom: 15px;
-    color: #cccccc;
+/* 6. Enlaces y párrafos */
+.footer-links a,
+.footer-section p a {
+  color: #d0f0d0;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 0.75rem;
+  transition: color 0.3s ease, padding-left 0.3s ease;
+}
+.footer-links a:hover,
+.footer-section p a:hover {
+  color: #ffffff;
+  padding-left: 0.5rem;
 }
 
-.footer-links a, .footer-section p a {
-    color: #ffffff;
-    text-decoration: none;
-    display: block;
-    margin-bottom: 10px;
-    transition: color .3s ease;
+/* 7. Iconos sociales */
+.social-link {
+  display: inline-block;
+  margin-right: 0.75rem;
 }
-
-.footer-section p {
-    margin-bottom: 10px;
-}
-
-.footer-links a:hover, .footer-section p a:hover {
-    color: #00C3FF;
-}
-
 .social-link img {
-    width: 40px;
-    height: 40px;
-    transition: transform .3s ease;
+  width: 48px;
+  height: 48px;
+  transition: transform 0.3s ease, filter 0.3s ease;
 }
-
 .social-link:hover img {
-    transform: scale(1.1);
+  transform: scale(1.15);
+  filter: brightness(1.2);
 }
 
-@media (max-width: 991px) {
-    .footer-container {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
+/* 8. Párrafos de contacto */
+.footer-section p {
+  margin-bottom: 0.75rem;
+}
+.footer-section p a {
+  display: inline-block;
+}
 
-    .footer-section {
-        margin-bottom: 20px;
-    }
+/* 9. Mobile */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+  .footer-section {
+    flex: 1 1 auto;
+    max-width: 400px;
+  }
 }

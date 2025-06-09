@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather&display=swap');
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -8,139 +10,173 @@ header {
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1000; /* Asegura que el header esté por encima de otros elementos */
+    z-index: 1000;
 }
 
 .header-container {
-    background-color: #f5f5f5;
-    border-bottom: 4px solid #ccc;
-    width: 100%; /* Asegura que el contenedor ocupe todo el ancho */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Añade una sombra para mejorar la visibilidad */
+    background-color: #2F5D3A;
+    border-bottom: 8px solid #644823;
+    width: 100%;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    overflow: hidden;
 }
 
+/* === HEADER COMPACTO Y CENTRADO === */
 .main-navigation {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
+    justify-content: center;    /* centra horizontalmente */
+    align-items: center;        /* alinea verticalmente */
+    gap: 2rem;                   /* espacio uniforme entre logo, nav y botones */
+    padding: 0.5rem 1rem;
+    min-height: 60px;
 }
 
-.logo a {
-    color: #315530;
-    font-size: 24px;
-    text-decoration: none;
-    line-height: 1.2;
+/* Logo SVG */
+.logo-svg {
+    width: 80px;
+    height: auto;
+    margin: 0;
+    display: block;
+    transition: all 0.3s ease-in-out;
+}
+
+/* === NAV LINKS === */
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
 }
 
 .nav-links a {
-    color: #333;
-    text-decoration: none;
-    margin: 0 15px;
-    font-size: 16px;
-    border-radius: 5px;
-}
-
-.nav-links {
-    display: flex; /* Esto alinea los elementos de la navegación en una fila */
-    position: relative; /* Esto es necesario para posicionar el pseudo-elemento ::after correctamente */
-    margin-top: 20px;
-    padding-bottom: 15px;
-    /* otras propiedades */
-}
-
-.nav-links::after {
-    content: ''; /* Esto es necesario para generar el pseudo-elemento */
-    display: block; /* Esto hace que el pseudo-elemento sea un bloque, lo que le permite tener anchura y altura */
-    width: 100%; /* Esto hace que el pseudo-elemento tenga la misma anchura que .nav-links */
-    height: 4px; /* Esto es la altura de la línea verde */
-    background-color: #315530; /* Esto es el color de la línea verde */
-    position: absolute; /* Esto posiciona el pseudo-elemento en relación a .nav-links */
-    left: 0; /* Esto alinea el lado izquierdo del pseudo-elemento con el lado izquierdo de .nav-links */
-    bottom: 0; /* Esto coloca el pseudo-elemento en la parte inferior de .nav-links */
-}
-
-.nav-item {
-    display: inline-block; /* Esto permite que los elementos se coloquen uno al lado del otro */
-    background-color: transparent; /* color de fondo de cada elemento */
-    margin: 0 10px; /* Esto añade espacio entre los elementos */
-    padding: 10px 20px; /* Esto añade espacio dentro de los elementos */
-    color: white; /* color del texto */
-    text-decoration: none; /* elimina el subrayado de los enlaces */
-    transition: background-color 0.3s; /* animación suave para el cambio de color */
-}
-
-.nav-item:hover {
-    background-color: #315530; /* Esto cambia el color de fondo al pasar el mouse */
+    font-family: 'Merriweather', serif;
+    font-size: 18px;
     color: white;
+    text-decoration: none;
+    padding: 6px 8px;
+    position: relative;
+    transition: background-color 0.2s, color 0.2s;
+}
+.nav-links a.active {
+    background-color: #ccb551;
+    color: #2F5D3A;
+    font-weight: bold;
+}
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: 0;
+    width: 0; height: 4px;
+    background: #ccb551;
+    transition: width 0.3s;
+}
+.nav-links a:hover::after,
+.nav-links a.active::after {
+    width: 100%;
 }
 
+/* === NAV-ITEM (en caso de usar ambas clases) === */
+.nav-item {
+    display: flex;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+    background-color: transparent;
+    padding: 0 1rem;
+    transition: background-color 0.3s, transform 0.2s;
+}
+.nav-item:hover {
+    background-color: rgba(0,0,0,0.2);
+    transform: scale(1.03);
+}
+
+/* === BOTONES DE USUARIO === */
 .user-actions {
     display: flex;
     align-items: center;
+    gap: 1rem;
 }
 
 .user-actions a {
+    display: inline-block;
+    font-family: 'Merriweather', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
     text-decoration: none;
-    margin: 0 10px;
-    font-size: 16px;
+    padding: 0.6rem 1.4rem;
+    margin: 0 0.25rem;
+    border: 2px solid transparent;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+    transition: background-color 0.3s ease,
+                color 0.3s ease,
+                transform 0.2s ease,
+                box-shadow 0.3s ease;
 }
 
+/* Botones principales */
+.login-btn,
+.register-btn,
 .intranet-btn {
-    background-color: #315530;
-    color: white;
-    border: 10px;
-    padding: 10px 20px;
-    border-radius: 3px;
-    /* text-transform: uppercase; */
+    background-color: #E6F0DC;
+    color: #55883B;
+    border-color: #315530;
+}
+.login-btn:hover,
+.register-btn:hover,
+.intranet-btn:hover {
+    background-color: #fff;
+    color: #315530;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
-.login-btn {
-    background-color: #315530;
-    color: white;
-    border: 10px;
-    padding: 10px 20px;
-    border-radius: 3px;
-    /* text-transform: uppercase; */
-}
-
-.register-btn {
-    background-color: #315530;
-    color: white;
-    padding: 10px 20px;
-    border: 10px;
-    border-radius: 3px;
-    /* text-transform: uppercase; */
-}
-
-.profile-btn {
-    background-color: #315530;
-    color: white;
-    border: 10px;
-    padding: 10px 20px;
-    border-radius: 3px;
-    /* text-transform: uppercase; */
-}
-
+/* Botón cerrar sesión */
 .logout-btn {
-    background-color: #60030c;
-    color: white;
-    border: 10px;
-    padding: 10px 20px;
-    border-radius: 3px;
-    /* text-transform: uppercase; */
+    background-color: #80030f;
+    color: #fff;
+    border-color: #80030f;
+}
+.logout-btn:hover {
+    background-color: #fff;
+    color: #80030f;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
-.logo-svg {
-    display: block; /* Hace que la imagen se pueda centrar */
-    width: 120px; /* Ajusta el ancho según el tamaño deseado */
-    height: auto; /* Mantiene la proporción de la imagen */
+/* Focus accesible */
+.user-actions a:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(49,85,48,0.4);
 }
 
+/* === RESPONSIVE === */
 @media (max-width: 768px) {
-    .nav-links,
-    .user-actions {
-        display: none;
+    .logo-svg {
+        width: 60px;
     }
+    .nav-links {
+        gap: 1rem;
+    }
+    .nav-links a {
+        font-size: 14px;
+        padding: 4px 6px;
+    }
+    .user-actions a {
+        font-size: 12px;
+        padding: 3px 6px;
+    }
+    .main-navigation {
+        gap: 1rem;
+    }
+}
 
-    /* Aquí podrías incluir un menú hamburguesa o un menú desplegable para dispositivos móviles */
+@media (max-width: 480px) {
+    .nav-links {
+        width: 100%;
+        justify-content: center;
+    }
+    .user-actions {
+        width: 100%;
+        justify-content: flex-end;
+        margin-top: 4px;
+    }
 }

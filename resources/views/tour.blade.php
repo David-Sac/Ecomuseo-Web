@@ -19,7 +19,7 @@
     <!-- Sección de tours -->
     <section class="tours" id="tours">
         <h1 class="titulo">
-            <center><span>Nuestros tours</span>
+            <center><span>Nuestras Visitas</span>
         </h1>
         </center>
         <center><a>Ven e interactúa con las bondades naturales que conservamos.</a></center>
@@ -41,17 +41,17 @@
                     </div>
                     <div class="tour-info">
                         <h3>{{ $tour->name }}</h3>
-                        <p>{{ $tour->description }}</p>
-                        <p><strong>Tenemos un aforo máximo de:</strong> {{ $tour->max_people }}</p>
-                        <p><strong>Fechas disponibles:</strong> {{ $tour->start_date }} - {{ $tour->end_date }}</p>
-                        <p class="days"><strong>Los días disponibles:</strong>
+                        <p class="tour-desc">{{ $tour->description }}</p>
+                        <p class="tour-capacity"><strong>Tenemos un aforo máximo de:</strong> {{ $tour->max_people }}</p>
+                        <p class="tour-dates"><strong>Fechas disponibles:</strong> {{ $tour->start_date }} - {{ $tour->end_date }}</p>
+                        <p class="tour-days"><strong>Los días disponibles:</strong>
                             @foreach ($tour->schedules->unique('day_of_week') as $schedule)
                                 {{ $schedule->day_of_week }}@if (!$loop->last)
                                     ,
                                 @endif
                             @endforeach
                         </p>
-                        <p class="hours"><strong>Horarios:</strong>
+                        <p class="tour-hours"><strong>Horarios:</strong>
                             @foreach ($tour->schedules as $schedule)
                                 {{ date('g:i A', strtotime($schedule->start_time)) }} a
                                 {{ date('g:i A', strtotime($schedule->end_time)) }} (Cupos disponibles:
@@ -60,14 +60,14 @@
                                 @endif
                             @endforeach
                         </p>
-                        <p class="components"><strong>Los componentes que visitarás serán:</strong>
+                        <p class="tour-components"><strong>Los componentes que visitarás serán:</strong>
                             @foreach ($tour->components as $component)
                                 {{ $component->titleComponente }}@if (!$loop->last)
                                     /
                                 @endif
                             @endforeach
                         </p>
-                        <p class="guide-info">
+                        <p class="tour-guide">
                             <strong>El guía para esta aventura será:</strong>
                             {{ $tour->volunteers->first()->name ?? 'No asignado' }}<br>
                             <strong>Su número de contacto es:</strong>

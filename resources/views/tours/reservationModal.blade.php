@@ -1,6 +1,6 @@
 <!-- Bootstrap CSS -->
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
+  <link href="{{ asset('css/tour-reservation.css') }}" rel="stylesheet" />
 <!-- Opcionalmente, también jQuery, Popper.js, y Bootstrap JS para funcionalidad completa -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> <!-- Versión completa de jQuery -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
@@ -33,9 +33,10 @@
                                 <button type="button" class="btn btn-outline-secondary age-button">Adulto</button>
                                 <button type="button" class="btn btn-outline-secondary age-button">Menor de edad</button>
                                 <button type="button" class="btn btn-outline-danger remove-companion">-</button>
+                                <button type="button" class="btn btn-outline-secondary" id="add-companion">+</button>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-outline-secondary" id="add-companion">+</button>
+                        
                     </div>
                     <div class="form-group">
                         <label>Fechas y horarios disponibles:</label>
@@ -164,12 +165,4 @@
     });
 </script>
 
-<style>
-    .age-button.selected {
-        background-color: #007bff;
-        color: white;
-    }
-    .remove-companion {
-        margin-left: 10px;
-    }
-</style>
+

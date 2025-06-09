@@ -1,83 +1,157 @@
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f5f5f5;
-    margin: 0;
-    padding: 0;
-}
+/* ===========================================
+   public_index_blog.css
+   =========================================== */
 
+/* 1. Reset / estilos globales básicos */
+
+
+/* 2. Contenedor principal de las previsualizaciones */
 .blog-previews-container {
-    width: 80%;
-    margin: 0 auto;
-    padding: 20px 0;
+  max-width: 1200px;       /* Ancho máximo para que no se extienda demasiado */
+  margin: 100px auto 40px; /* 100px top (por el header), centrado, 40px bottom */
+  padding: 0 15px;         /* Pequeño padding lateral */
 }
 
+/* 2a. Encabezado “Nuestros Blogs” — AHORA A 50px */
 .blog-previews-title {
-    color: #333;
-    text-align: center;
-    margin-bottom: 30px;
+  text-align: center;
+  font-size: 50px;       /* Igual que en tour.css */
+  font-weight: bold;
+  color: #2c4910;
+  margin-bottom: 30px;
 }
 
+/* 3. Contenedor Flex de tarjetas */
 .blog-previews {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Espacio uniforme entre tarjetas */
+  justify-content: space-between;
 }
 
+/* 4. Cada tarjeta individual */
 .blog-preview-card {
-    background-color: #fff;
-    width: calc(33% - 20px);
-    margin-bottom: 30px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  background-color: #fff;
+  /* 3 columnas en pantallas grandes */
+  flex: 1 1 calc(33.333% - 20px);
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
+.blog-preview-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+}
+
+/* 5. Wrapper de imagen para forzar recorte de bordes */
+.blog-image-wrapper {
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%; /* Relación 16:9 -> 9/16 = 0.5625 */
+  position: relative;
+  overflow: hidden;
+  background-color: #000; /* Fondo negro mientras carga la imagen */
+}
+
+/* 6. Imagen con object-fit: cover */
 .blog-preview-image {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+.blog-preview-image:hover {
+  transform: scale(1.05);
 }
 
+/* 7. Contenido textual de la tarjeta */
 .blog-preview-content {
-    padding: 15px;
+  padding: 15px;
+  flex: 1; /* Ocupa el resto verticalmente */
+  display: flex;
+  flex-direction: column;
 }
 
+/* 8. Título del blog */
 .blog-preview-title {
-    color: #27ae60;
-    font-size: 1.2em;
+  font-size: 1.2rem;
+  color: #27ae60;
+  margin: 0 0 10px 0;
+  line-height: 1.3;
 }
 
+/* 9. (Opcional) Extracto breve */
 .blog-preview-excerpt {
-    color: #555;
-    font-size: 0.9em;
-    line-height: 1.6;
+  color: #555;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: 10px;
 }
 
-.blog-preview-link {
-    color: #27ae60;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.blog-preview-link:hover {
-    text-decoration: underline;
-}
-
-/* Estilos adicionales para responsividad y otros detalles de tu sitio web */
-/* En tu archivo public_blog.css */
-
-.blog-component-badge {
-    display: inline-block;
-    background-color: #27ae60; /* o cualquier otro color que te guste */
-    color: white;
-    padding: 0.2em 0.6em;
-    margin: 0.2em;
-    border-radius: 2em;
-    font-size: 0.8em;
-    text-transform: capitalize;
-}
-
+/* 10. Badges de “componentes” */
 .blog-preview-components {
-    margin: 10px 0;
+  margin-bottom: 12px;
+}
+.blog-component-badge {
+  display: inline-block;
+  background-color: #27ae60;
+  color: #fff;
+  padding: 0.25em 0.6em;
+  margin: 0 0.3em 0.3em 0;
+  border-radius: 1em;
+  font-size: 0.8rem;
+  text-transform: capitalize;
+}
+
+/* 11. Enlace “Leer más →” */
+.blog-preview-link {
+  margin-top: auto; /* Empuja el enlace hacia abajo si sobra espacio */
+  display: inline-block;
+  color: #27ae60;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 0.95rem;
+  transition: color 0.2s ease;
+}
+.blog-preview-link:hover {
+  color: #1e8449;
+  text-decoration: underline;
+}
+
+/* 12. Puntos de interrupción (responsive) */
+/* 12a. Tablets: 2 columnas */
+@media (max-width: 992px) {
+  .blog-preview-card {
+    flex: 1 1 calc(50% - 20px);
+  }
+}
+
+/* 12b. Móviles: 1 columna */
+@media (max-width: 600px) {
+  .blog-preview-card {
+    flex: 1 1 100%;
+  }
+}
+
+/* 13. Pequeñas mejoras en el footer y header (opcional) */
+footer {
+  margin-top: 40px;
+}
+
+/* Fin de public_index_blog.css */
+h1{
+    text-align: center;
+    color: #2c4910;
+    font-size: 50px;
+    font-weight: bold;
+    font-style: italic;
 }

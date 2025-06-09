@@ -1,258 +1,336 @@
+/* ================================
+   Welcome Page Stylesheet
+   ================================ */
+
+/*---------------------------------
+  1. Font Imports
+---------------------------------*/
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap');
+
+/*---------------------------------
+  2. Base Styles
+---------------------------------*/
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
 }
 
+/*---------------------------------
+  3. Header
+---------------------------------*/
 header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000; /* Asegura que el header esté por encima de otros elementos */
-    background-color: #f5f5f5;
-    border-bottom: 4px solid #ccc;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Añade una sombra para mejorar la visibilidad */
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: #f5f5f5;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
-
-.main-navigation {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-}
-
 .main-content {
-    margin-top: 80px; /* Ajusta este valor a la altura de tu header */
+  margin-top: 80px; /* espacio para el header fijo */
 }
 
+/*---------------------------------
+  4. Full-Screen Banner
+---------------------------------*/
 .full-screen-banner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end; /* Ajustado de 'center' a 'flex-end' para mover el texto al fondo */
-    height: calc(100vh - 80px); /* Ajusta la altura restando la altura del header */
-    background: url(../images/welcome/fachada_ecomuseo.jpg) no-repeat center center;
-    background-size: contain; /* Asegura que la imagen se escale para caber en el contenedor */
-    background-attachment: fixed; /* Fija la imagen de fondo */
-    color: white;
-    text-align: center;
-    padding: 20px;
-    box-sizing: border-box; /* Incluye el padding en el tamaño total del elemento */
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 60px);
+  background: url('../images/welcome/fachada_ecomuseo.jpg') no-repeat center center;
+  background-size: cover;
+  color: white;
+  text-align: center;
 }
-
-.full-screen-banner h1, .full-screen-banner p {
-    background-color: rgba(0, 0, 0, 0.35); /* Gris medio con 50% de transparencia */
-    padding: 10px; /* Espacio alrededor del texto */
-    border-radius: 5px; /* Bordes redondeados ligeramente */
+.full-screen-banner::before {
+  content: "";
+  position: absolute; top:0; right:0; bottom:0; left:0;
+  background-color: rgba(0,0,0,0.45);
 }
-
 .full-screen-banner h1 {
-    font-size: 50px; /* Tamaño de fuente para el título */
-    font-weight: bold; /* Texto en negrita */
+  position: relative;
+  z-index: 1;
+  font-family: 'Playfair Display', serif;
+  font-size: 80px;
+  font-weight: bold;
+  margin: 0;
 }
 
-.full-screen-banner p {
-    font-size: 15px; /* Tamaño de fuente para el párrafo */
-    font-weight: bold; /* Texto en negrita */
-}
+/*---------------------------------
+  5. Componentes Carousel Section
+---------------------------------*/
 .actividades {
-    background-color: rgb(255, 255, 255);
-    padding: 2rem 0;
+  background-color: #ffffff;
+  padding: 3rem 1rem;
+}
+.actividades .titulo {
+  font-family: 'DM Serif Display', serif;
+  font-size: 3.5rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 2.5rem;
+  color: #1d1d1d;
+}
+.actividades .subtitle {
+  font-family: Arial, sans-serif;
+  font-size: 1.25rem;
+  color: #555;
+  text-align: center;
+  margin: -1rem auto 2rem;
+  max-width: 600px;
+  line-height: 1.4;
 }
 
-.actividades h1 {
-    color: #000;
-    text-align: center;
-    font-family: 'Inter', sans-serif;
-    font-size: 70px;
-    font-style: italic;
-    font-weight: 600;
-    line-height: 72px;
-    letter-spacing: -1.05px;
+.components-benefits {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 0;
+  margin-bottom: 1.5rem;
+  color: #315530;
+  font-weight: bold;
+}
+.components-benefits li::before {
+  content: "✔︎";
+  margin-right: .5rem;
+  color: #2f4032;
+}
+/* --- Tarjetas de Carrusel --- */
+.component-card {
+  width: 28rem;
+  min-height: 650px;
+  background-color: #e7f4e4;
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transform-origin: center;
+}
+.component-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.2);
 }
 
-.actividades .box-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
-    justify-content: center;
-    padding: 1rem;
+/* --- Contenedor de Imagen --- */
+.image-container {
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.actividades .box-container .box {
-    flex: 1 1 300px; /* Ajusta este valor según prefieras */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    border-radius: .5rem;
-    background-color: #AAE983;
-    overflow: hidden;
-    padding-bottom: 1rem; /* Añade espacio para el botón */
-    min-height: 400px; /* Asegura suficiente altura para todo el contenido */
+/* --- Títulos y Texto --- */
+.card-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #2f4032;
+}
+.card-text {
+  font-family: Arial, sans-serif;
+  font-size: 1.125rem;
+  line-height: 1.6;
+  padding: 0 1rem;
+  margin-bottom: 2rem;
+  color: #333;
 }
 
-.actividades .box-container .box .actividad {
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    flex-grow: 1;
+/* --- Botón --- */
+.btn-dark {
+  background-color: #315530;
+  border: none;
+  padding: 1rem 2.5rem;
+  border-radius: 6px;
+  font-size: 1.125rem;
+  font-weight: bold;
+  color: #fff;
+  transition: background-color 0.3s ease;
+}
+.btn-dark:hover {
+  background-color: #243f25;
 }
 
-.actividades .box-container .box .actividad img {
-    width: 100%;
-    height: auto; /* Deja que la altura se ajuste automáticamente */
-    max-height: 200px; /* Ajusta este valor para controlar el espacio que ocupa la imagen */
-    object-fit: contain; /* Asegura que la imagen se muestre completa dentro del contenedor */
-    border-radius: 0.5rem 0.5rem 0 0;
+/* --- Controles de Carrusel --- */
+#carouselComponentes .carousel-control-prev,
+#carouselComponentes .carousel-control-next {
+  width: 6%;
+}
+#carouselComponentes .carousel-control-prev-icon,
+#carouselComponentes .carousel-control-next-icon {
+  background-color: rgba(0,0,0,0.6);
+  border-radius: 50%;
+  width: 4rem;
+  height: 4rem;
+  background-size: 100% 100%;
+  filter: brightness(200%);
+}
+#carouselComponentes .carousel-indicators {
+  bottom: -2rem;
+}
+#carouselComponentes .carousel-indicators li {
+  background-color: #ccc;
+  width: .75rem; height: .75rem;
+  border-radius: 50%;
+  margin: 0 5px;
+}
+#carouselComponentes .carousel-indicators .active {
+  background-color: #315530;
 }
 
-.actividades .box-container .box .actividad h3 {
-    margin-top: 1rem;
-}
+/*---------------------------------
+  6. Otros Bloques (Mapa, etc.)
+---------------------------------*/
 
-.actividades .box-container .box .actividad p {
-    margin-top: 0.5rem;
+.testimonials {
+  max-width: 600px;
+  margin: 2rem auto;
+  font-style: italic;
+  color: #555;
+  text-align: center;
 }
-
-.actividades .box-container .box .actividad a {
-    margin-top: 1rem;
-    display: inline-block;
-    background: #000;
-    color: #fff;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    text-decoration: none;
-    flex-shrink: 0; /* Evita que el botón se encoja */
-    margin-bottom: 1rem; /* Asegura que el botón no esté pegado al borde inferior */
-}
-
 .contenedor {
-    display: flex;
-    padding-left: 200px;
-    padding-right: 200px;
+  background-color: #1d1d1d;
+  display: flex;
+  padding: 0 200px;
 }
-
-.carousel {
-
-    position: relative;
-    overflow: hidden; /* Oculta cualquier cosa fuera del carrusel */
-}
-
-.carousel-container {
-    flex: 1;  /* Flexibilidad para ocupar espacio disponible */
-    padding: 15px;  /* Espacio alrededor del carrusel */
-}
-
-.carousel-item {
-    transition: transform 0.5s ease-in-out;
-}
-
-.carousel-inner img {
-    width: 50%;  /* Las imágenes cubrirán completamente el ancho del carrusel */
-    height: 50%;  /* Las imágenes también cubrirán completamente la altura del carrusel */
-    /* object-fit: cover; */
-}
-
-/* Contenedor para el título y el mapa */
 .encuentranos-container {
-    text-align: center; /* Centra el texto del título */
-    padding: 20px; /* Espacio alrededor del contenido */
-    margin: 20px auto; /* Centra el contenedor y añade un margen exterior */
-    max-width: 80%; /* Limita el ancho máximo para que no acapare toda la pantalla */
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 2rem;
+  padding: 2rem 1rem;
+  max-width: 1000px;
+  margin: 0 auto 3rem;
+}
+.encuentranos-container .info h2 {
+  padding-top: 30%;
+  margin-bottom: 1.5rem;
+  font-size: 2.25rem;
+  color: #1e301e;
+  font-weight: bold;
+}
+.encuentranos-container .mapa {
+  flex: 1;
+  aspect-ratio: 1/1;
+  max-width: 500px;
+  border: 3px solid #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.encuentranos-container .mapa iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
 }
 
-/* Estilización del título */
-.encuentranos-container h2 {
-    margin-bottom: 15px; /* Espacio debajo del título */
-    color: #333; /* Color oscuro para el texto */
-    font-size: 30px; /* Tamaño de fuente más grande */
+.encuentranos-container .info {
+  flex: 1;
+}
+.encuentranos-container .info .item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 1.25rem;
 }
 
-/* Estilización del mapa */
+.encuentranos-container .info .item p {
+  margin: 0;
+  color: #333;
+  line-height: 1.4;
+}
+.encuentranos-container .info .item p strong {
+  color: #315530;
+}
+.encuentranos-container .item svg.icon,
+.encuentranos-container .item svg {
+  width: 1.25rem;    /* prueba 1.25rem o incluso 1rem */
+  height: 1.25rem;
+  margin-right: 0.5rem;
+  flex-shrink: 0;
+}
+
 .mapa {
-    border: 3px solid #ccc; /* Borde sólido gris claro */
-    border-radius: 10px; /* Bordes redondeados */
-    overflow: hidden; /* Oculta cualquier contenido que se desborde */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Sombra suave para profundidad */
+    margin: 2rem auto;
+    max-width: 500px;
+    width: 100%;  /* centrar horizontalmente y espacio arriba/abajo */
 }
-
+.contenedor .carousel-inner img,
 .mapa iframe {
-    width: 100%; /* Asegura que el iframe ocupe todo el espacio disponible del contenedor */
-    height: 450px; /* Altura fija para el iframe */
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+/*---------------------------------
+  7. Responsive Breakpoints
+---------------------------------*/
+@media (max-width: 1200px) {
+  .component-card {
+    width: 32rem;
+    min-height: 600px;
+  }
+}
+@media (max-width: 992px) {
+  .component-card {
+    width: 20rem;
+    min-height: 550px;
+  }
+}
+@media (max-width: 768px) {
+  .component-card {
+    width: 90%;
+    margin: 0 auto 1.5rem;
+  }
+  .image-container {
+    height: 220px;
+  }
+  .card-title {
+    font-size: 1.75rem;
+  }
+  .card-text {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+  .btn-dark {
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+  }
+  .full-screen-banner h1 {
+    font-size: 2rem;
+  }
+  .actividades .titulo {
+    font-size: 2rem;
+  }
+  .contenedor {
+    flex-direction: column;
+    padding: 0 1rem;
+  }
+  .mapa iframe {
+    height: 200px;
+  }
 }
 
 @media (max-width: 768px) {
-    .actividades h1 {
-        font-size: 40px;
-        line-height: 44px;
-    }
-
-    .actividades .box-container {
-        flex-direction: column;
-        align-items: center;
-        padding: 1rem 0; /* Ajusta el padding para móviles */
-    }
-
-    .actividades .box-container .box {
-        width: 90%; /* Ajusta el ancho de los elementos para móviles */
-        margin-bottom: 1rem; /* Espacio entre elementos */
-    }
-
-    .actividades .box-container .box .actividad img {
-        height: auto; /* Permite que las imágenes se adapten a la altura según el contenido */
-        max-height: 150px; /* Limita la altura de la imagen en móviles */
-    }
-
-    .main-navigation {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 10px;
-    }
-
-    .main-content {
-        margin-top: 100px; /* Ajusta este valor si es necesario */
-    }
-
-    .full-screen-banner {
-        height: calc(100vh - 80px); /* Asegura que el banner ocupe toda la pantalla menos la altura del header */
-        background-size: contain; /* Ajusta el tamaño de fondo para que quepa en el viewport */
-        padding: 10px; /* Reduce el padding para dispositivos móviles */
-    }
-    .full-screen-banner h1 {
-        font-size: 20px; /* Reduce el tamaño de fuente para el título para que se adapte mejor a pantallas pequeñas */
-        padding: 8px; /* Ajuste del padding para mantener la proporción */
-    }
-
-    .full-screen-banner p {
-        font-size: 10px; /* Reduce el tamaño de fuente para el párrafo para mayor comodidad de lectura en pantallas pequeñas */
-        padding: 5px; /* Ajuste del padding para mantener la legibilidad */
-    }
-
-    /* Asegurarse de que el fondo detrás del texto sigue siendo visible y efectivo en tamaños más pequeños */
-    .full-screen-banner h1, .full-screen-banner p {
-        background-color: rgba(0, 0, 0, 0.5); /* Oscurece un poco más para mejorar la legibilidad contra fondos potencialmente complejos */
-    }
-
-    .mapa iframe {
-        height: 200px; /* Reduce la altura del mapa en dispositivos móviles */
-    }
-
-    .imagen-abajo {
-        height: 50vh; /* Reduce la altura de la imagen para dispositivos móviles */
-    }
-
-    .contenedor {
-        flex-direction: column;  /* Los elementos se apilan verticalmente en pantallas pequeñas */
-    }
-
-    .carousel-inner img {
-        max-height: 300px;  /* Menor altura para las imágenes en dispositivos móviles */
-    }
-
-    .mapa {
-        height: 300px;  /* Altura menor para el mapa en dispositivos móviles */
-    }
+  .encuentranos-container {
+    flex-direction: column;
+    padding: 1rem;
+  }
+  .encuentranos-container .info,
+  .encuentranos-container .mapa {
+    max-width: 100%;
+  }
+  .encuentranos-container .info h2 {
+    font-size: 1.75rem;
+  }
 }

@@ -11,10 +11,10 @@
     <header>
         <div class="header-container">
             <nav class="main-navigation">
-                <img src="{{ asset('images/logo_vectorizado.svg') }}" alt="Logo" class="logo-svg">
+                <img src="{{ asset('images/logo_vectorizado.png') }}" alt="Logo" class="logo-svg">
                 <div class="nav-links">
                     <a href="/" class="nav-item">Inicio</a>
-                    <a href="/tour" class="nav-item">Tours</a>
+                    <a href="/tour" class="nav-item">Visitas</a>
                     <a href="/blog" class="nav-item">Blogs</a>
                     <a href="/donations" class="nav-item">Donar</a>
                     <a href="/volunteers" class="nav-item">Voluntariado</a>
