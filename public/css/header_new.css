@@ -4,7 +4,9 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
 }
-
+:root {
+  --header-offset: 60px; /* coincide con tu min-height de .main-navigation */
+}
 header {
     position: fixed;
     top: 0;

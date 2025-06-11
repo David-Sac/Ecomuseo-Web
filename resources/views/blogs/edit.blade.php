@@ -66,7 +66,7 @@
                                     <option value="rejected" {{ $blog->status == 'rejected' ? 'selected' : '' }}>Rejected</option>
                                 </select>
                                 @error('status')
-                                    <span class="text-danger">{{ $message }}</span>
+                                    <span class="text-danger">{{ $messag }}</span>
                                 @enderror
                             </div>
                         </div>

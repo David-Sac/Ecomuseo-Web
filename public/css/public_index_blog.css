@@ -8,7 +8,7 @@
 /* 2. Contenedor principal de las previsualizaciones */
 .blog-previews-container {
   max-width: 1200px;       /* Ancho máximo para que no se extienda demasiado */
-  margin: 100px auto 40px; /* 100px top (por el header), centrado, 40px bottom */
+  margin: 100px auto; /* 100px top (por el header), centrado, 40px bottom */
   padding: 0 15px;         /* Pequeño padding lateral */
 }
 
@@ -140,11 +140,6 @@
   .blog-preview-card {
     flex: 1 1 100%;
   }
-}
-
-/* 13. Pequeñas mejoras en el footer y header (opcional) */
-footer {
-  margin-top: 40px;
 }
 
 /* Fin de public_index_blog.css */

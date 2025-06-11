@@ -161,14 +161,3 @@
         });
     });
 </script>
-
-<style>
-    .age-button.selected {
-        background-color: #007bff;
-        color: white;
-    }
-
-    .remove-companion {
-        margin-left: 10px;
-    }
-</style>
