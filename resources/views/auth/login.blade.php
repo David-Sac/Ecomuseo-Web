@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="{{ asset('css/login_style.css') }}">
 <link rel="icon" type="image/svg+xml" href="{{ asset('images/logo_vectorizado.svg') }}">
@@ -11,15 +13,18 @@
     <title>Iniciar Sesión - Ecomuseo LLAQTA AMARU -YOYEN KUWA</title>
 </head>
 <body>
-    <div class="container">
+    <header>
+        @include('partials.header_new')
+    </header>
+
+    <div class="login-container">
+        <div class="login-card">
         <div class="left-side">
-            <div class="top-left-div">
-                Iniciar sesión
-            </div>
+            <div class="carousel"></div>
         </div>
         <div class="right-side">
             <div class="login-form">
-                <img src="{{ asset('images/logo_vectorizado.svg') }}" alt="Logo" class="logo-svg">
+                
 
                 {{-- <h2>Bienvenido a ECOMUSEO</h2> --}}
                 <h3>INICIAR SESIÓN</h3>
@@ -62,8 +67,8 @@
                     <div class="login-section">
 
 
-                        <x-primary-button class="ms-3">
-                            {{ __('Log in') }}
+                        <x-primary-button class="btn-login">
+                            Ingresar
                         </x-primary-button>
 
                         @if (Route::has('password.request'))
@@ -78,6 +83,7 @@
                 </form>
             </div>
         </div>
+    </div>
     </div>
 
 

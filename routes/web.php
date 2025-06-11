@@ -69,7 +69,7 @@ Route::get('/tour', [TourController::class, 'publicShow'])->name('tours.publicSh
 Route::get('/components/public/{id}', [ComponentsController::class, 'publicShow'])->name('components.publicShow');
 Route::get('/blog', [BlogController::class, 'publicIndex'])->name('blogs.public_index');
 Route::get('blog/{id}', [BlogController::class, 'publicShow'])->name('blogs.publicShow');
-
+Route::resource('donations', DonationController::class)->only(['index', 'store']);
 
 Route::middleware(['auth', 'profile.complete'])->group(function () {
     Route::get('/dashboard', function () {
@@ -85,10 +85,10 @@ Route::middleware(['auth', 'profile.complete'])->group(function () {
         'tours' => TourController::class,
         'visits' => VisitController::class,
         'blogs' => BlogController::class,
-        'donations' => DonationController::class,
         'tasks' => TaskController::class,
         'volunteers' => VolunteerController::class,
     ]);
+    Route::resource('donations', DonationController::class)->except(['index', 'store']);
 
     Route::post('/visits/store', [VisitController::class, 'store'])->name('visits.store');
     Route::get('/my-visits', [VisitController::class, 'publicVisits'])->name('visits.publicVisits');

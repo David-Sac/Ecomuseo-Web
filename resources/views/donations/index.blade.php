@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/svg+xml" href="{{ asset('images/logo_vectorizado.svg') }}">
     <link rel="stylesheet" href="{{ asset('css/donation.css') }}">
     <title>Donaciones | Ecomuseo LLAQTA AMARU - YOYEN KUWA</title>
-    <style>
-        .text-danger {
-            color: red;
-        }
-    </style>
 </head>
 <body>
 <header>

@@ -19,7 +19,7 @@ class DonationController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except(['index']);
+        $this->middleware('auth')->except(['index','store']);
     }
 
     public function index(): View
@@ -59,7 +59,7 @@ class DonationController extends Controller
         ]);
 
         $donation = Donation::create([
-            'user_id' => auth()->user()->id,
+            'user_id' => auth()->check() ? auth()->id() : null, // Asignar el ID del usuario autenticado si está disponible
             'type' => $request->type,
             'razon_social' => $request->razon_social,
             'persona_contacto' => $request->persona_contacto,

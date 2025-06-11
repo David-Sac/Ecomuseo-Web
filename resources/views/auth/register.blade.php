@@ -12,10 +12,13 @@
 </head>
 
 <body>
+    <header>
+        @include('partials.header_new')
+    </header>
+
     <div class="container">
         <div class="left-side">
             <div class="register-form">
-                <img src="{{ asset('images/logo_vectorizado.svg') }}" alt="Logo" class="logo-svg">
 
                 {{-- <h2>Bienvenido a ECOMUSEO</h2> --}}
                 <h3>REGISTRARSE</h3>
@@ -97,9 +100,7 @@
             </div>
         </div>
         <div class="right-side">
-            <div class="top-right-div">
-                Registrarse
-            </div>
+                <div class="carousel"></div>
         </div>
     </div>
     <script>
