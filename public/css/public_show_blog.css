@@ -1,80 +1,147 @@
+/* ==============================================
+   public_show_blog.css – Estilos Mejorados para Detalle de Blog
+   ============================================== */
+
+/* 1. Reset y base */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f5f5f5;
-    margin: 0;
-    padding: 20px;
+  font-family: 'Inter', sans-serif;
+  background-color: #f2f2f2;
+  color: #333;
 }
 
+/* 2. Contenedor principal */
 .blog-content-container {
-    background-color: #fff;
-    padding: 20px;
-    margin: 20px auto;
-    width: 80%;
-    max-width: 800px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+  max-width: 900px;                 /* más ancho para aprovechar espacio */
+  width: 95%;
+  margin: 140px auto 60px;          /* espacio para header + margen inferior */
+  background: #fff;
+  border-radius: 1rem;              /* bordes más redondeados */
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  overflow: hidden;
+  padding-bottom: 2rem;
 }
 
-.blog-title {
-    color: #27ae60;
-    font-size: 2.5em;
-    margin-bottom: 0.5em;
+/* 3. Título principal */
+.blog-content-container .blog-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  color: #315530;
+  text-align: center;
+  margin: 1.5rem 2rem 0.5rem;
 }
 
-.blog-meta {
-    font-style: italic;
-    color: #666;
-    margin-bottom: 2em;
+/* 4. Meta datos */
+.blog-content-container .blog-meta {
+  font-family: Arial, sans-serif;
+  font-style: italic;
+  color: #666;
+  text-align: center;
+  margin-bottom: 2rem;
 }
 
-.blog-content {
-    line-height: 1.6;
-    color: #333;
+/* 5. Contenido (Markdown o HTML) */
+.blog-content-container .blog-content {
+  padding: 0 2rem;
+}
+.blog-content h1,
+.blog-content h2,
+.blog-content h3 {
+  font-family: 'Playfair Display', serif;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: #2c4910;
+}
+.blog-content h1 { font-size: 2rem; }
+.blog-content h2 { font-size: 1.75rem; color: #27ae60; }
+.blog-content h3 { font-size: 1.25rem; color: #315530; }
+.blog-content p {
+  line-height: 1.7;
+  margin-bottom: 1rem;
 }
 
+/* 6. Imágenes dentro del contenido */
+.blog-content img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1rem auto;
+  border-radius: 0.5rem;
+}
+
+/* 7. Listas y bloques de código */
+.blog-content ul,
+.blog-content ol {
+  margin: 1rem 0 1rem 1.5rem;
+}
+.blog-content li {
+  margin-bottom: 0.5rem;
+}
+.blog-content pre,
+.blog-content code {
+  background: #f5f5f5;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin-bottom: 1rem;
+}
+
+/* 8. Componentes relacionados */
 .blog-components {
-    margin-top: 3em;
+  padding: 0 2rem;
+  margin-top: 2.5rem;
 }
-
 .blog-components h3 {
-    color: #27ae60;
-    margin-bottom: 1em;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  color: #2c4910;
+  margin-bottom: 1rem;
 }
-
-.blog-components ul {
-    list-style: inside;
-}
-
-.blog-components li {
-    margin-bottom: 0.5em;
-    color: #555;
-}
-
-/* Ajustes de responsividad */
-@media (max-width: 768px) {
-    .blog-content-container {
-        width: 90%;
-        padding: 15px;
-    }
-}
-
 .component-button {
-    display: inline-block;
-    padding: 10px 20px;
-    margin: 5px;
-    background-color: #27ae60;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    box-shadow: 0 4px #1e8449;
-    transition: all 0.3s ease;
+  display: inline-block;
+  background-color: #315530;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  margin: 0 0.5rem 0.5rem 0;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.2s ease;
 }
-
 .component-button:hover {
-    background-color: #2ecc71;
+  background-color: #27ae60;
 }
 
-.component-button:active {
-    box-shadow: 0 2px #1e8449;
-    transform: translateY(2px);
+/* 9. Enlace “Back” */
+.btn-back {
+  font-size: 0.9rem;
+  background: #315530;
+  color: #fff;
+  padding: 0.4rem 0.75rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+.btn-back:hover {
+  background: #27ae60;
+}
+
+/* 10. Responsive */
+@media (max-width: 768px) {
+  .blog-content-container {
+    width: 95%;
+    margin-top: 160px;
+    padding-bottom: 1.5rem;
+  }
+  .blog-content-container .blog-title {
+    font-size: 2rem;
+    margin: 1rem 1rem 0.5rem;
+  }
+  .blog-content h1 { font-size: 1.75rem; }
+  .blog-content h2 { font-size: 1.5rem; }
+  .blog-components h3 { font-size: 1.25rem; }
 }

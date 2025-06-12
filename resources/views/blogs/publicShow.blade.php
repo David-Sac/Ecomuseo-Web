@@ -12,6 +12,13 @@
     @include('partials.header_new')
 
     <main class="blog-content-container">
+        {{-- Botón Volver arriba --}}
+        <div class="back-to-list">
+            <a href="{{ url('/blog') }}" class="btn-back">&larr; Volver a Blogs</a>
+
+        </div>
+
+        {{-- Título del blog --}}
         <h1 class="blog-title">{{ $blog->title }}</h1>
         <div class="blog-meta">
             <span>Autor: {{ $blog->author->name }}</span> |
