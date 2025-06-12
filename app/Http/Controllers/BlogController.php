@@ -12,7 +12,8 @@ use Parsedown;
 use Illuminate\Support\Facades\Auth;
 
 
-
+//use Parsedown;             // arriba en tu controlador
+use Illuminate\Support\Str; // si quieres usar Str::markdown()
 
 class BlogController extends Controller
 {
@@ -118,11 +119,15 @@ class BlogController extends Controller
 
     public function publicShow($id)
     {
-        $blog = Blog::with('components', 'author')->findOrFail($id);
+        $blog = Blog::with('author','components')->findOrFail($id);
 
-        // Convertir contenido Markdown a HTML
+        // Opción A: con Parsedown
         $parsedown = new Parsedown();
         $blog->content = $parsedown->text($blog->content);
+
+        // Opción B (Laravel 10+): con Str::markdown
+        // use Illuminate\Support\Str;
+        // $blog->content = Str::markdown($blog->content);
 
         return view('blogs.publicShow', compact('blog'));
     }

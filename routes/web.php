@@ -67,9 +67,13 @@ Route::middleware('auth')->group(function () {
 // Rutas accesibles sin autenticación
 Route::get('/tour', [TourController::class, 'publicShow'])->name('tours.publicShow');
 Route::get('/components/public/{id}', [ComponentsController::class, 'publicShow'])->name('components.publicShow');
-Route::get('/blog', [BlogController::class, 'publicIndex'])->name('blogs.public_index');
-Route::get('blog/{id}', [BlogController::class, 'publicShow'])->name('blogs.publicShow');
-Route::resource('donations', DonationController::class)->only(['index', 'store']);
+// Índice público de blogs
+Route::get('/blog', [BlogController::class, 'publicIndex'])
+     ->name('blogs.publicIndex');
+
+// Detalle público de un blog
+Route::get('/blog/{id}', [BlogController::class, 'publicShow'])
+     ->name('blogs.publicShow');Route::resource('donations', DonationController::class)->only(['index', 'store']);
 
 Route::middleware(['auth', 'profile.complete'])->group(function () {
     Route::get('/dashboard', function () {

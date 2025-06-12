@@ -16,9 +16,7 @@
     </head>
 
     <body>
-        <header>
-            @include('partials.header_new')
-        </header>
+        @extends('layouts.app_new')
 
         <main class="main-content">
             <!-- Banner de Imagen -->
@@ -144,9 +142,6 @@
             </div>
 
         </main>
-        <footer>
-            @include('partials.footer')
-        </footer>
     </body>
 </html>
 

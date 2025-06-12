@@ -1,88 +1,104 @@
-/* ==============================================
-   public_show_blog.css – Estilos Mejorados para Detalle de Blog
-   ============================================== */
-
+/* ---------- tu reset y resto de reglas anteriores ---------- */
 /* 1. Reset y base */
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+  margin: 0; padding: 0;
 }
 body {
   font-family: 'Inter', sans-serif;
-  background-color: #f2f2f2;
+  background: #f2f2f2;
   color: #333;
 }
 
 /* 2. Contenedor principal */
 .blog-content-container {
-  max-width: 900px;                 /* más ancho para aprovechar espacio */
+  max-width: 900px;
   width: 95%;
-  margin: 140px auto 60px;          /* espacio para header + margen inferior */
+  margin: 140px auto 60px;
   background: #fff;
-  border-radius: 1rem;              /* bordes más redondeados */
+  border-radius: 1rem;
   box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-  overflow: hidden;
-  padding-bottom: 2rem;
+  padding: 2rem;
 }
 
-/* 3. Título principal */
-.blog-content-container .blog-title {
+/* 3. Botones volver */
+.back-to-list {
+  text-align: right;
+  margin-bottom: 1rem;
+}
+.btn-back {
+  background: #315530;
+  color: #fff;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transition: background 0.2s;
+}
+.btn-back:hover {
+  background: #27ae60;
+}
+
+/* 4. Título y meta */
+.blog-title {
   font-family: 'Playfair Display', serif;
   font-size: 2.5rem;
   color: #315530;
   text-align: center;
-  margin: 1.5rem 2rem 0.5rem;
+  margin-bottom: 0.5rem;
 }
-
-/* 4. Meta datos */
-.blog-content-container .blog-meta {
-  font-family: Arial, sans-serif;
+.blog-meta {
   font-style: italic;
   color: #666;
   text-align: center;
   margin-bottom: 2rem;
 }
 
-/* 5. Contenido (Markdown o HTML) */
-.blog-content-container .blog-content {
-  padding: 0 2rem;
-}
-.blog-content h1,
-.blog-content h2,
-.blog-content h3 {
+/* ---------- AHORA SÓLO .markdown-body PARA TU MARKDOWN ---------- */
+/* 5. Markdown: títulos y párrafos */
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3 {
   font-family: 'Playfair Display', serif;
-  margin-top: 1.5rem;
-  margin-bottom: 0.75rem;
+  margin: 1.5rem 0 0.75rem;
+  line-height: 1.2;
+}
+.markdown-body h1 {
+  font-size: 1.75rem;
   color: #2c4910;
 }
-.blog-content h1 { font-size: 2rem; }
-.blog-content h2 { font-size: 1.75rem; color: #27ae60; }
-.blog-content h3 { font-size: 1.25rem; color: #315530; }
-.blog-content p {
-  line-height: 1.7;
+.markdown-body h2 {
+  font-size: 1.5rem;
+  color: #27ae60;
+}
+.markdown-body h3 {
+  font-size: 1.25rem;
+  color: #315530;
+}
+.markdown-body p {
   margin-bottom: 1rem;
+  line-height: 1.7;
+  color: #333;
 }
 
-/* 6. Imágenes dentro del contenido */
-.blog-content img {
+/* 6. Imágenes dentro del Markdown */
+.markdown-body img {
   display: block;
   max-width: 100%;
-  height: auto;
   margin: 1rem auto;
   border-radius: 0.5rem;
 }
 
 /* 7. Listas y bloques de código */
-.blog-content ul,
-.blog-content ol {
-  margin: 1rem 0 1rem 1.5rem;
+.markdown-body ul,
+.markdown-body ol {
+  padding-left: 1.5rem;
+  margin: 1rem 0;
 }
-.blog-content li {
+.markdown-body li {
   margin-bottom: 0.5rem;
 }
-.blog-content pre,
-.blog-content code {
+.markdown-body pre,
+.markdown-body code {
   background: #f5f5f5;
   padding: 0.75rem;
   border-radius: 0.5rem;
@@ -92,56 +108,47 @@ body {
 
 /* 8. Componentes relacionados */
 .blog-components {
-  padding: 0 2rem;
   margin-top: 2.5rem;
+  padding: 0 2rem;
 }
-.blog-components h3 {
+.blog-components h2 {
   font-family: 'Playfair Display', serif;
   font-size: 1.5rem;
   color: #2c4910;
   margin-bottom: 1rem;
 }
-.component-button {
+.blog-component-badge {
   display: inline-block;
-  background-color: #315530;
-  color: #fff;
-  padding: 0.5rem 1rem;
-  margin: 0 0.5rem 0.5rem 0;
-  border-radius: 0.5rem;
-  text-decoration: none;
-  font-weight: 500;
-  transition: background 0.2s ease;
-}
-.component-button:hover {
-  background-color: #27ae60;
-}
-
-/* 9. Enlace “Back” */
-.btn-back {
-  font-size: 0.9rem;
   background: #315530;
   color: #fff;
-  padding: 0.4rem 0.75rem;
+  padding: 0.4rem 0.8rem;
+  margin: 0 0.5rem 0.5rem 0;
   border-radius: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 500;
   text-decoration: none;
-  transition: background 0.2s ease;
 }
-.btn-back:hover {
+.blog-component-badge:hover {
   background: #27ae60;
 }
 
-/* 10. Responsive */
+/* 9. Responsive */
 @media (max-width: 768px) {
   .blog-content-container {
     width: 95%;
     margin-top: 160px;
-    padding-bottom: 1.5rem;
+    padding: 1rem;
   }
-  .blog-content-container .blog-title {
+  .blog-title {
     font-size: 2rem;
-    margin: 1rem 1rem 0.5rem;
   }
-  .blog-content h1 { font-size: 1.75rem; }
-  .blog-content h2 { font-size: 1.5rem; }
-  .blog-components h3 { font-size: 1.25rem; }
+  .markdown-body h1 {
+    font-size: 1.5rem;
+  }
+  .markdown-body h2 {
+    font-size: 1.25rem;
+  }
+  .blog-components h2 {
+    font-size: 1.25rem;
+  }
 }

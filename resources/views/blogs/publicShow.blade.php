@@ -1,47 +1,33 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta http="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $blog->title }} | Ecomuseo LLAQTA AMARU - YOYEN KUWA</title>
-    <link rel="stylesheet" href="{{ asset('css/public_show_blog.css') }}">
-</head>
-<body>
-    <!-- Header de la página -->
-    @include('partials.header_new')
+{{-- resources/views/blogs/publicShow.blade.php --}}
+@extends('layouts.app_new')
 
-    <main class="blog-content-container">
-        {{-- Botón Volver arriba --}}
-        <div class="back-to-list">
-            <a href="{{ url('/blog') }}" class="btn-back">&larr; Volver a Blogs</a>
+@section('styles')
+  <link rel="stylesheet" href="{{ asset('css/public_show_blog.css') }}">
+@endsection
 
-        </div>
+@section('content')
+  <main class="blog-content-container">
+    <div class="back-to-list">
+      <a href="{{ route('blogs.publicIndex') }}" class="btn-back">&larr; Volver a Blogs</a>
+    </div>
 
-        {{-- Título del blog --}}
-        <h1 class="blog-title">{{ $blog->title }}</h1>
-        <div class="blog-meta">
-            <span>Autor: {{ $blog->author->name }}</span> |
-            <span>Fecha: {{ $blog->created_at->toFormattedDateString() }}</span>
-        </div>
-        <div class="blog-content">
-            {!! $blog->content !!}
-        </div>
-        @if($blog->components->isNotEmpty())
-            <div class="blog-components">
-                <h3>Componentes relacionados:</h3>
-                <ul>
-                    @foreach($blog->components as $component)
-                        <li><a href="{{ url('/components/public/' . $component->id) }}" class="component-button">{{ $component->titleComponente }}</a></li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+    <h1 class="blog-title">{{ $blog->title }}</h1>
+    <div class="blog-meta">
+      Autor: {{ $blog->author->name }} | Fecha: {{ $blog->created_at->toFormattedDateString() }}
+    </div>
 
+    {{-- Aquí aprovechamos que $blog->content ya es HTML --}}
+    <div class="blog-content markdown-body">
+      {!! $blog->content !!}
+    </div>
 
-
-    </main>
-
-    @include('partials.footer')
-</body>
-</html>
+    @if($blog->components->isNotEmpty())
+      <div class="blog-components">
+        <h3>Componentes relacionados:</h3>
+        @foreach($blog->components as $c)
+          <span class="blog-component-badge">{{ $c->titleComponente }}</span>
+        @endforeach
+      </div>
+    @endif
+  </main>
+@endsection

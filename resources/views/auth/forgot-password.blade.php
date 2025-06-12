@@ -10,9 +10,8 @@
     <title>Restablecer Contraseña - Ecomuseo LLAQTA AMARU - YOYEN KUWA</title>
 </head>
 <body>
-    <header>
-        @include('partials.header_new')
-    </header>
+    @extends('layouts.app_new')
+
     <div class="container">
         <div class="left-side">
             

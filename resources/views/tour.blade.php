@@ -12,9 +12,8 @@
 </head>
 
 <body>
-    <header>
-        @include('partials.header_new')
-    </header>
+            @extends('layouts.app_new')
+
 
     <!-- Sección de tours -->
     <section class="tours" id="tours">
@@ -91,9 +90,6 @@
         </div>
     </section>
 
-    <footer>
-        @include('partials.footer')
-    </footer>
 </body>
 
 </html>

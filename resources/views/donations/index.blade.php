@@ -11,9 +11,8 @@
     <title>Donaciones | Ecomuseo LLAQTA AMARU - YOYEN KUWA</title>
 </head>
 <body>
-<header>
-    @include('partials.header_new')
-</header>
+        @extends('layouts.app_new')
+
 <main class="donation-previews-container">
     <h1 style="margin: 20px 0px 0px 20px;">DONACIONES</h1>
     <div style="display: flex; justify-content: center;">
@@ -113,9 +112,6 @@
     </div>
 </main>
 
-<footer>
-    @include('partials.footer')
-</footer>
 
 <script>
     document.getElementById('type').addEventListener('change', function () {

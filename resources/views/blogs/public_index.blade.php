@@ -8,9 +8,8 @@
 </head>
 <body>
   <!-- Header general del sitio -->
-  <header>
-    @include('partials.header_new')
-  </header>
+        @extends('layouts.app_new')
+
 
   <!-- Contenedor principal de previsualizaciones de blogs -->
   <main class="blog-previews-container">
@@ -47,10 +46,5 @@
       @endforeach
     </div>
   </main>
-
-  <!-- Footer general del sitio -->
-  <footer>
-    @include('partials.footer')
-  </footer>
 </body>
 </html>

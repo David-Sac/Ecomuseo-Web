@@ -13,9 +13,8 @@
     <title>Iniciar Sesión - Ecomuseo LLAQTA AMARU -YOYEN KUWA</title>
 </head>
 <body>
-    <header>
-        @include('partials.header_new')
-    </header>
+    @extends('layouts.app_new')
+
 
     <div class="login-container">
         <div class="login-card">
