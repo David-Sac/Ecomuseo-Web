@@ -13,6 +13,11 @@
       <div class="user-actions" id="auth-buttons">
         @auth
           {{-- enlaces intranet / logout --}}
+          <a href="{{ route('profile.edit') }}" class="profile-btn">Perfil</a>
+          <form method="POST" action="{{ route('logout') }}" style="display:inline;">
+            @csrf
+            <button type="submit" class="logout-btn">Cerrar sesión</button>
+          </form>
         @else
           <a href="{{ route('login') }}" class="login-btn">Iniciar sesión</a>
           @if(Route::has('register'))

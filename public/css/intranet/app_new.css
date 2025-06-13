@@ -1,13 +1,23 @@
-.logo-svg {
-    display: block; /* Hace que la imagen se pueda centrar */
-    width: 120px; /* Ajusta el ancho según el tamaño deseado */
-    height: auto; /* Mantiene la proporción de la imagen */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
-.main-content {
-    margin-top: 80px; /* Ajusta este valor a la altura de tu header */
+
+header {      /* tu header fijo */
+  flex-shrink: 0;
 }
-/*
-.div-profile{
-    border: transparent;
-} */
+
+.intranet-main {   /* o main */
+  flex: 1;
+  /* si quieres un padding interno, p. ej.: */
+  padding: 1rem; 
+  margin: 0;       /* ¡IMPORTANTE! elimina márgenes heredados */
+}
+
+footer {     /* tu footer al fondo */
+  flex-shrink: 0;
+  margin: 0;
+  padding: 1rem 0;
+}

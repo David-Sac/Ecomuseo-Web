@@ -1,50 +1,37 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Blogs | Ecomuseo LLAQTA AMARU – YOYEN KUWA</title>
+{{-- resources/views/blogs/public_index.blade.php --}}
+@extends('layouts.app_new')
+
+@section('styles')
+  <!-- aquí añades SOLO el CSS específico de blogs -->
   <link rel="stylesheet" href="{{ asset('css/public_index_blog.css') }}">
-</head>
-<body>
-  <!-- Header general del sitio -->
-        @extends('layouts.app_new')
+@endsection
 
-
-  <!-- Contenedor principal de previsualizaciones de blogs -->
-  <main class="blog-previews-container">
-    <h1 class="blog-previews-title">Nuestros Blogs</h1>
-
-    <div class="blog-previews">
-      @foreach ($blogs as $blog)
-        <div class="blog-preview-card">
-          <div class="blog-image-wrapper">
-            <img
-              src="{{ asset($blog->displayImage) }}"
-              alt="Imagen representativa del blog: {{ $blog->title }}"
-              class="blog-preview-image"
-            >
-          </div>
-          <div class="blog-preview-content">
-            <h2 class="blog-preview-title">{{ $blog->title }}</h2>
-
-            {{-- Si quieres un extracto corto, descomenta la línea de abajo:
-            <p class="blog-preview-excerpt">{{ Str::limit(strip_tags($blog->content), 150) }}</p> 
-            --}}
-
-            <div class="blog-preview-components">
-              @foreach ($blog->components as $component)
-                <span class="blog-component-badge">{{ $component->titleComponente }}</span>
-              @endforeach
-            </div>
-
-            <a href="{{ route('blogs.publicShow', $blog->id) }}" class="blog-preview-link">
-              Leer más →
-            </a>
-          </div>
+@section('content')
+<main class="blog-previews-container">
+  <h1 class="blog-previews-title">Nuestros Blogs</h1>
+  <div class="blog-previews">
+    @foreach ($blogs as $blog)
+      <div class="blog-preview-card">
+        <div class="blog-image-wrapper">
+          <img
+            src="{{ asset($blog->displayImage) }}"
+            alt="Imagen de {{ $blog->title }}"
+            class="blog-preview-image"
+          >
         </div>
-      @endforeach
-    </div>
-  </main>
-</body>
-</html>
+        <div class="blog-preview-content">
+          <h2 class="blog-preview-title">{{ $blog->title }}</h2>
+          <div class="blog-preview-components">
+            @foreach ($blog->components as $c)
+              <span class="blog-component-badge">{{ $c->titleComponente }}</span>
+            @endforeach
+          </div>
+          <a href="{{ route('blogs.publicShow', $blog) }}" class="blog-preview-link">
+            Leer más →
+          </a>
+        </div>
+      </div>
+    @endforeach
+  </div>
+</main>
+@endsection
