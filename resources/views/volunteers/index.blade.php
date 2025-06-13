@@ -8,9 +8,8 @@
     <title>Voluntarios | Ecomuseo LLAQTA AMARU - YOREN KUWAI</title>
 </head>
 <body>
-<header>
-    @include('partials.header_new')
-</header>
+@extends('layouts.app_new')
+
 <main class="volunteer-previews-container">
     <center><h1 style="margin: 20px 0px 0px 20px;">VOLUNTARIADO</h1></center>
     <div style="display: flex; justify-content: center;">
@@ -86,9 +85,6 @@
         </div>
     </div>
 </main>
-<footer>
-    @include('partials.footer')
-</footer>
 
 </body>
 </html>

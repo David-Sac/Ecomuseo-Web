@@ -23,8 +23,12 @@ body {
   background-color: transparent; /* ya lo pinta html */
   color: #333;
   line-height: 1.6;
+  
 }
+main {
+  margin-top: 60px; /* espacio para el header fijo */
 
+}
 /* 3. Espacio entre contenido y footer */
 footer {
   margin-top: 2rem;

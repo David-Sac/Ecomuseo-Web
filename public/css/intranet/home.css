@@ -1,0 +1,94 @@
+/* 0. Que html, body y #app ocupen toda la pantalla y permitan empujar el footer abajo */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* 1. Main que empuja el footer y centra el dashboard-container */
+.intranet-main {
+  flex: 1 0 auto;                  /* ocupa el espacio faltante */
+  display: flex;                   /* conviértelo en flexbox */
+  flex-direction: column;          /* eje principal vertical */
+  align-items: center;             /* centra horizontalmente */
+  padding-top: 60px;               /* espacio para el header */
+  padding-bottom: 0;               /* anula padding inferior si hay */
+}
+
+/* 2. Dashboard-container centrado y con margen superior */
+.dashboard-container {
+  width: 100%;
+  max-width: 1000px;               /* el ancho máximo que quieras */
+  margin: 40px auto 0;             /* 40px de separación sobre él, centrado */
+  padding: 2rem 1rem;              /* padding interior */
+}
+
+/* 3. Estilos de la tarjeta principal */
+.dashboard-container .card {
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+.dashboard-container .card-header {
+  background-color: #315530;
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+.dashboard-container .card-body {
+  padding: 2rem;
+}
+
+/* 4. Botones agrupados y responsivos */
+.dashboard-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.dashboard-actions .btn {
+  flex: 1 1 180px;
+  max-width: 220px;
+  border-radius: .5rem;
+  padding: .75rem 1rem;
+  transition: transform .2s, box-shadow .2s;
+}
+.dashboard-actions .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* 5. Separador dentro del dashboard */
+.dashboard-container hr {
+  margin: 2rem 0;
+  border: none;
+  border-top: 1px solid #eee;
+}
+
+/* 6. Tabla de tareas responsive */
+.table-responsive {
+  overflow-x: auto;
+}
+.table th {
+  background-color: #f5f5f5;
+}
+.table td, .table th {
+  vertical-align: middle;
+}
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(0,0,0,.03);
+}
+
+/* 7. Alertas centradas */
+.dashboard-container .alert {
+  max-width: 600px;
+  margin: 0 auto 1.5rem;
+}

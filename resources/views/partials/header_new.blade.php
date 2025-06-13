@@ -12,8 +12,13 @@
       </div>
       <div class="user-actions" id="auth-buttons">
         @auth
-          {{-- enlaces intranet / logout --}}
+          {{-- Botón al dashboard (solo usuarios logueados) --}}
+          <a href="{{ route('home') }}" class="intranet-btn">Panel</a>
+
+          {{-- Perfil --}}
           <a href="{{ route('profile.edit') }}" class="profile-btn">Perfil</a>
+
+          {{-- Cerrar sesión --}}
           <form method="POST" action="{{ route('logout') }}" style="display:inline;">
             @csrf
             <button type="submit" class="logout-btn">Cerrar sesión</button>
