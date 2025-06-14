@@ -1,4 +1,7 @@
 @extends('layouts.app_new')
+@section('styles')
+  <link rel="stylesheet" href="{{ asset('css/intranet/roles.css') }}">
+@endsection
 
 @section('content')
 <div class="card">

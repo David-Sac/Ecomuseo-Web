@@ -1,0 +1,86 @@
+/* public/css/intranet/user-create.css */
+
+/* 1. Forzar altura completa para que el footer “pegue” abajo */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* 2. Mantener espacio bajo el header fijo */
+.intranet-main {
+  flex: 1 0 auto;
+  padding-top: 60px;
+}
+
+/* 3. Card centrada y estilizada */
+.intranet-main .card {
+  max-width: 800px;
+  margin: 80px auto 40px;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+.intranet-main .card-header .btn-sm {
+  white-space: nowrap;
+  width: auto;
+  padding: .375rem .75rem;
+  font-size: .875rem;
+}
+
+/* 4. Header de la card en verde con clearfix */
+.intranet-main .card-header {
+  position: relative;
+  background-color: #315530;
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 600;
+  padding: 1rem;
+  border-bottom: none;
+}
+.intranet-main .card-header::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* 5. Botón de volver y título en header */
+.intranet-main .card-header .float-start,
+.intranet-main .card-header .float-end {
+  margin-top: 0.2rem;
+}
+
+/* 6. Body con padding generoso */
+.intranet-main .card-body {
+  padding: 2rem;
+}
+
+/* 7. Campos del formulario */
+.intranet-main .form-control {
+  margin-bottom: 1rem;
+}
+.intranet-main label {
+  font-weight: 500;
+}
+
+/* 8. Checkbox / form-check */
+.intranet-main .form-check {
+  margin-bottom: 0.5rem;
+}
+
+/* 9. Botón de submit centrado */
+.intranet-main .btn-primary {
+  display: block;
+  width: 50%;
+  margin: 1.5rem auto 0;
+}
+
+/* 10. Footer “pegado” al final */
+footer {
+  flex-shrink: 0;
+}

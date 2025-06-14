@@ -1,0 +1,77 @@
+/* public/css/intranet/blogs-create.css */
+
+/* 1. Layout para que el footer quede “pegado” */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.intranet-main {
+  flex: 1 0 auto;
+  padding-top: 60px; /* espacio bajo el header fijo */
+}
+
+/* 2. Card centrada y ajustada */
+.intranet-main .card {
+  max-width: 800px;
+  margin: 80px auto 40px;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+/* 3. Header en verde */
+.intranet-main .card-header {
+  background-color: #315530;
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-align: center;
+  padding: 1rem;
+  border-bottom: none;
+}
+
+/* 4. Body con padding amplio */
+.intranet-main .card-body {
+  padding: 2rem;
+}
+
+/* 5. Formularios: filas más compactas */
+.intranet-main .mb-3.row {
+  margin-bottom: 1rem;
+}
+.intranet-main .mb-3.row label {
+  font-weight: 500;
+}
+.intranet-main .mb-3.row .form-control {
+  width: 100%;
+}
+
+/* 6. Textarea de Markdown */
+.intranet-main #content {
+  min-height: 250px;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+/* 7. Checklist de componentes */
+.intranet-main .form-check {
+  margin-bottom: .5rem;
+}
+
+/* 8. Botón de envío centrado */
+.intranet-main .btn-primary {
+  display: block;
+  margin: 1.5rem auto 0;
+  padding: .5rem 1.5rem;
+}
+
+/* 9. Asegurar que el footer no tenga hueco adicional */
+footer {
+  flex-shrink: 0;
+}

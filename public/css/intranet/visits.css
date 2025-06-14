@@ -1,0 +1,74 @@
+/* 1. Altura completa + footer pegado */
+html, body { height:100%; margin:0; padding:0; }
+#app { display:flex; flex-direction:column; min-height:100vh; }
+.intranet-main { flex:1 0 auto; padding-top:60px; }
+
+/* 2. Aumentamos ancho sólo en visitas */
+.visits-card {
+  max-width: 1400px;  /* antes 1200px, ahora un poco más ancho */
+  margin: 80px auto 40px;
+}
+
+/* 3. Tarjeta y header */
+.visits-card .card {
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  overflow:hidden;
+}
+.visits-card .card-header {
+  background-color: #315530;
+  color: #fff;
+  font-size:1.25rem;
+  font-weight:600;
+  text-align:center;
+  padding:1rem;
+  border-bottom:none;
+}
+.visits-card .card-body {
+  padding:1.5rem;  /* un poco menos para ganar espacio */
+}
+
+/* 4. Tabla responsive + sm */
+.visits-card .table-responsive {
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+  margin-top:1rem;
+}
+.visits-card .table-sm th,
+.visits-card .table-sm td {
+  padding: .4rem .6rem;  /* padding más pequeño */
+  vertical-align:middle;
+  border:1px solid #dee2e6;
+}
+.visits-card .table-sm th {
+  background-color:#f5f5f5;
+  font-weight:500;
+  text-transform:uppercase;
+  letter-spacing:.5px;
+}
+
+/* 5. Franjas y hover */
+.visits-card .table-sm tbody tr:nth-of-type(odd)   { background-color:#fafafa; }
+.visits-card .table-sm tbody tr:hover             { background-color:#eef7ec; }
+
+/* 6. Estados de fila */
+.visits-card .table-sm tbody tr.pending  { background-color:#fff3cd !important; }
+.visits-card .table-sm tbody tr.approved { background-color:#d4edda !important; }
+.visits-card .table-sm tbody tr.rejected { background-color:#f8d7da !important; }
+
+/* 7. Botones de acción */
+.visits-card .table-sm .btn {
+  margin-right: .25rem;
+}
+.visits-card .table-sm .btn:last-child {
+  margin-right: 0;
+}
+
+/* 8. Paginación centrada */
+.visits-card .pagination {
+  justify-content:center;
+  margin-top:1rem;
+}
+
+/* 9. Footer pegado */
+footer { flex-shrink:0; }

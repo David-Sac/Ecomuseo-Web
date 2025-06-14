@@ -1,0 +1,82 @@
+/* public/css/intranet/tours-create.css */
+
+/* 1. Layout de altura completa para empujar el footer */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.intranet-main {
+  flex: 1 0 auto;
+  padding-top: 60px;  /* espacio bajo el header fijo */
+}
+
+/* 2. Card centrada y con margen */
+.intranet-main .card {
+  max-width: 800px;
+  margin: 80px auto 40px;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+/* 3. Header verde */
+.intranet-main .card-header {
+  background-color: #315530;
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-align: center;
+  padding: 1rem;
+  border-bottom: none;
+}
+
+/* 4. Body con padding generoso */
+.intranet-main .card-body {
+  padding: 2rem;
+}
+
+/* 5. Espaciado entre filas del formulario */
+.intranet-main .card-body .row {
+  margin-bottom: 1rem;
+}
+
+/* 6. Labels alineados y un poco más de peso */
+.intranet-main .card-body label {
+  font-weight: 500;
+}
+
+/* 7. Inputs a full-width */
+.intranet-main .card-body .form-control {
+  width: 100%;
+}
+
+/* 8. Grupos de horarios */
+.schedule-group {
+  margin-bottom: 1rem;
+}
+.schedule-group .form-row > .col {
+  padding-right: .5rem;
+  padding-left: .5rem;
+}
+
+/* 9. Botón “Agregar Horario” */
+#add-schedule {
+  margin-top: 1rem;
+}
+
+/* 10. Botón de envío centrado */
+.intranet-main .card-body input[type="submit"] {
+  display: block;
+  margin: 2rem auto 0;
+}
+
+/* 11. Footer “pegado” al final */
+footer {
+  flex-shrink: 0;
+}

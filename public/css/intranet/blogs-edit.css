@@ -1,0 +1,93 @@
+/* public/css/intranet/blogs-edit.css */
+
+/*---------------------------------------
+  1. Asegurarnos de que el body empuje  
+     el footer abajo (como antes)      
+---------------------------------------*/
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/*---------------------------------------
+  2. Darle un margin-top extra a todas 
+     las cards (separación del header)  
+---------------------------------------*/
+.intranet-main .card,
+.card {                /* si no usas intranet-main, aplica a .card global */
+  margin-top: 100px;   /* <- aquí ajusta a tu gusto */
+}
+
+/*---------------------------------------
+  3. Card centrada y espaciada          
+---------------------------------------*/
+.intranet-main .card {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+/*---------------------------------------
+  4. Header de la card en verde        
+---------------------------------------*/
+.intranet-main .card-header {
+  background-color: #315530;
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 600;
+  padding: 1rem;
+  position: relative;
+}
+
+/* Botón “Back” */
+.intranet-main .card-header .btn-light {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/*---------------------------------------
+  5. Body con padding                  
+---------------------------------------*/
+.intranet-main .card-body {
+  padding: 2rem;
+}
+
+/*---------------------------------------
+  6. Inputs, botones y EasyMDE          
+     (idéntico al anterior)            
+---------------------------------------*/
+.col-form-label { text-align: right; font-weight: 500; }
+.mb-3.row { align-items: center; margin-bottom: 1.5rem; }
+.form-control { border-radius: .375rem; transition: border-color .2s; }
+.form-control:focus {
+  border-color: #315530;
+  box-shadow: 0 0 0 .2rem rgba(49,85,48,.25);
+}
+.form-check { margin-bottom: .75rem; }
+.form-check-input { margin-right: .5rem; }
+
+.btn-primary {
+  background-color: #315530;
+  border-color: #315530;
+  padding: .5rem 1.25rem;
+}
+.btn-primary:hover {
+  background-color: #27421f;
+  border-color: #27421f;
+}
+
+/*---------------------------------------
+  7. Footer “pegado” al final          
+---------------------------------------*/
+footer { flex-shrink: 0; }

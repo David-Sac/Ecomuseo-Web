@@ -1,81 +1,74 @@
-<link rel="stylesheet" href="{{ asset('css/visits.css') }}">
-
 @extends('layouts.app_new')
-
-@section('content')
-
-<div class="card">
-    <div class="card-header">Lista de Visitas</div>
-    <div class="card-body">
-        <table id="table">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Usuario</th>
-                    <th scope="col">Tour</th>
-                    <th scope="col">Número de Personas</th>
-                    <th scope="col">Número de Teléfono</th>
-                    <th scope="col">Acompañantes</th>
-                    <th scope="col">Fecha Seleccionada</th>
-                    <th scope="col">Estado</th>
-                    <th scope="col">Fecha de Solicitud</th>
-                    <th scope="col">Fecha de Aprobación</th>
-                    <th scope="col" style="width: 250px;">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse ($visits as $visit)
-                <tr class="{{ $visit->status }}">
-                    <th scope="row">{{ $loop->iteration }}</th>
-                    <td>{{ $visit->user->name }}</td>
-                    <td>{{ $visit->tourSchedule->tour->name }}</td>
-                    <td>{{ $visit->number_of_people }}</td>
-                    <td>
-                        @php
-                            $additionalInfo = json_decode($visit->additional_info, true);
-                            echo $additionalInfo['contact_number'] ?? 'No se registró';
-                        @endphp
-                    </td>
-                    <td>
-                        @php
-                            $companions = $additionalInfo['companions'] ?? [];
-                            if (empty($companions)) {
-                                echo 'No se registró';
-                            } else {
-                                foreach ($companions as $companion) {
-                                    echo $companion['name'] . ' (' . $companion['age_group'] . '), ';
-                                }
-                            }
-                        @endphp
-                    </td>
-                    <td>{{ $visit->tourSchedule->day_of_week }} {{ date('g:i A', strtotime($visit->tourSchedule->start_time)) }}</td>
-                    <td>{{ ucfirst($visit->status) }}</td>
-                    <td>{{ $visit->requested_date }}</td>
-                    <td>{{ $visit->approved_date ? $visit->approved_date : 'N/A' }}</td>
-                    <td>
-                        <!-- Botón para aprobar -->
-                        <button type="button" class="btn btn-success bi-check-lg approve-btn" data-id="{{ $visit->id }}"></button>
-                        <!-- Botón para declinar -->
-                        <button type="button" class="btn btn-danger bi-x-lg decline-btn" data-id="{{ $visit->id }}"></button>
-                        <a href="{{ route('visits.show', $visit->id) }}" class="btn btn-warning btn-sm"><i class="bi bi-eye"></i> Show</a>
-                    </td>
-                </tr>
-                @empty
-                    <td colspan="11">
-                        <span class="text-danger">
-                            <strong>No se encuentran visitas</strong>
-                        </span>
-                    </td>
-                @endforelse
-            </tbody>
-        </table>
-
-        {{ $visits->links() }}
-
-    </div>
-</div>
+@section('styles')
+  <link rel="stylesheet" href="{{ asset('css/intranet/visits.css') }}">
 @endsection
 
+@section('content')
+<main class="intranet-main">
+  <div class="card visits-card">
+    <div class="card-header">Lista de Visitas</div>
+    <div class="card-body">
+
+      <div class="table-responsive">
+        <table id="table" class="table table-sm">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Usuario</th>
+              <th>Tour</th>
+              <th>Personas</th>
+              <th>Teléfono</th>
+              <th>Acompañantes</th>
+              <th>Fecha Seleccionada</th>
+              <th>Estado</th>
+              <th>Fecha Solicitud</th>
+              <th>Fecha Aprobación</th>
+              <th style="width:160px">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @forelse ($visits as $visit)
+            <tr class="{{ $visit->status }}">
+              <th scope="row">{{ $loop->iteration }}</th>
+              <td>{{ $visit->user->name }}</td>
+              <td>{{ $visit->tourSchedule->tour->name }}</td>
+              <td>{{ $visit->number_of_people }}</td>
+              <td>{{ json_decode($visit->additional_info,true)['contact_number'] ?? 'No registrado' }}</td>
+              <td>
+                @php $c = json_decode($visit->additional_info,true)['companions'] ?? []; @endphp
+                {{ empty($c) ? 'No registrado' : collect($c)->pluck('name')->implode(', ') }}
+              </td>
+              <td>{{ $visit->tourSchedule->day_of_week }} {{ date('g:i A', strtotime($visit->tourSchedule->start_time)) }}</td>
+              <td>{{ ucfirst($visit->status) }}</td>
+              <td>{{ $visit->requested_date }}</td>
+              <td>{{ $visit->approved_date ?: 'N/A' }}</td>
+              <td>
+                <button class="btn btn-sm btn-success bi-check-lg approve-btn" data-id="{{ $visit->id }}"></button>
+                <button class="btn btn-sm btn-danger bi-x-lg decline-btn" data-id="{{ $visit->id }}"></button>
+                <a class="btn btn-sm btn-warning" href="{{ route('visits.show',$visit->id) }}">
+                  <i class="bi bi-eye"></i>
+                </a>
+              </td>
+            </tr>
+            @empty
+            <tr>
+              <td colspan="11" class="text-center text-danger">
+                <strong>No se encuentran visitas</strong>
+              </td>
+            </tr>
+            @endforelse
+          </tbody>
+        </table>
+      </div>
+
+      <div class="d-flex justify-content-center mt-3">
+        {{ $visits->links() }}
+      </div>
+
+    </div>
+  </div>
+</main>
+@endsection
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <script>

@@ -1,0 +1,83 @@
+/* public/css/intranet/components-create.css */
+
+/* 1. Layout para que el footer “pegue” abajo */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+/* 2. Dejamos espacio bajo el header fijo */
+.intranet-main {
+  flex: 1 0 auto;
+  padding-top: 60px;
+}
+
+/* 3. Card centrada y espaciada */
+.intranet-main .card {
+  max-width: 800px;
+  margin: 80px auto 40px;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+/* 4. Cabecera verde */
+.intranet-main .card-header {
+  background-color: #315530;
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: none;
+}
+
+/* 5. Body con padding generoso */
+.intranet-main .card-body {
+  padding: 2rem;
+}
+
+/* 6. Formularios alineados en grid */
+.intranet-main .card-body .row {
+  margin-bottom: 1rem;
+}
+.intranet-main .card-body .col-form-label {
+  text-align: right;
+  font-weight: 500;
+}
+.intranet-main .card-body .form-control {
+  border-radius: .375rem;
+}
+
+/* 7. Botón “Add Component” */
+.intranet-main .card-body .btn-primary {
+  display: block;
+  margin: 1.5rem auto 0;
+  padding: .6rem 1.5rem;
+  border-radius: .5rem;
+}
+
+/* 8. EasyMDE full width */
+.intranet-main .EasyMDEContainer {
+  margin-top: .5rem;
+}
+.intranet-main textarea#contentComponente {
+  min-height: 300px;
+}
+
+/* 9. Enlace “Back” */
+.intranet-main .card-header .btn-sm {
+  margin: 0;
+}
+
+/* 10. Footer “pegado” al final */
+footer {
+  flex-shrink: 0;
+}

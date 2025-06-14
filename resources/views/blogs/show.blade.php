@@ -37,10 +37,5 @@
     </div>
   @endif
 
-  {{-- Botón Volver abajo --}}
-  <div class="back-to-list">
-    <a href="{{ route('blogs.index') }}" class="btn-back">← Volver a Blogs</a>
-  </div>
-
 </main>
 @endsection
