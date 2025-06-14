@@ -1,30 +1,29 @@
 @extends('layouts.app_new')
 
 @section('styles')
-  <!-- Cargamos el CSS específico -->
+  <!-- CSS específico -->
   <link rel="stylesheet" href="{{ asset('css/intranet/blogs-edit.css') }}">
   <!-- EasyMDE -->
   <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css">
 @endsection
 
 @section('content')
-<div class="intranet-main"><!-- <-- aquí -->
+<div class="intranet-main">
   <div class="card">
     <div class="card-header">
-      <div class="float-start">Edit Blog</div>
+      <div class="float-start">Editar Blog</div>
       <div class="float-end">
-        <a href="{{ route('blogs.index') }}" class="btn btn-light btn-sm">
-          &larr; Volver a Blogs
-        </a>
+        <a href="{{ route('blogs.index') }}" class="btn btn-light btn-sm">&larr; Volver a Blogs</a>
       </div>
     </div>
     <div class="card-body">
-      <form action="{{ route('blogs.update', $blog->id) }}" method="post">
+      {{-- IMPORTANTE: enctype para manejar archivos --}}
+      <form action="{{ route('blogs.update', $blog->id) }}" method="post" enctype="multipart/form-data">
         @csrf @method('PUT')
 
-        <!-- Title -->
+        {{-- Título --}}
         <div class="mb-3 row">
-          <label class="col-md-4 col-form-label text-md-end">Title</label>
+          <label class="col-md-4 col-form-label text-md-end">Título</label>
           <div class="col-md-6">
             <input type="text"
                    name="title"
@@ -36,9 +35,9 @@
           </div>
         </div>
 
-        <!-- Content -->
+        {{-- Contenido --}}
         <div class="mb-3 row">
-          <label class="col-md-4 col-form-label text-md-end">Content</label>
+          <label class="col-md-4 col-form-label text-md-end">Contenido</label>
           <div class="col-md-6">
             <textarea id="content"
                       name="content"
@@ -50,9 +49,9 @@
           </div>
         </div>
 
-        <!-- Components -->
+        {{-- Componentes --}}
         <div class="mb-3 row">
-          <label class="col-md-4 col-form-label text-md-end">Components</label>
+          <label class="col-md-4 col-form-label text-md-end">Componentes</label>
           <div class="col-md-6">
             @foreach($components as $c)
               <div class="form-check">
@@ -73,24 +72,50 @@
           </div>
         </div>
 
-        <!-- Status (si eres Admin/Super Admin) -->
+        {{-- Imagen actual y campo para nueva --}}
+        <div class="mb-3 row">
+          <label class="col-md-4 col-form-label text-md-end">Imagen Actual</label>
+          <div class="col-md-6">
+            @if($blog->image_path)
+              <img src="{{ asset('storage/'.$blog->image_path) }}" alt="Imagen del blog" class="img-fluid mb-2" style="max-height:150px;">
+            @else
+              <em>No hay imagen asignada</em>
+            @endif
+          </div>
+        </div>
+
+        <div class="mb-3 row">
+          <label for="image_path" class="col-md-4 col-form-label text-md-end">Cambiar Imagen</label>
+          <div class="col-md-6">
+            <input type="file"
+                   id="image_path"
+                   name="image_path"
+                   accept="image/*"
+                   class="form-control @error('image_path') is-invalid @enderror">
+            @error('image_path')
+              <span class="text-danger">{{ $message }}</span>
+            @enderror
+          </div>
+        </div>
+
+        {{-- Estado (solo Admin/Super Admin) --}}
         @canany(['Super Admin','Admin'])
           <div class="mb-3 row">
-            <label class="col-md-4 col-form-label text-md-end">Status</label>
+            <label class="col-md-4 col-form-label text-md-end">Estado</label>
             <div class="col-md-6">
               <select name="status" class="form-control">
-                <option value="pending"  {{ $blog->status=='pending'  ? 'selected':'' }}>Pending</option>
-                <option value="approved" {{ $blog->status=='approved' ? 'selected':'' }}>Approved</option>
-                <option value="rejected" {{ $blog->status=='rejected' ? 'selected':'' }}>Rejected</option>
+                <option value="pending"  {{ $blog->status=='pending'  ? 'selected':'' }}>Pendiente</option>
+                <option value="approved" {{ $blog->status=='approved' ? 'selected':'' }}>Aprobado</option>
+                <option value="rejected" {{ $blog->status=='rejected' ? 'selected':'' }}>Rechazado</option>
               </select>
             </div>
           </div>
         @endcanany
 
-        <!-- Submit -->
+        {{-- Botón de envío --}}
         <div class="mb-3 row">
           <div class="col-md-6 offset-md-4">
-            <button type="submit" class="btn btn-primary">Update Blog</button>
+            <button type="submit" class="btn btn-primary">Actualizar Blog</button>
           </div>
         </div>
       </form>

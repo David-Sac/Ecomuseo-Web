@@ -22,11 +22,11 @@ class UpdateBlogRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|string|max:255',
-            'content' => 'required|string',
-            'components' => 'required|array',
-            'components.*' => 'exists:components,id',
-            'status' => 'required|in:pending,approved,rejected'
+            'title'       => 'required|string|max:255',
+            'content'     => 'required|string',
+            'components'  => 'nullable|array',
+            'components.*'=> 'exists:components,id',
+            'image_path'  => 'nullable|image|max:2048',  // ← idem
         ];
     }
 }

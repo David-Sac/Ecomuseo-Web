@@ -17,9 +17,11 @@
         </div>
       </div>
       <div class="card-body">
-        <form action="{{ route('blogs.store') }}" method="post">
+        {{-- IMPORTANTE: enctype multipart/form-data para subir archivos --}}
+        <form action="{{ route('blogs.store') }}" method="post" enctype="multipart/form-data">
           @csrf
 
+          {{-- Título --}}
           <div class="mb-3 row">
             <label for="title" class="col-md-2 col-form-label text-md-end">Título</label>
             <div class="col-md-10">
@@ -36,6 +38,7 @@
             </div>
           </div>
 
+          {{-- Contenido --}}
           <div class="mb-3 row">
             <label for="content" class="col-md-2 col-form-label text-md-end">Contenido</label>
             <div class="col-md-10">
@@ -50,6 +53,7 @@
             </div>
           </div>
 
+          {{-- Componentes --}}
           <div class="mb-3 row">
             <label class="col-md-2 col-form-label text-md-end">Componentes</label>
             <div class="col-md-10">
@@ -61,6 +65,7 @@
                     id="component{{ $component->id }}"
                     name="components[]"
                     value="{{ $component->id }}"
+                    {{ in_array($component->id, old('components', [])) ? 'checked' : '' }}
                   >
                   <label class="form-check-label" for="component{{ $component->id }}">
                     {{ $component->titleComponente }}
@@ -73,6 +78,24 @@
             </div>
           </div>
 
+          {{-- Imagen --}}
+          <div class="mb-3 row">
+            <label for="image_path" class="col-md-2 col-form-label text-md-end">Imagen</label>
+            <div class="col-md-10">
+              <input
+                type="file"
+                id="image_path"
+                name="image_path"
+                accept="image/*"
+                class="form-control @error('image_path') is-invalid @enderror"
+              >
+              @error('image_path')
+                <span class="text-danger">{{ $message }}</span>
+              @enderror
+            </div>
+          </div>
+
+          {{-- Botón --}}
           <div class="mb-3 row">
             <div class="col-md-10 offset-md-2">
               <button type="submit" class="btn btn-primary px-4">Añadir Blog</button>

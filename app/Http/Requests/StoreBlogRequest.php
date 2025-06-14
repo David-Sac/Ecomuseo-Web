@@ -26,11 +26,11 @@ class StoreBlogRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|max:255',
-            'content' => 'required|string',
-            'components' => 'sometimes|array',
-            'components.*' => 'exists:components,id',
-            // No necesitas 'author_id' aquí si se asignará automáticamente basado en el usuario autenticado
+            'title'       => 'required|string|max:255',
+            'content'     => 'required|string',
+            'components'  => 'nullable|array',
+            'components.*'=> 'exists:components,id',
+            'image_path'  => 'nullable|image|max:2048',  // ← validamos la imagen
         ];
     }
 }

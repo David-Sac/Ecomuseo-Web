@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Storage;
 use App\Models\User;
 use App\Models\Tour;
 use App\Models\Visit;
@@ -38,27 +38,29 @@ class TourController extends Controller
         return view('tours.create', compact('components', 'volunteers'));
     }
 
-    public function store(StoreTourRequest $request): RedirectResponse
+
+    public function store(StoreTourRequest $request)
     {
-        $validatedData = $request->validated();
-        $tour = Tour::create(Arr::except($validatedData, ['components', 'volunteer_id', 'schedules']));
+        $data = $request->validated();
 
-        if (!empty($validatedData['components'])) {
-            $tour->components()->sync($validatedData['components']);
+        if ($request->hasFile('image_path')) {
+            $data['image_path'] = $request
+                ->file('image_path')
+                ->store('images/tours', 'public');
         }
 
-        if (!empty($validatedData['volunteer_id'])) {
-            $tour->volunteers()->attach($validatedData['volunteer_id']);
+        $tour = Tour::create(Arr::except($data, ['components', 'volunteer_id', 'schedules']));
+
+        $tour->components()->sync($data['components'] ?? []);
+        $tour->volunteers()->sync($data['volunteer_id'] ? [$data['volunteer_id']] : []);
+        foreach ($data['schedules'] ?? [] as $sch) {
+            $tour->schedules()->create($sch);
         }
 
-        if (!empty($validatedData['schedules'])) {
-            foreach ($validatedData['schedules'] as $schedule) {
-                $tour->schedules()->create($schedule);
-            }
-        }
-
-        return redirect()->route('tours.index')->with('success', 'Tour creado con éxito!');
+        return redirect()->route('tours.index')
+                         ->with('success', 'Tour creado con éxito.');
     }
+
 
     public function show(Tour $tour)
     {
@@ -133,32 +135,30 @@ class TourController extends Controller
         return view('tours.edit', compact('tour', 'components', 'volunteers', 'assignedVolunteer'));
     }
 
-    public function update(UpdateTourRequest $request, Tour $tour): RedirectResponse
+    public function update(UpdateTourRequest $request, Tour $tour)
     {
-        $validatedData = $request->validated();
+        $data = $request->validated();
 
-        $tour->update(Arr::except($validatedData, ['components', 'volunteer_id', 'schedules']));
-
-        if (array_key_exists('components', $validatedData)) {
-            $tour->components()->sync($validatedData['components']);
-        }
-
-        if (!empty($validatedData['volunteer_id'])) {
-            $tour->volunteers()->sync([$validatedData['volunteer_id']]);
-            $volunteer = User::find($validatedData['volunteer_id']);
-            $tour->update(['contact_info' => $volunteer->phone]);
-        }
-
-        // Actualiza los horarios del tour
-        if (!empty($validatedData['schedules'])) {
-            $tour->schedules()->delete(); // Elimina los horarios existentes
-
-            foreach ($validatedData['schedules'] as $schedule) {
-                $tour->schedules()->create($schedule); // Crea los nuevos horarios
+        if ($request->hasFile('image_path')) {
+            if ($tour->image_path) {
+                Storage::disk('public')->delete($tour->image_path);
             }
+            $data['image_path'] = $request
+                ->file('image_path')
+                ->store('images/tours', 'public');
         }
 
-        return redirect()->route('tours.index')->with('success', 'Tour actualizado con éxito!');
+        $tour->update(Arr::except($data, ['components', 'volunteer_id', 'schedules']));
+
+        $tour->components()->sync($data['components'] ?? []);
+        $tour->volunteers()->sync($data['volunteer_id'] ? [$data['volunteer_id']] : []);
+        $tour->schedules()->delete();
+        foreach ($data['schedules'] ?? [] as $sch) {
+            $tour->schedules()->create($sch);
+        }
+
+        return redirect()->route('tours.index')
+                         ->with('success', 'Tour actualizado con éxito.');
     }
 
 

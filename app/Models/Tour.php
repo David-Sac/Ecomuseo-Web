@@ -9,6 +9,7 @@ class Tour extends Model
 {
     use HasFactory;
 
+    // <-- Añadimos 'image_path'
     protected $fillable = [
         'name',
         'description',
@@ -17,6 +18,7 @@ class Tour extends Model
         'max_people',
         'contact_info',
         'visibility_period',
+        'image_path',
     ];
 
     public function components()

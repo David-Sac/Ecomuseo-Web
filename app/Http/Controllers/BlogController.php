@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Components;
 use App\Models\Blog;
-
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreBlogRequest;
 use App\Http\Requests\UpdateBlogRequest;
 use Illuminate\View\View;
@@ -62,20 +62,28 @@ class BlogController extends Controller
      */
     public function store(StoreBlogRequest $request)
     {
-        $validated = $request->validated();
-        // dd($validated);
-        // Crear el blog
-        $blog = new Blog($validated);
-        $blog->author_id = auth()->id(); // Asignar el ID del usuario autenticado como autor
-        $blog->save();
+        $data = $request->validated();
 
-        // Si se proporcionaron componentes, sincronizarlos
-        if (!empty($validated['components'])) {
-            $blog->components()->sync($validated['components']);
+        // Si nos llegó un fichero, lo guardamos en public/storage/images/blogs y guardamos la ruta
+        if ($request->hasFile('image_path')) {
+            $data['image_path'] = $request
+                ->file('image_path')
+                ->store('images/blogs', 'public');
         }
 
-        return redirect()->route('blogs.index')->with('success', 'Blog creado con éxito.');
+        // Creamos el blog con el author_id
+        $blog = Blog::create(array_merge(
+            $data,
+            ['author_id' => auth()->id()]
+        ));
+
+        // Relacionamos componentes si vienen
+        $blog->components()->sync($data['components'] ?? []);
+
+        return redirect()->route('blogs.index')
+                         ->with('success', 'Blog creado con éxito.');
     }
+
 
     public function approve($id)
     {
@@ -94,40 +102,54 @@ class BlogController extends Controller
 
     public function publicIndex()
     {
-        // Obtener todos los blogs con sus componentes relacionados
-        $blogs = Blog::with('components')->where('status', 'approved')->get();
+        $blogs = Blog::with('components')
+                    ->where('status', 'approved')
+                    ->get();
 
-        // Añadir la ruta de imagen de un componente asociado a cada blog
         foreach ($blogs as $blog) {
-            // Asegúrate de que hay componentes y que tienen imágenes antes de intentar obtener una
-            if ($blog->components->isNotEmpty() && $blog->components->first()->rutaImagenComponente) {
-                // Puede elegir obtener la imagen del primer componente o una aleatoria
-                $randomComponentWithImage = $blog->components->whereNotNull('rutaImagenComponente')->random();
-
-                // $blog->displayImage = $blog->components;
-                $blog->displayImage = $randomComponentWithImage->rutaImagenComponente;
-
-            } else {
-                // Si no hay componentes con imágenes, asignar un valor por defecto o dejarlo nulo
-                $blog->displayImage = 'path/to/default-image.jpg'; // Asegúrate de que este path sea correcto
+            // 1) Si tiene su propia imagen_path, úsala:
+            if ($blog->image_path) {
+                // guardamos la ruta relativa a public/
+                $blog->displayImage = 'storage/' . $blog->image_path; // <<<—
+            }
+            // 2) Sino, si hay componente con imagen, tomamos uno aleatorio:
+            elseif ($blog->components->isNotEmpty() 
+                && $blog->components->first()->rutaImagenComponente) {
+                $random = $blog->components
+                            ->whereNotNull('rutaImagenComponente')
+                            ->random();
+                $blog->displayImage = $random->rutaImagenComponente;
+            }
+            // 3) Y de último, un placeholder genérico:
+            else {
+                $blog->displayImage = 'images/default-blog.jpg';
             }
         }
 
-        // Pasar los blogs a la vista pública
         return view('blogs.public_index', compact('blogs'));
     }
-
     public function publicShow($id)
     {
         $blog = Blog::with('author','components')->findOrFail($id);
 
-        // Opción A: con Parsedown
+        // ——— Aquí
+        if ($blog->image_path) {
+            // guardamos la ruta relativa a public/
+            $blog->displayImage = 'storage/' . $blog->image_path;
+        }
+        elseif ($blog->components->isNotEmpty() && $blog->components->first()->rutaImagenComponente) {
+            $random = $blog->components
+                        ->whereNotNull('rutaImagenComponente')
+                        ->random();
+            $blog->displayImage = $random->rutaImagenComponente;
+        } else {
+            $blog->displayImage = 'images/default-blog.jpg';
+        }
+        // ———
+
+        // parsear Markdown
         $parsedown = new Parsedown();
         $blog->content = $parsedown->text($blog->content);
-
-        // Opción B (Laravel 10+): con Str::markdown
-        // use Illuminate\Support\Str;
-        // $blog->content = Str::markdown($blog->content);
 
         return view('blogs.publicShow', compact('blog'));
     }
@@ -158,17 +180,25 @@ class BlogController extends Controller
     // Método para actualizar el blog
     public function update(UpdateBlogRequest $request, Blog $blog)
     {
-        $validated = $request->validated();
-        $blog->update($validated);
+        $data = $request->validated();
 
-        // Actualiza los componentes asociados si es necesario
-        if (isset($validated['components'])) {
-            $blog->components()->sync($validated['components']);
-        } else {
-            $blog->components()->detach();
+        if ($request->hasFile('image_path')) {
+            // Eliminamos la imagen vieja (si existía)
+            if ($blog->image_path) {
+                Storage::disk('public')->delete($blog->image_path);
+            }
+            // Subimos la nueva
+            $data['image_path'] = $request
+                ->file('image_path')
+                ->store('images/blogs', 'public');
         }
 
-        return redirect()->route('blogs.index')->with('success', 'Blog updated successfully');
+        // Actualizamos datos y relaciones
+        $blog->update($data);
+        $blog->components()->sync($data['components'] ?? []);
+
+        return redirect()->route('blogs.index')
+                         ->with('success', 'Blog actualizado con éxito.');
     }
 
     /**

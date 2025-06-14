@@ -9,19 +9,22 @@ class Blog extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'content', 'author_id', 'status'];
-
+    // <-- Añadimos 'image_path'
+    protected $fillable = [
+        'title',
+        'content',
+        'author_id',
+        'status',
+        'image_path',
+    ];
 
     public function components()
-{
-    return $this->belongsToMany(Components::class, 'blog_component', 'blog_id', 'component_id');
-}
+    {
+        return $this->belongsToMany(Components::class, 'blog_component', 'blog_id', 'component_id');
+    }
 
-
-    // Relación con el autor/usuario
     public function author()
     {
         return $this->belongsTo(User::class, 'author_id');
     }
-
 }

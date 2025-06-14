@@ -1,4 +1,4 @@
-{{-- resources/views/blogs/publicShow.blade.php --}}
+{{-- resources/views/blogs/public_show.blade.php --}}
 @extends('layouts.app_new')
 
 @section('styles')
@@ -6,28 +6,25 @@
 @endsection
 
 @section('content')
-  <main class="blog-content-container">
-    <div class="back-to-list">
-      <a href="{{ route('blogs.publicIndex') }}" class="btn-back">&larr; Volver a Blogs</a>
-    </div>
+<main class="blog-detail-container">
+  {{-- Imagen principal --}}
+  <div class="blog-detail-image-wrapper">
+    <img 
+      src="{{ asset($blog->displayImage) }}" 
+      alt="Imagen de {{ $blog->title }}" 
+      class="blog-detail-image"
+    >
+  </div>
 
-    <h1 class="blog-title">{{ $blog->title }}</h1>
-    <div class="blog-meta">
-      Autor: {{ $blog->author->name }} | Fecha: {{ $blog->created_at->toFormattedDateString() }}
-    </div>
+  {{-- Título y meta --}}
+  <h1 class="blog-detail-title">{{ $blog->title }}</h1>
+  <p class="blog-detail-meta">
+    Por {{ $blog->author->name }} | {{ $blog->created_at->format('d/m/Y') }}
+  </p>
 
-    {{-- Aquí aprovechamos que $blog->content ya es HTML --}}
-    <div class="blog-content markdown-body">
-      {!! $blog->content !!}
-    </div>
-
-    @if($blog->components->isNotEmpty())
-      <div class="blog-components">
-        <h3>Componentes relacionados:</h3>
-        @foreach($blog->components as $c)
-          <span class="blog-component-badge">{{ $c->titleComponente }}</span>
-        @endforeach
-      </div>
-    @endif
-  </main>
+  {{-- Contenido ya convertido --}}
+  <article class="blog-detail-content">
+    {!! $blog->content !!}
+  </article>
+</main>
 @endsection

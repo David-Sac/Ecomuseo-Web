@@ -2,7 +2,6 @@
 @extends('layouts.app_new')
 
 @section('styles')
-  <!-- aquí añades SOLO el CSS específico de blogs -->
   <link rel="stylesheet" href="{{ asset('css/public_index_blog.css') }}">
 @endsection
 

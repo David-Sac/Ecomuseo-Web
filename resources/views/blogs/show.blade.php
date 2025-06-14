@@ -1,41 +1,45 @@
 @extends('layouts.app_new')
 
 @section('styles')
-  <link rel="stylesheet" href="{{ asset('css/public_show_blog.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/intranet/blogs.css') }}">
 @endsection
 
 @section('content')
-<main class="blog-content-container">
-
-  {{-- Botón Volver arriba --}}
-  <div class="back-to-list">
-    <a href="{{ route('blogs.index') }}" class="btn-back">← Volver a Blogs</a>
-  </div>
-
-  {{-- Título --}}
-  <h1 class="blog-title">{{ $blog->title }}</h1>
-
-  {{-- Meta datos --}}
-  <div class="blog-meta">
-    Autor: {{ $blog->author->name }} | Fecha: {{ $blog->created_at->toFormattedDateString() }}
-  </div>
-
-  {{-- Contenido con scroll vertical --}}
-  <div class="blog-content markdown-body">
-    @markdown
-    {{ $blog->content }}
-    @endmarkdown
-  </div>
-
-  {{-- Componentes relacionados --}}
-  @if($blog->components->isNotEmpty())
-    <div class="blog-components">
-      <h2>Componentes relacionados</h2>
-      @foreach($blog->components as $component)
-        <span class="blog-component-badge">{{ $component->titleComponente }}</span>
-      @endforeach
+<div class="card">
+  <div class="card-header">
+    <div class="float-start">{{ $blog->title }}</div>
+    <div class="float-end">
+      <a href="{{ route('blogs.index') }}" class="btn btn-light btn-sm">&larr; Volver</a>
     </div>
-  @endif
+  </div>
+  <div class="card-body">
+    {{-- Mostrar la imagen a tamaño más grande --}}
+    @if($blog->image_path)
+    <div class="mb-4 text-center">
+      <img src="{{ asset('storage/'.$blog->image_path) }}"
+           alt="Imagen de {{ $blog->title }}"
+           style="max-width:100%; height:auto; border-radius:6px; box-shadow:0 2px 8px rgba(0,0,0,0.1)">
+    </div>
+    @endif
 
-</main>
+    <p><strong>Autor:</strong> {{ $blog->author->name }}</p>
+    <p><strong>Fecha:</strong> {{ $blog->created_at->format('Y-m-d') }}</p>
+    <p><strong>Estado:</strong> {{ ucfirst($blog->status) }}</p>
+
+    <hr>
+
+    {{-- Puedes continuar mostrando el contenido parseado --}}
+    <div class="prose">
+      {!! \Illuminate\Support\Str::markdown($blog->content) !!}
+    </div>
+
+    <hr>
+
+    <p><strong>Componentes:</strong>
+      @foreach($blog->components as $c)
+        <span class="badge bg-info">{{ $c->titleComponente }}</span>
+      @endforeach
+    </p>
+  </div>
+</div>
 @endsection

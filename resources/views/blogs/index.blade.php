@@ -1,7 +1,6 @@
 @extends('layouts.app_new')
 
 @section('styles')
-  <!-- Cargamos el CSS específico de Blogs -->
   <link rel="stylesheet" href="{{ asset('css/intranet/blogs.css') }}">
 @endsection
 
@@ -10,85 +9,75 @@
   <div class="card-header">Entradas del Blog</div>
   <div class="card-body">
     @can('create-blog')
-      <a href="{{ route('blogs.create') }}" class="btn btn-success btn-sm my-2">
+      <a href="{{ route('blogs.create') }}" class="btn btn-success btn-sm mb-3">
         <i class="bi bi-plus-circle"></i> Añadir Nuevo Blog
       </a>
     @endcan
 
-    <table id="table">
+    <table id="table" class="table table-striped table-bordered">
       <thead>
         <tr>
-          <th scope="col">N°</th>
-          <th scope="col">Título</th>
-          <th scope="col">Autor</th>
-          <th scope="col">Componentes</th>
-          <th scope="col">Estado</th>
-          <th scope="col">Fecha</th>
-          <th scope="col" style="width: 250px;">Opciones</th>
+          <th>S#</th>
+          <th>Imagen</th>
+          <th>Título</th>
+          <th>Autor</th>
+          <th>Componentes</th>
+          <th>Estado</th>
+          <th>Fecha</th>
+          <th>Opciones</th>
         </tr>
       </thead>
       <tbody>
-  @forelse ($blogs as $blog)
-  <tr class="{{ $blog->status }}">
-    <th scope="row">{{ $loop->iteration }}</th>
-    <td>{{ $blog->title }}</td>
-    <td>{{ $blog->author->name }}</td>
-    <td>
-      @foreach ($blog->components as $component)
-        <span class="badge bg-info">{{ $component->titleComponente }}</span>
-      @endforeach
-    </td>
-    <td>
-      @switch($blog->status)
-        @case('pending')
-          Pendiente
-          @break
-        @case('approved')
-          Aprobado
-          @break
-        @case('rejected')
-          Rechazado
-          @break
-        @default
-          {{ ucfirst($blog->status) }}
-      @endswitch
-    </td>
-    <td>{{ $blog->created_at->format('Y-m-d') }}</td>
-    <td>
-      @can('approve_post')
-        <button type="button" class="btn btn-success bi-check-lg approve-btn" data-id="{{ $blog->id }}"></button>
-        <button type="button" class="btn btn-danger bi-x-lg decline-btn" data-id="{{ $blog->id }}"></button>
-      @endcan
-
-      <a href="{{ route('blogs.show', $blog->id) }}" class="btn btn-warning btn-sm">
-        <i class="bi bi-eye"></i> Mostrar
-      </a>
-      @can('edit-blog')
-        <a href="{{ route('blogs.edit', $blog->id) }}" class="btn btn-primary btn-sm">
-          <i class="bi bi-pencil-square"></i> Editar
-        </a>
-      @endcan
-      @can('delete-blog')
-        <form action="{{ route('blogs.destroy', $blog->id) }}" method="post" class="d-inline" onsubmit="return confirm('¿Eliminar este blog?')">
-          @csrf
-          @method('DELETE')
-          <button class="btn btn-danger btn-sm">
-            <i class="bi bi-trash"></i> Eliminar
-          </button>
-        </form>
-      @endcan
-    </td>
-  </tr>
-  @empty
-    <tr>
-      <td colspan="7" class="text-center">No hay entradas</td>
-    </tr>
-  @endforelse
-</tbody>
-
+        @forelse($blogs as $blog)
+        <tr class="{{ $blog->status }}">
+          <td>{{ $loop->iteration }}</td>
+          {{-- Nueva columna de imagen --}}
+          <td>
+            @if($blog->image_path)
+              <img src="{{ asset('storage/'.$blog->image_path) }}"
+                   alt="Imagen de {{ $blog->title }}"
+                   style="width:80px; height:auto; object-fit:cover; border-radius:4px">
+            @else
+              <span class="text-muted">– sin imagen –</span>
+            @endif
+          </td>
+          <td>{{ $blog->title }}</td>
+          <td>{{ $blog->author->name }}</td>
+          <td>
+            @foreach($blog->components as $c)
+              <span class="badge bg-info">{{ $c->titleComponente }}</span>
+            @endforeach
+          </td>
+          <td>{{ ucfirst($blog->status) }}</td>
+          <td>{{ $blog->created_at->format('Y-m-d') }}</td>
+          <td>
+            @can('approve_post')
+              <button class="btn btn-success bi-check-lg approve-btn" data-id="{{ $blog->id }}" title="Aprobar"></button>
+              <button class="btn btn-danger bi-x-lg decline-btn" data-id="{{ $blog->id }}" title="Rechazar"></button>
+            @endcan
+            <a href="{{ route('blogs.show', $blog) }}" class="btn btn-warning btn-sm"><i class="bi bi-eye"></i> Mostrar</a>
+            @can('edit-blog')
+              <a href="{{ route('blogs.edit', $blog) }}" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i> Editar</a>
+            @endcan
+            @can('delete-blog')
+              <form action="{{ route('blogs.destroy', $blog) }}" method="POST" class="d-inline">
+                @csrf @method('DELETE')
+                <button class="btn btn-danger btn-sm" onclick="return confirm('¿Eliminar?')"><i class="bi bi-trash"></i> Eliminar</button>
+              </form>
+            @endcan
+          </td>
+        </tr>
+        @empty
+        <tr>
+          <td colspan="8" class="text-center">No hay entradas</td>
+        </tr>
+        @endforelse
+      </tbody>
     </table>
 
-    {{ $blogs->links() }}
+    <div class="d-flex justify-content-center">
+      {{ $blogs->links() }}
+    </div>
   </div>
 </div>
 @endsection
