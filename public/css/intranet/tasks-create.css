@@ -1,0 +1,70 @@
+/* public/css/intranet/tasks-create.css */
+
+/* 1. Forzar altura completa para que el footer “pegue” abajo */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+/* 2. Espacio para header fijo */
+.intranet-main {
+  flex: 1 0 auto;
+  padding-top: 60px;
+}
+
+/* 3. Card centrada y estilizada */
+.intranet-main .card {
+  max-width: 800px;
+  margin: 80px auto 40px;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+/* 4. Header verde */
+.intranet-main .card-header {
+  background-color: #315530;
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-align: center;
+  padding: 1rem;
+  border-bottom: none;
+}
+/* 5. Body con padding */
+.intranet-main .card-body {
+  padding: 2rem;
+}
+
+/* 6. Campos del formulario */
+.intranet-main .form-control,
+.intranet-main .form-check-input {
+  margin-bottom: 1rem;
+}
+.intranet-main label {
+  font-weight: 500;
+}
+
+/* 7. Checklist de componentes */
+#componentChecklist {
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+/* 8. Botón de submit centrado */
+.intranet-main .btn-primary {
+  display: block;
+  width: 50%;
+  margin: 1.5rem auto 0;
+}
+
+/* 9. Footer pegado al final */
+footer {
+  flex-shrink: 0;
+}

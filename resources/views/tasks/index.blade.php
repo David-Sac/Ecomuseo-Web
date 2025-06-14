@@ -1,109 +1,95 @@
 @extends('layouts.app_new')
-<link rel="stylesheet" href="{{ asset('css/blog.css') }}">
-<!-- Daterangepicker -->
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+@section('styles')
+  <!-- Quitamos el <link> fuera de sección y cargamos nuestro CSS de tareas -->
+  <link rel="stylesheet" href="{{ asset('css/intranet/tasks.css') }}">
+@endsection
 
 @section('content')
-    <div class="card">
-        <div class="card-header">Lista de Tareas</div>
-        <div class="card-body">
-            @can('create-task')
-                <a href="{{ route('tasks.create') }}" class="btn btn-success btn-sm my-2"><i class="bi bi-plus-circle"></i> Añadir
-                    Nueva Tarea</a>
-            @endcan
-            <div>
-                <div style="display: flex; justify-content:end;">
-                    @if (Auth::user()->hasRole('Admin') || Auth::user()->hasRole('Super Admin'))
-                        <div id="reportrange"
-                            style="background: #fff; cursor: pointer; padding: 10px 10px; border: 1px solid #ccc; width: 20%; text-align: center;">
-                            <i class="bi bi-calendar"></i>&nbsp;
-                            <span></span> <i class="bi bi-caret-down"></i>
-                        </div>
-                        <div style="padding: 0px 10px;">
-                            <form action="{{ route('tasks.export') }}" method="post">
-                                @csrf
-                                @method('POST')
-                                <input type="hidden" name="start_date" id="start_date">
-                                <input type="hidden" name="end_date" id="end_date">
-                                <button type="submit" class="btn btn-secondary"><i class="bi bi-download"></i> Generar
-                                    Reporte</button>
-                            </form>
-                        </div>
-                    @endif
-                </div>
-                <br />
-                <table id="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Tipo</th>
-                            <th scope="col">Título</th>
-                            <th scope="col">Contenido</th>
-                            <th scope="col">Componentes</th> <!-- Nueva columna -->
-                            <th scope="col">Estado</th>
-                            <th scope="col">Fecha Asignación</th>
-                            <th scope="col">Fecha Completado</th>
-                            <th scope="col">Voluntario</th>
-                            <th scope="col">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse ($tasks as $task)
-                            <tr>
-                                <th scope="row">{{ $loop->iteration }}</th>
-                                <td>{{ ucfirst($task->type) }}</td>
-                                <td>{{ $task->title }}</td>
-                                <td>{{ $task->content }}</td>
-                                <td>
-                                    @if (!empty($task->componentDetails) && $task->componentDetails->isNotEmpty())
-                                        @foreach ($task->componentDetails as $component)
-                                            <span>{{ $component->titleComponente }}</span><br>
-                                        @endforeach
-                                    @else
-                                        <span>N/A</span>
-                                    @endif
-                                </td>
-                                @if (!empty($task->volunteers) && $task->volunteers->isNotEmpty() && $task->volunteers->first()->pivot)
-                                    <td>{{ ucfirst($task->volunteers->first()->pivot->status) }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($task->volunteers->first()->pivot->assigned_date)->format('d/m/Y') }}</td>
-                                    <td>{{ $task->volunteers->first()->pivot->completed_date ? \Carbon\Carbon::parse($task->volunteers->first()->pivot->completed_date)->format('d/m/Y') : 'N/A' }}</td>
-                                    <td>{{ $task->volunteers->first()->name }}</td>
-                                @else
-                                    <td>No asignado</td>
-                                    <td>No asignado</td>
-                                    <td>No asignado</td>
-                                    <td>No asignado</td>
-                                @endif
-                                <td>
-                                    @if ($task->volunteers->first()->pivot->status == 'pending')
-                                        @can('edit-task')
-                                            <a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-primary btn-sm">Editar</a>
-                                        @endcan
-                                        <form action="{{ route('tasks.destroy', $task->id) }}" method="post" style="display:inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            @can('delete-task')
-                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Cancelar tarea?');">Cancelar</button>
-                                            @endcan
-                                        </form>
-                                    @endif
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="10">
-                                    <span class="text-danger">
-                                        <strong>No se encontraron tareas!</strong>
-                                    </span>
-                                </td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-                {{ $tasks->links() }}
-            </div>
-        </div>
+<div class="card">
+  <div class="card-header">Lista de Tareas</div>
+  <div class="card-body">
+
+    @can('create-task')
+      <a href="{{ route('tasks.create') }}"
+         class="btn btn-success btn-sm my-2">
+         <i class="bi bi-plus-circle"></i> Añadir Nueva Tarea
+      </a>
+    @endcan
+
+    <div class="d-flex justify-content-end">
+      <!-- daterange y botón -->
+      <div id="reportrange"></div>
+      <form action="{{ route('tasks.export') }}" method="post" class="ms-2">
+        @csrf @method('POST')
+        <input type="hidden" name="start_date" id="start_date">
+        <input type="hidden" name="end_date" id="end_date">
+        <button class="btn btn-secondary btn-sm">Generar Reporte</button>
+      </form>
     </div>
+
+    <table id="table" class="table table-striped mt-4">
+      <thead>
+        <tr>
+          <th>#</th><th>Tipo</th><th>Título</th><th>Contenido</th>
+          <th>Componentes</th><th>Estado</th><th>Asignación</th>
+          <th>Completado</th><th>Voluntario</th><th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @forelse ($tasks as $task)
+          <tr class="{{ $task->volunteers->first()->pivot->status ?? '' }}">
+            <th scope="row">{{ $loop->iteration }}</th>
+            <td>{{ ucfirst($task->type) }}</td>
+            <td>{{ $task->title }}</td>
+            <td>{{ $task->content }}</td>
+            <td>
+              @forelse($task->componentDetails as $c)
+                {{ $c->titleComponente }}<br>
+              @empty
+                N/A
+              @endforelse
+            </td>
+            @if($v = $task->volunteers->first()->pivot)
+              <td>{{ ucfirst($v->status) }}</td>
+              <td>{{ \Carbon\Carbon::parse($v->assigned_date)->format('d/m/Y') }}</td>
+              <td>{{ $v->completed_date ? \Carbon\Carbon::parse($v->completed_date)->format('d/m/Y') : 'N/A' }}</td>
+              <td>{{ $task->volunteers->first()->name }}</td>
+            @else
+              <td colspan="4">No asignado</td>
+            @endif
+            <td>
+              @if(isset($v) && $v->status==='pending')
+                @can('edit-task')
+                  <a href="{{ route('tasks.edit',$task->id) }}" class="btn btn-primary btn-sm">Editar</a>
+                @endcan
+                @can('delete-task')
+                  <form action="{{ route('tasks.destroy',$task->id) }}"
+                        method="post" class="d-inline">
+                    @csrf @method('DELETE')
+                    <button class="btn btn-danger btn-sm"
+                            onclick="return confirm('Cancelar tarea?')">
+                      Cancelar
+                    </button>
+                  </form>
+                @endcan
+              @endif
+            </td>
+          </tr>
+        @empty
+          <tr>
+            <td colspan="10" class="text-danger text-center">
+              <strong>No se encontraron tareas!</strong>
+            </td>
+          </tr>
+        @endforelse
+      </tbody>
+    </table>
+
+    {{ $tasks->links() }}
+
+  </div>
+</div>
 @endsection
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>

@@ -1,0 +1,122 @@
+/* public/css/intranet/users.css */
+
+/* —————————————————————————————————————
+   0. Aseguramos el espaciado bajo el header
+————————————————————————————————————— */
+.intranet-main .card {
+  /* separa siempre la card del header fijo */
+  margin: 80px auto 40px; 
+  max-width: 1200px;
+}
+
+/* —————————————————————————————————————
+   1. Estilos de la tarjeta (.card)
+————————————————————————————————————— */
+.intranet-main .card {
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+/* Cabecera */
+.intranet-main .card-header {
+  background-color: #315530;
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-align: center;
+  padding: 1rem;
+}
+
+/* Cuerpo */
+.intranet-main .card-body {
+  padding: 2rem;
+  /* para tablas largas */
+  overflow-x: auto;
+}
+
+/* —————————————————————————————————————
+   2. Botones superiores
+————————————————————————————————————— */
+.intranet-main .card-body > a.btn {
+  margin-right: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+/* —————————————————————————————————————
+   3. Tabla de usuarios
+————————————————————————————————————— */
+/* Ajusta la tabla dentro del card-body */
+.intranet-main .card-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+/* Encabezados */
+.intranet-main .card-body thead th {
+  background-color: #f5f5f5;
+  font-weight: 600;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+/* Celdas */
+.intranet-main .card-body td,
+.intranet-main .card-body th {
+  padding: 0.75rem;
+  vertical-align: middle;
+  border-top: 1px solid #dee2e6;
+}
+
+/* Zebra stripes */
+.intranet-main .card-body .table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+/* Hover sobre filas */
+.intranet-main .card-body table tbody tr:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* —————————————————————————————————————
+   4. Badges de rol
+————————————————————————————————————— */
+.intranet-main .card-body .badge {
+  font-size: 0.85rem;
+  padding: 0.4em 0.6em;
+}
+
+/* —————————————————————————————————————
+   5. Paginación centrada
+————————————————————————————————————— */
+.intranet-main .card-body .pagination {
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+/* public/css/intranet/app_new.css */
+
+/* 0. Asegurar que html y body ocupen el 100% de altura */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* 1. #app es un flex-container en columna */
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* 2. El main (intranet-main) crece para rellenar espacio sobrante */
+.intranet-main {
+  flex: 1 0 auto;       /* crecer, no encoger, altura automática */
+  padding-top: 60px;     /* tu espacio bajo header fijo */
+}
+
+/* 3. El footer no crece ni encoge: siempre abajo */
+footer {
+  flex-shrink: 0;
+}

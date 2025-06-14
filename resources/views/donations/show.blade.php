@@ -7,6 +7,11 @@
 <!-- Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+@section('styles')
+  <!-- CSS específico de Donaciones -->
+  <link rel="stylesheet" href="{{ asset('css/intranet/donations.css') }}">
+@endsection
+
 @section('content')
 <div class="card">
     <div class="card-header">

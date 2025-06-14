@@ -1,0 +1,84 @@
+/* public/css/intranet/tours.css */
+
+/* 0. Altura completa y footer “pegado” */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.intranet-main {
+  flex: 1 0 auto;
+  padding-top: 60px; /* deja espacio para el header fijo */
+}
+
+/* 1. Centramos la card y le damos estilo */
+.intranet-main .card {
+  max-width: 1200px;
+  margin: 80px auto 40px; 
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+/* 2. Header de la card */
+.intranet-main .card-header {
+  background-color: #315530;
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-align: center;
+  padding: 1rem;
+  border-bottom: none;
+}
+
+/* 3. Body de la card */
+.intranet-main .card-body {
+  padding: 2rem;
+}
+
+/* 4. Botones de “Añadir” y “Solicitudes de Tour” */
+.intranet-main .btn-success,
+.intranet-main .btn-info {
+  margin-bottom: 1rem;
+  margin-right: 0.5rem;
+}
+
+/* 5. Tabla a todo ancho */
+.intranet-main .table {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+.intranet-main .table th {
+  background-color: #f5f5f5;
+  font-weight: 500;
+}
+.intranet-main .table td,
+.intranet-main .table th {
+  vertical-align: middle;
+}
+
+/* 6. Badges con un pequeño margen */
+.intranet-main .badge {
+  margin-right: 0.25rem;
+}
+
+/* 7. Espaciado entre los botones de acción */
+.intranet-main .table .btn-sm {
+  margin-right: 0.25rem;
+}
+
+/* 8. Paginación centrada */
+.intranet-main .pagination {
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+/* 9. Footer se mantiene abajo sin hueco extra */
+footer {
+  flex-shrink: 0;
+}

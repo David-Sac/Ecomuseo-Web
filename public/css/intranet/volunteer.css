@@ -1,0 +1,112 @@
+/* public/css/intranet/volunteer.css */
+
+/* 1. Asegurarnos de que el main empuje el footer abajo */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.intranet-main {
+  flex: 1 0 auto;
+  padding-top: 60px; /* deja espacio bajo el header fijo */
+}
+
+/* 2. Card centrada y espaciada */
+.intranet-main .card {
+  max-width: 1200px;
+  margin: 80px auto 40px;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+/* 3. Header de la card en verde */
+.intranet-main .card-header {
+  background-color: #315530;
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-align: center;
+  padding: 1rem;
+  border-bottom: none;
+  position: relative;
+}
+
+/* 4. Body con padding generoso */
+.intranet-main .card-body {
+  padding: 2rem;
+}
+
+/* 5. Botón “Asignar Tareas” */
+.intranet-main .btn-warning {
+  margin-bottom: 1rem;
+}
+
+/* 6. Tabla full-width y encabezados ligeros */
+.intranet-main .table {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+.intranet-main .table th {
+  background-color: #f5f5f5;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+.intranet-main .table th,
+.intranet-main .table td {
+  vertical-align: middle;
+  padding: .75rem 1rem;
+  border: 1px solid #dee2e6;
+}
+
+/* 7. Franjas y hover */
+.intranet-main .table tbody tr:nth-of-type(odd) {
+  background-color: #fafafa;
+}
+.intranet-main .table tbody tr:hover {
+  background-color: #eef7ec;
+}
+
+/* 8. Pequeño espaciado entre botones de acción */
+.intranet-main .table .btn-sm {
+  margin-right: 0.25rem;
+}
+
+/* 9. Badges de rol */
+.role-badge {
+  display: inline-block;
+  background-color: #0c7426;
+  color: #fff;
+  padding: .25rem .5rem;
+  border-radius: .25rem;
+  font-size: .85rem;
+  margin-right: .25rem;
+}
+
+/* 10. Colores de fila según estado */
+.intranet-main .table tbody tr.pending {
+  background-color: #fff3cd !important;
+}
+.intranet-main .table tbody tr.active {
+  background-color: #d4edda !important;
+}
+.intranet-main .table tbody tr.inactive {
+  background-color: #f8d7da !important;
+}
+
+/* 11. Paginación centrada */
+.intranet-main .pagination {
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+/* 12. Footer “pegado” al final */
+footer {
+  flex-shrink: 0;
+}

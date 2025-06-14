@@ -1,7 +1,9 @@
 <link rel="stylesheet" href="{{ asset('css/volunteer.css') }}">
 
 @extends('layouts.app_new')
-
+@section('styles')
+  <link rel="stylesheet" href="{{ asset('css/intranet/volunteer.css') }}">
+@endsection 
 @section('content')
 <div class="card">
     <div class="card-header">Lista de Voluntarios</div>

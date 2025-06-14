@@ -1,0 +1,108 @@
+/* 1. Layout para que el footer “pegue” abajo y espacio para header */
+html, body {
+  height:100%; margin:0; padding:0;
+}
+#app {
+  display:flex;
+  flex-direction:column;
+  min-height:100vh;
+}
+.intranet-main {
+  flex:1 0 auto;
+  padding-top:60px;
+}
+
+/* 2. Card centrada */
+.intranet-main .card {
+  max-width:1200px;
+  margin:80px auto 40px;
+  border-radius:1rem;
+  box-shadow:0 4px 12px rgba(0,0,0,0.1);
+  overflow:hidden;
+}
+
+/* 3. Header verde */
+.intranet-main .card-header {
+  background-color:#315530;
+  color:#fff;
+  font-size:1.25rem;
+  font-weight:600;
+  text-align:center;
+  padding:1rem;
+  border-bottom:none;
+}
+
+/* 4. Body padding */
+.intranet-main .card-body {
+  padding:2rem;
+}
+
+/* 5. Botón “Añadir” */
+.intranet-main .btn-success {
+  margin-bottom:1rem;
+}
+
+/* 6. Date range & reporte */
+#reportrange {
+  background:#fff; cursor:pointer;
+  padding:.5rem 1rem;
+  border:1px solid #ccc;
+  border-radius:.25rem;
+}
+.btn-secondary {
+  margin-left:.5rem;
+}
+
+/* 7. Tabla full-width */
+.intranet-main .table {
+  width:100%;
+  margin-top:1rem;
+}
+.intranet-main .table th {
+  background:#f5f5f5;
+  font-weight:500;
+  text-transform:uppercase;
+  letter-spacing:.5px;
+}
+.intranet-main .table th,
+.intranet-main .table td {
+  vertical-align:middle;
+  padding:.75rem 1rem;
+  border:1px solid #dee2e6;
+}
+
+/* 8. Franjas alternas & hover */
+.intranet-main .table tbody tr:nth-of-type(odd) {
+  background:#fafafa;
+}
+.intranet-main .table tbody tr:hover {
+  background:#eef7ec;
+}
+
+/* 9. Espacio entre botones */
+.intranet-main .table .btn-sm {
+  margin-right:.25rem;
+}
+
+/* 10. Filas por estado */
+.intranet-main .table tbody tr.pending {
+  background-color:#fff3cd !important;
+}
+.intranet-main .table tbody tr.approved {
+  background-color:#d4edda !important;
+}
+.intranet-main .table tbody tr.declined,
+.intranet-main .table tbody tr.rejected {
+  background-color:#f8d7da !important;
+}
+
+/* 11. Paginación centrada */
+.intranet-main .pagination {
+  justify-content:center;
+  margin-top:1rem;
+}
+
+/* 12. Footer pegado */
+footer {
+  flex-shrink:0;
+}
