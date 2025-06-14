@@ -1,6 +1,6 @@
-/* public/css/intranet/blogs-create.css */
+/* public/css/intranet/blogs-edit.css */
 
-/* 1. Layout para que el footer quede “pegado” */
+/* 1. Asegurarnos de que el footer quede “pegado” abajo */
 html, body {
   height: 100%;
   margin: 0;
@@ -16,9 +16,10 @@ html, body {
   padding-top: 60px; /* espacio bajo el header fijo */
 }
 
-/* 2. Card centrada y ajustada */
+/* 2. Hacer el card más ancho */
 .intranet-main .card {
-  max-width: 800px;
+  max-width: none;      /* quitamos el límite fijo */
+  width: 95%;           /* ocupamos el 95% del contenedor */
   margin: 80px auto 40px;
   border-radius: 1rem;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
@@ -36,39 +37,44 @@ html, body {
   border-bottom: none;
 }
 
-/* 4. Body con padding amplio */
+/* 4. Body con padding generoso */
 .intranet-main .card-body {
   padding: 2rem;
 }
 
-/* 5. Formularios: filas más compactas */
+/* 5. Ajustes de las filas de formulario */
 .intranet-main .mb-3.row {
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  align-items: start;
 }
-.intranet-main .mb-3.row label {
-  font-weight: 500;
+.intranet-main .col-md-2 {
+  max-width: 120px;
+  padding-right: 0;
 }
-.intranet-main .mb-3.row .form-control {
-  width: 100%;
-}
-
-/* 6. Textarea de Markdown */
-.intranet-main #content {
-  min-height: 250px;
-  font-family: inherit;
-  font-size: 1rem;
+.intranet-main .col-md-10 {
+  width: calc(100% - 120px);
 }
 
-/* 7. Checklist de componentes */
-.intranet-main .form-check {
-  margin-bottom: .5rem;
+/* 6. Editor Markdown (EasyMDE) full-width y alto */
+.intranet-main .EasyMDEContainer {
+  width: 100% !important;
+}
+.intranet-main .CodeMirror {
+  min-height: 400px !important;  /* ajusta la altura a lo que necesites */
 }
 
-/* 8. Botón de envío centrado */
+/* 7. Checklist en vertical */
+.intranet-main .form-check-inline {
+  display: block !important;
+  margin: 0 0 0.75rem 0 !important;
+}
+
+/* 8. Botón centrado y más grande */
 .intranet-main .btn-primary {
-  display: block;
-  margin: 1.5rem auto 0;
-  padding: .5rem 1.5rem;
+  display: inline-block;
+  font-size: 1rem;
+  padding: 0.6rem 1.5rem;
+  margin: 0 auto;
 }
 
 /* 9. Asegurar que el footer no tenga hueco adicional */

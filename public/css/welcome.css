@@ -84,6 +84,7 @@ body {
   margin-bottom: 1.5rem;
   color: #315530;
   font-weight: bold;
+  font-size:x-large
 }
 .components-benefits li::before {
   content: "✔︎";

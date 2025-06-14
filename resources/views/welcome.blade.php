@@ -100,7 +100,7 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24">
                                     <path d="M17.707 12.293l-2.414-2.414a1 1 0 00-1.414 1.414l.293.293a11.036 11.036 0 01-5.657 5.657l-.293-.293a1 1 0 10-1.414 1.414l2.414 2.414a1 1 0 001.414 0 13.036 13.036 0 006.364-6.364 1 1 0 000-1.414z"/>
                                 </svg>
-                                <p><strong>Contacto:</strong> +51 123 456 789</p>
+                                <p><strong>Contacto:</strong> +51 992 585 999</p>
                             </div>
                     </div>
                     <div class="mapa">

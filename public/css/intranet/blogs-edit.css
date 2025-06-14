@@ -1,9 +1,6 @@
 /* public/css/intranet/blogs-edit.css */
 
-/*---------------------------------------
-  1. Asegurarnos de que el body empuje  
-     el footer abajo (como antes)      
----------------------------------------*/
+/* 1. Asegurarnos de que el footer quede “pegado” abajo */
 html, body {
   height: 100%;
   margin: 0;
@@ -14,80 +11,73 @@ html, body {
   flex-direction: column;
   min-height: 100vh;
 }
-
-/*---------------------------------------
-  2. Darle un margin-top extra a todas 
-     las cards (separación del header)  
----------------------------------------*/
-.intranet-main .card,
-.card {                /* si no usas intranet-main, aplica a .card global */
-  margin-top: 100px;   /* <- aquí ajusta a tu gusto */
+.intranet-main {
+  flex: 1 0 auto;
+  padding-top: 60px; /* espacio bajo el header fijo */
 }
 
-/*---------------------------------------
-  3. Card centrada y espaciada          
----------------------------------------*/
+/* 2. Hacer el card más ancho */
 .intranet-main .card {
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
+  max-width: none;      /* quitamos el límite fijo */
+  width: 95%;           /* ocupamos el 95% del contenedor */
+  margin: 80px auto 40px;
   border-radius: 1rem;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   overflow: hidden;
 }
 
-/*---------------------------------------
-  4. Header de la card en verde        
----------------------------------------*/
+/* 3. Header en verde */
 .intranet-main .card-header {
   background-color: #315530;
   color: #fff;
   font-size: 1.25rem;
   font-weight: 600;
+  text-align: center;
   padding: 1rem;
-  position: relative;
+  border-bottom: none;
 }
 
-/* Botón “Back” */
-.intranet-main .card-header .btn-light {
-  position: absolute;
-  right: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-/*---------------------------------------
-  5. Body con padding                  
----------------------------------------*/
+/* 4. Body con padding generoso */
 .intranet-main .card-body {
   padding: 2rem;
 }
 
-/*---------------------------------------
-  6. Inputs, botones y EasyMDE          
-     (idéntico al anterior)            
----------------------------------------*/
-.col-form-label { text-align: right; font-weight: 500; }
-.mb-3.row { align-items: center; margin-bottom: 1.5rem; }
-.form-control { border-radius: .375rem; transition: border-color .2s; }
-.form-control:focus {
-  border-color: #315530;
-  box-shadow: 0 0 0 .2rem rgba(49,85,48,.25);
+/* 5. Ajustes de las filas de formulario */
+.intranet-main .mb-3.row {
+  margin-bottom: 1.5rem;
+  align-items: start;
 }
-.form-check { margin-bottom: .75rem; }
-.form-check-input { margin-right: .5rem; }
-
-.btn-primary {
-  background-color: #315530;
-  border-color: #315530;
-  padding: .5rem 1.25rem;
+.intranet-main .col-md-2 {
+  max-width: 120px;
+  padding-right: 0;
 }
-.btn-primary:hover {
-  background-color: #27421f;
-  border-color: #27421f;
+.intranet-main .col-md-10 {
+  width: calc(100% - 120px);
 }
 
-/*---------------------------------------
-  7. Footer “pegado” al final          
----------------------------------------*/
-footer { flex-shrink: 0; }
+/* 6. Editor Markdown (EasyMDE) full-width y alto */
+.intranet-main .EasyMDEContainer {
+  width: 100% !important;
+}
+.intranet-main .CodeMirror {
+  min-height: 400px !important;  /* ajusta la altura a lo que necesites */
+}
+
+/* 7. Checklist en vertical */
+.intranet-main .form-check-inline {
+  display: block !important;
+  margin: 0 0 0.75rem 0 !important;
+}
+
+/* 8. Botón centrado y más grande */
+.intranet-main .btn-primary {
+  display: inline-block;
+  font-size: 1rem;
+  padding: 0.6rem 1.5rem;
+  margin: 0 auto;
+}
+
+/* 9. Asegurar que el footer no tenga hueco adicional */
+footer {
+  flex-shrink: 0;
+}
