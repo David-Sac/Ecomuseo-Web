@@ -1,8 +1,10 @@
-/* ---------- tu reset y resto de reglas anteriores ---------- */
+/* public/css/public_show_blog.css */
+
 /* 1. Reset y base */
 * {
   box-sizing: border-box;
-  margin: 0; padding: 0;
+  margin: 0;
+  padding: 0;
 }
 body {
   font-family: 'Inter', sans-serif;
@@ -11,9 +13,9 @@ body {
 }
 
 /* 2. Contenedor principal */
-.blog-content-container {
-  max-width: 900px;
-  width: 95%;
+.blog-detail-container {
+  max-width: 1200px;
+  width: 98%;
   margin: 140px auto 60px;
   background: #fff;
   border-radius: 1rem;
@@ -21,10 +23,10 @@ body {
   padding: 2rem;
 }
 
-/* 3. Botones volver */
+/* 3. Botón “Volver” */
 .back-to-list {
-  text-align: right;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  text-align: left;
 }
 .btn-back {
   background: #315530;
@@ -38,67 +40,74 @@ body {
   background: #27ae60;
 }
 
-/* 4. Título y meta */
-.blog-title {
+/* 4. Imagen principal con altura uniforme */
+.blog-detail-image-wrapper {
+  margin-bottom: 2rem;
+}
+.blog-detail-image {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  display: block;
+}
+
+/* 5. Título y meta */
+.blog-detail-title {
   font-family: 'Playfair Display', serif;
   font-size: 2.5rem;
   color: #315530;
   text-align: center;
   margin-bottom: 0.5rem;
 }
-.blog-meta {
+.blog-detail-meta {
   font-style: italic;
   color: #666;
   text-align: center;
   margin-bottom: 2rem;
 }
 
-/* ---------- AHORA SÓLO .markdown-body PARA TU MARKDOWN ---------- */
-/* 5. Markdown: títulos y párrafos */
-.markdown-body h1,
-.markdown-body h2,
-.markdown-body h3 {
+/* 6. Markdown (aplica sobre todo el artículo) */
+.blog-detail-content h1,
+.blog-detail-content h2,
+.blog-detail-content h3 {
   font-family: 'Playfair Display', serif;
   margin: 1.5rem 0 0.75rem;
   line-height: 1.2;
 }
-.markdown-body h1 {
+.blog-detail-content h1 {
   font-size: 1.75rem;
   color: #2c4910;
 }
-.markdown-body h2 {
+.blog-detail-content h2 {
   font-size: 1.5rem;
   color: #27ae60;
 }
-.markdown-body h3 {
+.blog-detail-content h3 {
   font-size: 1.25rem;
   color: #315530;
 }
-.markdown-body p {
+.blog-detail-content p {
   margin-bottom: 1rem;
   line-height: 1.7;
   color: #333;
 }
-
-/* 6. Imágenes dentro del Markdown */
-.markdown-body img {
+.blog-detail-content img {
   display: block;
   max-width: 100%;
   margin: 1rem auto;
   border-radius: 0.5rem;
 }
-
-/* 7. Listas y bloques de código */
-.markdown-body ul,
-.markdown-body ol {
+.blog-detail-content ul,
+.blog-detail-content ol {
   padding-left: 1.5rem;
   margin: 1rem 0;
 }
-.markdown-body li {
+.blog-detail-content li {
   margin-bottom: 0.5rem;
 }
-.markdown-body pre,
-.markdown-body code {
+.blog-detail-content pre,
+.blog-detail-content code {
   background: #f5f5f5;
   padding: 0.75rem;
   border-radius: 0.5rem;
@@ -106,7 +115,7 @@ body {
   margin-bottom: 1rem;
 }
 
-/* 8. Componentes relacionados */
+/* 7. Componentes relacionados */
 .blog-components {
   margin-top: 2.5rem;
   padding: 0 2rem;
@@ -132,20 +141,20 @@ body {
   background: #27ae60;
 }
 
-/* 9. Responsive */
+/* 8. Responsive */
 @media (max-width: 768px) {
-  .blog-content-container {
+  .blog-detail-container {
     width: 95%;
-    margin-top: 160px;
+    margin-top: 120px;
     padding: 1rem;
   }
-  .blog-title {
+  .blog-detail-title {
     font-size: 2rem;
   }
-  .markdown-body h1 {
+  .blog-detail-content h1 {
     font-size: 1.5rem;
   }
-  .markdown-body h2 {
+  .blog-detail-content h2 {
     font-size: 1.25rem;
   }
   .blog-components h2 {
