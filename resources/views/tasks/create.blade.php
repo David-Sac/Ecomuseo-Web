@@ -10,7 +10,13 @@
   <div class="row justify-content-center">
     <div class="col-md-8">
       <div class="card">
-        <div class="card-header">Agregar Tarea</div>
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <span>Agregar Tarea</span>
+          <!-- Botón Volver a la lista de tareas -->
+          <a href="{{ route('tasks.index') }}" class="btn btn-light btn-sm">
+            &larr; Volver
+          </a>
+        </div>
         <div class="card-body">
           <form action="{{ route('tasks.store') }}" method="post">
             @csrf
@@ -20,15 +26,15 @@
               <label for="type" class="col-md-4 col-form-label text-md-end">Tipo</label>
               <div class="col-md-6">
                 <select id="type" name="type"
-                    class="form-control @error('type') is-invalid @enderror"
-                    onchange="filterVolunteers()">
+                        class="form-control @error('type') is-invalid @enderror"
+                        onchange="filterVolunteers()">
                   <option value="">Seleccione tipo</option>
                   <option value="create-blog">Blog</option>
                   <option value="create-tour">Tour</option>
                   <option value="create-donation">Donaciones</option>
                   <option value="create-component">Mantenimiento de componentes</option>
                 </select>
-                @error('type') 
+                @error('type')
                   <span class="text-danger">{{ $message }}</span>
                 @enderror
               </div>
@@ -43,7 +49,7 @@
             </div>
 
             {{-- Checklist de Componentes --}}
-            <div id="componentChecklist" class="mb-3 row justify-content-center" style="display: none;">
+            <div id="componentChecklist" class="mb-3 row" style="display: none;">
               <label for="components" class="col-md-4 col-form-label text-md-end">Componentes</label>
               <div class="col-md-6">
                 @foreach ($components as $component)
@@ -65,7 +71,7 @@
               <label for="volunteer_id" class="col-md-4 col-form-label text-md-end">Asignar a</label>
               <div class="col-md-6">
                 <select id="volunteer_id" name="volunteer_id"
-                    class="form-control @error('volunteer_id') is-invalid @enderror">
+                        class="form-control @error('volunteer_id') is-invalid @enderror">
                   <option value="">Seleccione un voluntario</option>
                   @foreach ($volunteers as $volunteer)
                     @php
@@ -124,46 +130,44 @@
     </div>
   </div>
 </div>
+@endsection
 
 @push('scripts')
 <script>
   function filterVolunteers() {
     const type = document.getElementById('type').value;
-    const vols = document.querySelectorAll('#volunteer_id option');
+    const opts = document.querySelectorAll('#volunteer_id option');
     const checklist = document.getElementById('componentChecklist');
 
-    // Mostrar checklist sólo para mantenimiento de componentes
-    checklist.style.display = type==='create-component' ? 'flex' : 'none';
-    if(type!=='create-component'){
-      document.querySelectorAll('#componentChecklist .form-check-input')
-        .forEach(c=>c.checked=false);
+    // Mostrar checklist sólo para create-component
+    checklist.style.display = type === 'create-component' ? 'flex' : 'none';
+    if (type !== 'create-component') {
+      checklist.querySelectorAll('.form-check-input').forEach(c => c.checked = false);
     }
 
-    // Filtrar voluntarios por permisos y mostrar roles requeridos
+    // Filtrar voluntarios por permisos y calcular roles requeridos
     const needed = new Set(), volunteerTypeText = [];
-    vols.forEach(opt=>{
-      if(!opt.value) return;
+    opts.forEach(opt => {
+      if (!opt.value) return;
       const perms = opt.dataset.permissions.split(',');
       const show = perms.includes(type);
-      opt.style.display = show?'block':'none';
-      if(show){
-        opt.dataset.roles.split(',').forEach(r=>{
-          if((type==='create-blog'||type==='create-tour') && r.includes('Volunteer senior')){
+      opt.style.display = show ? 'block' : 'none';
+      if (show) {
+        opt.dataset.roles.split(',').forEach(r => {
+          if (['create-blog','create-tour'].includes(type) && r.includes('Volunteer senior')) {
             needed.add('Volunteer senior');
           }
-          if((type==='create-donation'||type==='create-component') && r.includes('Volunteer junior')){
+          if (['create-donation','create-component'].includes(type) && r.includes('Volunteer junior')) {
             needed.add('Volunteer junior');
           }
         });
       }
     });
     document.getElementById('volunteerTypeRequired')
-      .textContent = needed.size? Array.from(needed).join(', ') 
+      .textContent = needed.size ? Array.from(needed).join(', ') 
                                  : 'No hay voluntarios disponibles';
   }
 
   document.getElementById('type').addEventListener('change', filterVolunteers);
 </script>
 @endpush
-
-@endsection

@@ -1,68 +1,114 @@
-/* public/css/intranet/components-show.css */
-
-/* 1. Espaciado general: más separación sobre el header */
-.row.justify-content-center.my-5 {
-  margin-top: 100px !important;   /* ↑ fuerza mayor espacio */
-  margin-bottom: 80px !important;
+/* 1. Layout para que el footer “pegue” abajo */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+/* espacio bajo el header fijo */
+.intranet-main {
+  flex: 1 0 auto;
+  padding-top: 60px;
 }
 
-/* 2. Limitar ancho de la columna central */
-.row.justify-content-center.my-5 .col-lg-8,
-.row.justify-content-center.my-5 .col-md-8 {
-  max-width: 900px;
+/* 2. Card centrada y espaciada */
+.intranet-main .card {
+  max-width: none;
+  width: 95%;
+  margin: 80px auto 40px;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  overflow: hidden;
 }
 
-/* 3. Cabecera de la tarjeta en verde sin borde inferior */
-.row.justify-content-center.my-5 .card-header {
+/* 3. Header en verde */
+.intranet-main .card-header {
   background-color: #315530;
   color: #fff;
+  font-size: 1.25rem;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
   border-bottom: none;
 }
 
-/* 4. Markdown-body — títulos, párrafos, listas, etc. */
-.row.justify-content-center.my-5 .markdown-body h1,
-.row.justify-content-center.my-5 .markdown-body h2,
-.row.justify-content-center.my-5 .markdown-body h3 {
-  font-family: 'Playfair Display', serif;
-  margin: 1.5rem 0 0.75rem;
-  line-height: 1.3;
+/* 4. Body con padding generoso */
+.intranet-main .card-body {
+  padding: 2rem;
 }
-.row.justify-content-center.my-5 .markdown-body h1 { font-size: 1.75rem; color: #2c4910; }
-.row.justify-content-center.my-5 .markdown-body h2 { font-size: 1.5rem;  color: #27ae60; }
-.row.justify-content-center.my-5 .markdown-body h3 { font-size: 1.25rem; color: #315530; }
 
-.row.justify-content-center.my-5 .markdown-body p {
+/* 5. Filas de datos */
+.intranet-main .mb-3.row {
+  margin-bottom: 1.5rem;
+  align-items: start;
+}
+.intranet-main .col-md-2,
+.intranet-main .col-md-4 {
+  max-width: 120px;
+  padding-right: 0;
+  font-weight: 500;
+  text-align: right;
+}
+.intranet-main .col-md-6,
+.intranet-main .col-md-10 {
+  width: calc(100% - 120px);
+  line-height: 1.4;
+}
+
+/* 6. Markdown-body dentro del show */
+.intranet-main .markdown-body h1,
+.intranet-main .markdown-body h2,
+.intranet-main .markdown-body h3 {
+  font-family: 'Playfair Display', serif;
+  margin: 1.5rem 0 .75rem;
+  line-height: 1.2;
+}
+.intranet-main .markdown-body h1 { font-size: 1.75rem; color: #2c4910; }
+.intranet-main .markdown-body h2 { font-size: 1.5rem;  color: #27ae60; }
+.intranet-main .markdown-body h3 { font-size: 1.25rem; color: #315530; }
+.intranet-main .markdown-body p {
   margin-bottom: 1rem;
   line-height: 1.7;
   color: #333;
 }
-.row.justify-content-center.my-5 .markdown-body img {
+.intranet-main .markdown-body img {
   display: block;
   max-width: 100%;
   margin: 1rem auto;
-  border-radius: 0.5rem;
+  border-radius: .5rem;
 }
-.row.justify-content-center.my-5 .markdown-body ul,
-.row.justify-content-center.my-5 .markdown-body ol {
+.intranet-main .markdown-body ul,
+.intranet-main .markdown-body ol {
   padding-left: 1.5rem;
   margin: 1rem 0;
 }
-.row.justify-content-center.my-5 .markdown-body li {
-  margin-bottom: 0.5rem;
+.intranet-main .markdown-body li {
+  margin-bottom: .5rem;
 }
-.row.justify-content-center.my-5 .markdown-body pre,
-.row.justify-content-center.my-5 .markdown-body code {
+.intranet-main .markdown-body pre,
+.intranet-main .markdown-body code {
   background: #f5f5f5;
-  padding: 0.75rem;
-  border-radius: 0.5rem;
+  padding: .75rem;
+  border-radius: .5rem;
   overflow-x: auto;
   margin-bottom: 1rem;
 }
 
-/* 5. Imagen fluid y con sombra */
-.row.justify-content-center.my-5 .img-fluid {
+/* 7. Imagen fluid y con sombra */
+.intranet-main img.img-fluid {
   max-width: 100%;
   height: auto;
-  border-radius: 0.5rem;
+  border-radius: .5rem;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* 8. Footer “pegado” abajo */
+footer {
+  flex-shrink: 0;
 }

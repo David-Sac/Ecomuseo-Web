@@ -1,0 +1,105 @@
+/* public/css/intranet/tours-show.css */
+
+/* 0. Layout base para footer “pegado” */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+/* aseguramos espacio bajo el header fijo */
+.intranet-main {
+  flex: 1 0 auto;
+  padding-top: 60px;
+}
+
+/* 1. Card centrada y espaciada */
+.intranet-main .card {
+  max-width: 900px;
+  margin: 80px auto 40px;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+/* 2. Header verde */
+.intranet-main .card-header {
+  background-color: #315530;
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 600;
+  padding: 1rem 1.5rem;
+  border-bottom: none;
+  text-align: center;
+}
+
+/* 3. Body con padding generoso */
+.intranet-main .card-body {
+  padding: 2rem;
+}
+
+/* 4. Filas de datos */
+.intranet-main .row.mb-3 {
+  margin-bottom: 1.5rem;
+}
+.intranet-main .col-form-label {
+  text-align: right;
+  font-weight: 500;
+}
+.intranet-main .row.mb-3 .col-md-6 {
+  line-height: 1.4;
+}
+
+/* 5. Badges de componentes */
+.intranet-main .badge.bg-secondary {
+  background-color: #6c757d;
+  color: #fff;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.3rem;
+  font-size: 0.85rem;
+}
+
+/* 6. Botón “Volver” */
+.intranet-main .btn-primary {
+  background-color: #315530;
+  border-color: #315530;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  display: inline-block;
+  transition: background 0.2s;
+}
+.intranet-main .btn-primary:hover {
+  background-color: #27ae60;
+  border-color: #27ae60;
+}
+
+/* 7. Footer “pegado” al final */
+footer {
+  flex-shrink: 0;
+  width: 100%;
+  background: #315530;
+  color: #fff;
+  text-align: center;
+  padding: 2rem 0;
+}
+
+/* 8. Responsive */
+@media (max-width: 768px) {
+  .intranet-main .card {
+    width: 95%;
+    margin: 60px auto 20px;
+  }
+  .intranet-main .col-form-label,
+  .intranet-main .row.mb-3 .col-md-6 {
+    text-align: left;
+  }
+  .intranet-main .card-header {
+    font-size: 1.1rem;
+  }
+}

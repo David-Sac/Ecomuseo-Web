@@ -1,27 +1,33 @@
 @extends('layouts.app_new')
 
 @section('styles')
-  <!-- Quitamos el <link> fuera de sección y cargamos nuestro CSS de tareas -->
+  <!-- Cargamos el CSS específico de tareas -->
   <link rel="stylesheet" href="{{ asset('css/intranet/tasks.css') }}">
 @endsection
 
 @section('content')
 <div class="card">
-  <div class="card-header">Lista de Tareas</div>
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <span>Lista de Tareas</span>
+    <!-- Botón Volver a la página anterior -->
+    <a href="{{ url()->previous() }}" class="btn btn-light btn-sm">
+      &larr; Volver
+    </a>
+  </div>
+  
   <div class="card-body">
 
     @can('create-task')
-      <a href="{{ route('tasks.create') }}"
-         class="btn btn-success btn-sm my-2">
-         <i class="bi bi-plus-circle"></i> Añadir Nueva Tarea
+      <a href="{{ route('tasks.create') }}" class="btn btn-success btn-sm my-2">
+        <i class="bi bi-plus-circle"></i> Añadir Nueva Tarea
       </a>
     @endcan
 
     <div class="d-flex justify-content-end">
-      <!-- daterange y botón -->
+      <!-- daterange y botón de exportación -->
       <div id="reportrange"></div>
       <form action="{{ route('tasks.export') }}" method="post" class="ms-2">
-        @csrf @method('POST')
+        @csrf
         <input type="hidden" name="start_date" id="start_date">
         <input type="hidden" name="end_date" id="end_date">
         <button class="btn btn-secondary btn-sm">Generar Reporte</button>
@@ -31,9 +37,16 @@
     <table id="table" class="table table-striped mt-4">
       <thead>
         <tr>
-          <th>#</th><th>Tipo</th><th>Título</th><th>Contenido</th>
-          <th>Componentes</th><th>Estado</th><th>Asignación</th>
-          <th>Completado</th><th>Voluntario</th><th>Acciones</th>
+          <th>#</th>
+          <th>Tipo</th>
+          <th>Título</th>
+          <th>Contenido</th>
+          <th>Componentes</th>
+          <th>Estado</th>
+          <th>Asignación</th>
+          <th>Completado</th>
+          <th>Voluntario</th>
+          <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
@@ -53,7 +66,9 @@
             @if($v = $task->volunteers->first()->pivot)
               <td>{{ ucfirst($v->status) }}</td>
               <td>{{ \Carbon\Carbon::parse($v->assigned_date)->format('d/m/Y') }}</td>
-              <td>{{ $v->completed_date ? \Carbon\Carbon::parse($v->completed_date)->format('d/m/Y') : 'N/A' }}</td>
+              <td>{{ $v->completed_date
+                      ? \Carbon\Carbon::parse($v->completed_date)->format('d/m/Y')
+                      : 'N/A' }}</td>
               <td>{{ $task->volunteers->first()->name }}</td>
             @else
               <td colspan="4">No asignado</td>
@@ -92,92 +107,52 @@
 </div>
 @endsection
 
-<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<script type="text/javascript">
+@section('scripts')
+  <script src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+  <script>
     $(function() {
-        var start = moment().subtract(6, 'days');
-        var end = moment();
-
-        function cb(start, end) {
-            $('#reportrange span').html(start.format('DD/MM/YYYY') + ' - ' + end.format('DD/MM/YYYY'));
-            $('#start_date').val(start.format('YYYY-MM-DD'));
-            $('#end_date').val(end.format('YYYY-MM-DD'));
+      // Configuración del date range picker
+      var start = moment().subtract(6, 'days'),
+          end = moment();
+      function cb(start, end) {
+        $('#reportrange').html(start.format('DD/MM/YYYY') + ' - ' + end.format('DD/MM/YYYY)');
+        $('#start_date').val(start.format('YYYY-MM-DD'));
+        $('#end_date').val(end.format('YYYY-MM-DD'));
+      }
+      $('#reportrange').daterangepicker({
+        startDate: start,
+        endDate: end,
+        alwaysShowCalendars: true,
+        locale: {
+          format: 'DD/MM/YYYY',
+          applyLabel: 'Aplicar',
+          cancelLabel: 'Cancelar',
+          firstDay: 1
+        },
+        ranges: {
+          'Hoy': [moment(), moment()],
+          'Ayer': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+          'Últimos 7 días': [moment().subtract(6, 'days'), moment()],
+          'Últimos 15 días': [moment().subtract(14, 'days'), moment()],
+          'Este mes': [moment().startOf('month'), moment().endOf('month')],
+          'Mes pasado': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
         }
+      }, cb);
+      cb(start, end);
 
-        $('#reportrange').daterangepicker({
-            startDate: start,
-            endDate: end,
-            alwaysShowCalendars: true,
-            locale: {
-                format: 'DD/MM/YYYY',
-                separator: ' - ',
-                applyLabel: 'Aplicar',
-                cancelLabel: 'Cancelar',
-                weekLabel: 'S',
-                daysOfWeek: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
-                monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto',
-                    'Setiembre', 'Octubre', 'Noviembre', 'Diciembre'
-                ],
-                firstDay: 1,
-                customRangeLabel: 'Personalizado',
-                showCustomRangeLabel: true,
-                showWeekNumbers: true,
-            },
-            ranges: {
-                'Hoy': [moment(), moment()],
-                'Ayer': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                'Últimos 7 días': [moment().subtract(6, 'days'), moment()],
-                'Últimos 15 días': [moment().subtract(14, 'days'), moment()],
-                'Este mes': [moment().startOf('month'), moment().endOf('month')],
-                'Mes pasado': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1,
-                    'month').endOf('month')],
-                'Este año': [moment().startOf('year'), moment().endOf('year')],
-                'Año pasado': [moment().subtract(1, 'year').startOf('year'), moment().subtract(1,
-                    'year').endOf('year')],
-            }
-        }, cb);
-
-        cb(start, end);
+      // Aprobar / rechazar tareas vía AJAX
+      $('.approve-btn').on('click', function() {
+        var id = $(this).data('id');
+        $.post('/tasks/'+id+'/approve', {_token:'{{csrf_token()}}'})
+          .done(() => location.reload());
+      });
+      $('.decline-btn').on('click', function() {
+        var id = $(this).data('id');
+        $.post('/tasks/'+id+'/decline', {_token:'{{csrf_token()}}'})
+          .done(() => location.reload());
+      });
     });
-
-    // Manejar solicitudes AJAX para aprobar y declinar tareas
-    $(document).ready(function() {
-        $('.approve-btn').click(function() {
-            var taskId = $(this).data('id');
-            $.ajax({
-                url: '{{ url('/tasks') }}/' + taskId + '/approve',
-                type: 'POST',
-                data: {
-                    _token: '{{ csrf_token() }}'
-                },
-                success: function(response) {
-                    if (response.success) {
-                        window.location.reload();
-                    } else {
-                        alert('Error al aprobar la tarea.');
-                    }
-                }
-            });
-        });
-
-        $('.decline-btn').click(function() {
-            var taskId = $(this).data('id');
-            $.ajax({
-                url: '{{ url('/tasks') }}/' + taskId + '/decline',
-                type: 'POST',
-                data: {
-                    _token: '{{ csrf_token() }}'
-                },
-                success: function(response) {
-                    if (response.success) {
-                        window.location.reload();
-                    } else {
-                        alert('Error al declinar la tarea.');
-                    }
-                }
-            });
-        });
-    });
-</script>
+  </script>
+@endsection

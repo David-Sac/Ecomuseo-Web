@@ -1,5 +1,3 @@
-/* public/css/intranet/components-create.css */
-
 /* 1. Layout para que el footer “pegue” abajo */
 html, body {
   height: 100%;
@@ -11,90 +9,89 @@ html, body {
   flex-direction: column;
   min-height: 100vh;
 }
-/* 2. Dejamos espacio bajo el header fijo */
+/* espacio bajo el header fijo */
 .intranet-main {
   flex: 1 0 auto;
-  padding-top: 80px; /* un poco más de espacio arriba */
+  padding-top: 60px;
 }
 
-/* 3. Card centrada y espaciada */
+/* 2. Card centrada y más ancha (igual que en blogs) */
 .intranet-main .card {
-  max-width: 1000px;          /* ampliamos ancho máximo */
-  width: 95%;                 /* ocupa el 95% del viewport */
-  margin: 60px auto 40px;     /* menos top, aplica el padding-top */
+  max-width: none;
+  width: 95%;
+  margin: 80px auto 40px;
   border-radius: 1rem;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   overflow: hidden;
 }
 
-/* 4. Cabecera verde */
+/* 3. Cabecera verde */
 .intranet-main .card-header {
   background-color: #315530;
   color: #fff;
   font-size: 1.25rem;
   font-weight: 600;
+  text-align: center;
+  padding: 1rem;
+  border-bottom: none;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 1.5rem;
-  border-bottom: none;
 }
 
-/* 5. Body con padding generoso */
+/* 4. Cuerpo con padding generoso */
 .intranet-main .card-body {
-  padding: 2rem 3rem; /* más padding horizontal */
+  padding: 2rem;
 }
 
-/* 6. Formularios alineados en grid */
-.intranet-main .card-body .row {
-  margin-bottom: 1.25rem;
+/* 5. Filas de formulario */
+.intranet-main .mb-3.row {
+  margin-bottom: 1.5rem;
+  align-items: start;
 }
-.intranet-main .card-body .col-form-label {
+.intranet-main .col-md-4,
+.intranet-main .col-md-2 {
   text-align: right;
   font-weight: 500;
 }
-.intranet-main .card-body .form-control {
-  border-radius: 0.5rem;
+.intranet-main .col-md-6,
+.intranet-main .col-md-10 {
+  text-align: left;
 }
 
-/* 7. EasyMDE al 100% del contenedor */
+/* 6. EasyMDE al 100% */
 .intranet-main .EasyMDEContainer {
-  margin-top: 0.75rem;
   width: 100% !important;
+  margin-top: .5rem;
 }
 .intranet-main textarea#contentComponente {
-  min-height: 350px;
+  min-height: 400px !important;
   width: 100% !important;
 }
 
-/* 8. Selector de archivos centrado */
-.intranet-main .card-body input[type="file"] {
-  display: block;
-  width: auto;
-  margin: 1rem auto;
+/* 7. Inputs y botón */
+.intranet-main .form-control {
+  border-radius: .375rem;
 }
-
-/* 9. Botón “Añadir Componente” */
-.intranet-main .card-body .btn-primary {
-  display: block;
-  margin: 2rem auto 0;
-  padding: 0.75rem 2rem;
-  border-radius: 0.5rem;
+.intranet-main .btn-primary {
+  display: inline-block;
+  padding: .6rem 1.5rem;
+  margin: 1.5rem auto 0;
+  border-radius: .5rem;
   font-size: 1rem;
 }
 
-/* 10. Enlace “Back” */
-.intranet-main .card-header .btn-sm {
-  margin: 0;
+/* 8. Botón “Back” */
+.intranet-main .btn-light.btn-sm {
   background: #fff;
   color: #315530;
   border: 1px solid #315530;
 }
-.intranet-main .card-header .btn-sm:hover {
+.intranet-main .btn-light.btn-sm:hover {
   background: #eaeaea;
 }
 
-/* 11. Footer “pegado” al final */
+/* 9. Footer pegado */
 footer {
   flex-shrink: 0;
 }

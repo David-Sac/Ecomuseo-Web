@@ -1,31 +1,119 @@
-.container {
-    padding: 20px;
+/* public/css/visits-public.css */
+
+/* 0. Hacemos que #app y el body sean un contenedor flex de columna */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* 1. Reset y tipografía base */
+* {
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f2f2f2;
+  color: #333;
+}
+
+/* 2. Contenedor principal: ahora flex:1 para empujar footer */
+.container#visist {
+  flex: 1;                  /* ocupa todo el espacio sobrante */
+  max-width: 1000px;
+  width: 90%;
+  margin: 120px auto 60px;  /* ya no choca con header */
+  padding: 1rem;
+}
+
+/* 3. Título centrado */
+.container#visist h2 {
+  font-size: 2rem;
+  color: #315530;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+/* 4. Cada visita */
 .table-container {
-    width: 70%;
-    margin: 0 auto; /* Centrar la tabla horizontalmente */
-    margin-bottom: 20px;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  background: #fff;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
+  overflow: hidden;
 }
-.table {
-    width: 100%;
-    margin-bottom: 0;
-}
+
+/* 5. Cabecera de la visita y colores según estado */
 .visit-header {
-    background-color: #f8f9fa;
-    color: #495057;
-    padding: 10px 15px;
-    border-bottom: 1px solid #dee2e6;
+  padding: 1rem 1.5rem;
+  font-size: 1.25rem;
+  font-weight: 600;
 }
-.visit-header h3 {
-    margin: 0;
+.table-container.pending .visit-header {
+  background-color: #fff3cd;
+  color: #856404;
 }
-.visit-info td {
-    padding: 10px;
+.table-container.approved .visit-header {
+  background-color: #d4edda;
+  color: #155724;
 }
-.pending { background-color: #fff3cd; }
-.approved { background-color: #d4edda; }
-.rejected { background-color: #f8d7da; }
+.table-container.rejected .visit-header {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* 6. Tabla de detalles */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.table tbody tr.visit-info td {
+  padding: 0.75rem 1rem;
+  vertical-align: top;
+}
+.table tbody tr.visit-info td:first-child {
+  width: 40%;
+  font-weight: 500;
+  background: #f9f9f9;
+}
+
+/* 7. Footer siempre abajo */
+footer {
+  flex-shrink: 0;        /* no se encoge */
+  width: 100%;
+  background: #315530;
+  color: #fff;
+  text-align: center;
+  padding: 2rem 0;
+}
+
+/* 8. Responsive */
+@media (max-width: 768px) {
+  .container#visist {
+    width: 95%;
+    margin: 100px auto 2rem;
+    padding: 0 1rem;
+  }
+  .visit-header {
+    font-size: 1.1rem;
+    padding: 0.75rem 1rem;
+  }
+  .table tbody tr.visit-info {
+    display: block;
+    margin-bottom: 1rem;
+  }
+  .table tbody tr.visit-info td {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+  }
+  .table tbody tr.visit-info td:first-child {
+    background: transparent;
+    font-weight: 600;
+  }
+}

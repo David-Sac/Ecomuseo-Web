@@ -1,6 +1,4 @@
-/* public/css/intranet/blogs-edit.css */
-
-/* 1. Asegurarnos de que el footer quede “pegado” abajo */
+/* 1. Layout para que el footer “pegue” abajo */
 html, body {
   height: 100%;
   margin: 0;
@@ -11,15 +9,16 @@ html, body {
   flex-direction: column;
   min-height: 100vh;
 }
+/* espacio bajo el header fijo */
 .intranet-main {
   flex: 1 0 auto;
-  padding-top: 60px; /* espacio bajo el header fijo */
+  padding-top: 60px;
 }
 
-/* 2. Hacer el card más ancho */
+/* 2. Card centrada y espaciada */
 .intranet-main .card {
-  max-width: none;      /* quitamos el límite fijo */
-  width: 95%;           /* ocupamos el 95% del contenedor */
+  max-width: none;
+  width: 95%;
   margin: 80px auto 40px;
   border-radius: 1rem;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
@@ -32,7 +31,9 @@ html, body {
   color: #fff;
   font-size: 1.25rem;
   font-weight: 600;
-  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 1rem;
   border-bottom: none;
 }
@@ -42,42 +43,72 @@ html, body {
   padding: 2rem;
 }
 
-/* 5. Ajustes de las filas de formulario */
+/* 5. Filas de datos */
 .intranet-main .mb-3.row {
   margin-bottom: 1.5rem;
   align-items: start;
 }
-.intranet-main .col-md-2 {
+.intranet-main .col-md-2,
+.intranet-main .col-md-4 {
   max-width: 120px;
   padding-right: 0;
+  font-weight: 500;
+  text-align: right;
 }
+.intranet-main .col-md-6,
 .intranet-main .col-md-10 {
   width: calc(100% - 120px);
+  line-height: 1.4;
 }
 
-/* 6. Editor Markdown (EasyMDE) full-width y alto */
-.intranet-main .EasyMDEContainer {
-  width: 100% !important;
+/* 6. Markdown-body dentro del show */
+.intranet-main .markdown-body h1,
+.intranet-main .markdown-body h2,
+.intranet-main .markdown-body h3 {
+  font-family: 'Playfair Display', serif;
+  margin: 1.5rem 0 .75rem;
+  line-height: 1.2;
 }
-.intranet-main .CodeMirror {
-  min-height: 400px !important;  /* ajusta la altura a lo que necesites */
+.intranet-main .markdown-body h1 { font-size: 1.75rem; color: #2c4910; }
+.intranet-main .markdown-body h2 { font-size: 1.5rem;  color: #27ae60; }
+.intranet-main .markdown-body h3 { font-size: 1.25rem; color: #315530; }
+.intranet-main .markdown-body p {
+  margin-bottom: 1rem;
+  line-height: 1.7;
+  color: #333;
+}
+.intranet-main .markdown-body img {
+  display: block;
+  max-width: 100%;
+  margin: 1rem auto;
+  border-radius: .5rem;
+}
+.intranet-main .markdown-body ul,
+.intranet-main .markdown-body ol {
+  padding-left: 1.5rem;
+  margin: 1rem 0;
+}
+.intranet-main .markdown-body li {
+  margin-bottom: .5rem;
+}
+.intranet-main .markdown-body pre,
+.intranet-main .markdown-body code {
+  background: #f5f5f5;
+  padding: .75rem;
+  border-radius: .5rem;
+  overflow-x: auto;
+  margin-bottom: 1rem;
 }
 
-/* 7. Checklist en vertical */
-.intranet-main .form-check-inline {
-  display: block !important;
-  margin: 0 0 0.75rem 0 !important;
+/* 7. Imagen fluid y con sombra */
+.intranet-main img.img-fluid {
+  max-width: 100%;
+  height: auto;
+  border-radius: .5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-/* 8. Botón centrado y más grande */
-.intranet-main .btn-primary {
-  display: inline-block;
-  font-size: 1rem;
-  padding: 0.6rem 1.5rem;
-  margin: 0 auto;
-}
-
-/* 9. Asegurar que el footer no tenga hueco adicional */
+/* 8. Footer “pegado” abajo */
 footer {
   flex-shrink: 0;
 }

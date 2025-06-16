@@ -1,5 +1,5 @@
 @extends('layouts.app_new')
-
+@section('styles') <link href="{{ asset('css/intranet/tours-show.css') }}" rel="stylesheet"> @endsection
 @section('content')
 <div class="row justify-content-center">
     <div class="col-md-8">
