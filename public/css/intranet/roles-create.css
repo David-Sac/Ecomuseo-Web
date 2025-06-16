@@ -1,0 +1,78 @@
+/* public/css/intranet/role-create.css */
+
+/* 1. Layout base para que el footer “pegue” abajo */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+/* si tu layout envuelve todo en .intranet-main */
+.intranet-main {
+  flex: 1 0 auto;
+  padding-top: 60px; /* separa del header fijo */
+}
+
+/* 2. Card centrada y dimensionada */
+.intranet-main .card {
+  max-width: 800px;
+  margin: 80px auto 40px;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+/* 3. Header de la card en verde */
+.intranet-main .card-header {
+  background-color: #315530;
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 600;
+  padding: 1rem;
+  border-bottom: none;
+}
+
+/* 4. Body con padding amplio */
+.intranet-main .card-body {
+  padding: 2rem;
+}
+
+/* 5. Filas de formulario */
+.intranet-main .mb-3.row {
+  margin-bottom: 1.5rem;
+}
+.intranet-main .col-form-label {
+  font-weight: 500;
+  padding-top: .35rem;
+}
+.intranet-main .form-control {
+  width: 100%;
+}
+
+/* 6. Checkboxes */
+.intranet-main .form-check {
+  margin-bottom: .75rem;
+}
+
+/* 7. Botón de envío centrado y con tamaño */
+.intranet-main .btn-primary {
+  display: block;
+  margin: 1.5rem auto 0;
+  padding: .6rem 1.5rem;
+  font-size: 1rem;
+}
+
+/* 8. Botón “Volver” */
+.intranet-main .btn-light {
+  padding: .4rem .8rem;
+  font-size: .9rem;
+}
+
+/* 9. Footer al fondo */
+footer {
+  flex-shrink: 0;
+}

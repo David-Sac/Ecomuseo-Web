@@ -1,4 +1,7 @@
 @extends('layouts.app_new')
+@section('styles')
+  <link rel="stylesheet" href="{{ asset('css/intranet/roles-create.css') }}">
+@endsection
 
 @section('content')
 
@@ -19,7 +22,7 @@
                     @csrf
 
                     <div class="mb-3 row">
-                        <label for="name" class="col-md-4 col-form-label text-md-end text-start">Name</label>
+                        <label for="name" class="col-md-4 col-form-label text-md-end text-start">Nombre</label>
                         <div class="col-md-6">
                           <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}">
                             @if ($errors->has('name'))
@@ -48,7 +51,7 @@
                     </div>
 
                     <div class="mb-3 row">
-                        <input type="submit" class="col-md-3 offset-md-5 btn btn-primary" value="Add Role">
+                        <input type="submit" class="col-md-3 offset-md-5 btn btn-primary" value="Añadir Rol"></div>
                     </div>
 
                 </form>

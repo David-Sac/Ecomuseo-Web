@@ -21,14 +21,17 @@ body {
   border-radius: 1rem;
   box-shadow: 0 4px 20px rgba(0,0,0,0.1);
   padding: 2rem;
+  /* evita que textos largos se salgan */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 /* 3. Botón “Volver” */
 .back-to-list {
   margin-bottom: 1.5rem;
-  text-align: left;
 }
 .btn-back {
+  display: inline-block;
   background: #315530;
   color: #fff;
   text-decoration: none;
@@ -67,7 +70,7 @@ body {
   margin-bottom: 2rem;
 }
 
-/* 6. Markdown (aplica sobre todo el artículo) */
+/* 6. Contenido Markdown (todas las etiquetas dentro de .blog-detail-content) */
 .blog-detail-content h1,
 .blog-detail-content h2,
 .blog-detail-content h3 {
@@ -75,18 +78,10 @@ body {
   margin: 1.5rem 0 0.75rem;
   line-height: 1.2;
 }
-.blog-detail-content h1 {
-  font-size: 1.75rem;
-  color: #2c4910;
-}
-.blog-detail-content h2 {
-  font-size: 1.5rem;
-  color: #27ae60;
-}
-.blog-detail-content h3 {
-  font-size: 1.25rem;
-  color: #315530;
-}
+.blog-detail-content h1 { font-size: 1.75rem; color: #2c4910; }
+.blog-detail-content h2 { font-size: 1.5rem;  color: #27ae60; }
+.blog-detail-content h3 { font-size: 1.25rem; color: #315530; }
+
 .blog-detail-content p {
   margin-bottom: 1rem;
   line-height: 1.7;
@@ -148,16 +143,8 @@ body {
     margin-top: 120px;
     padding: 1rem;
   }
-  .blog-detail-title {
-    font-size: 2rem;
-  }
-  .blog-detail-content h1 {
-    font-size: 1.5rem;
-  }
-  .blog-detail-content h2 {
-    font-size: 1.25rem;
-  }
-  .blog-components h2 {
-    font-size: 1.25rem;
-  }
+  .blog-detail-title { font-size: 2rem; }
+  .blog-detail-content h1 { font-size: 1.5rem; }
+  .blog-detail-content h2 { font-size: 1.25rem; }
+  .blog-components h2 { font-size: 1.25rem; }
 }

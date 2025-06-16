@@ -1,5 +1,7 @@
 @extends('layouts.app_new')
-
+@section('styles')
+  <link rel="stylesheet" href="{{ asset('css/intranet/roles-edit.css') }}">
+@endsection
 @section('content')
 
 <div class="row justify-content-center">

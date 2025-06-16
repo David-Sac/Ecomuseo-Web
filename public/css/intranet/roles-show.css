@@ -1,0 +1,100 @@
+/* 0. Sticky footer layout */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+footer {
+  flex-shrink: 0;
+}
+
+/* 1. Main intranet container pushes footer down */
+.intranet-main {
+  flex: 1 0 auto;
+  padding-top: 60px; /* espacio si tu header es fijo */
+}
+
+/* 2. Centrado y espaciado de la tarjeta */
+.intranet-main .row.justify-content-center {
+  margin-top: 80px;
+}
+.intranet-main .row.justify-content-center .card {
+  max-width: 800px;
+  margin: 0 auto 40px;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+/* 3. Header verde con flexbox */
+.intranet-main .row.justify-content-center .card-header {
+  background-color: #315530;
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: none;
+}
+
+/* 4. Body con padding generoso */
+.intranet-main .row.justify-content-center .card-body {
+  padding: 2rem;
+}
+
+/* 5. Filas de datos */
+.intranet-main .row.justify-content-center .mb-3.row {
+  margin-bottom: 1.5rem;
+}
+.intranet-main .row.justify-content-center .col-md-4 {
+  text-align: right;
+  font-weight: 500;
+}
+.intranet-main .row.justify-content-center .col-md-6 {
+  line-height: 1.4;
+}
+
+/* 6. Botón “Back” */
+.intranet-main .row.justify-content-center .btn-primary.btn-sm {
+  background-color: #315530;
+  border-color: #315530;
+  color: #fff;
+}
+.intranet-main .row.justify-content-center .btn-primary.btn-sm:hover {
+  background-color: #27ae60;
+  border-color: #27ae60;
+}
+
+/* 7. Badges de permisos */
+.intranet-main .row.justify-content-center .badge.bg-primary {
+  background-color: #315530;
+  color: #fff;
+  padding: 0.4rem 0.8rem;
+  margin-right: 0.5rem;
+  border-radius: 0.5rem;
+  font-size: 0.85rem;
+}
+
+/* 8. Responsive */
+@media (max-width: 768px) {
+  .intranet-main .row.justify-content-center .card {
+    width: 95%;
+    margin-top: 40px;
+  }
+  .intranet-main .row.justify-content-center .card-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
+  .intranet-main .row.justify-content-center .col-md-4,
+  .intranet-main .row.justify-content-center .col-md-6 {
+    text-align: left;
+  }
+}

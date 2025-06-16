@@ -1,66 +1,56 @@
 @extends('layouts.app_new')
 
+@section('styles')
+  <link rel="stylesheet" href="{{ asset('css/intranet/users-show.css') }}">
+@endsection
+
 @section('content')
-<div class="row justify-content-center">
+<div class="intranet-main">
+  <div class="row justify-content-center">
     <div class="col-md-8">
-        <div class="card">
-            <div class="card-header">
-                <div class="float-start">
-                    Información del Usuario
-                </div>
-                <div class="float-end">
-                    <a href="{{ route('users.index') }}" class="btn btn-primary btn-sm">&larr; Volver</a>
-                </div>
-            </div>
-            <div class="card-body">
-
-                <div class="mb-3 row">
-                    <label for="name" class="col-md-4 col-form-label text-md-end text-start"><strong>Nombre:</strong></label>
-                    <div class="col-md-6" style="line-height: 35px;">
-                        {{ $user->name }}
-                    </div>
-                </div>
-
-                <div class="mb-3 row">
-                    <label for="dni" class="col-md-4 col-form-label text-md-end text-start"><strong>DNI:</strong></label>
-                    <div class="col-md-6" style="line-height: 35px;">
-                        {{ $user->dni }}
-                    </div>
-                </div>
-
-                <div class="mb-3 row">
-                    <label for="phone" class="col-md-4 col-form-label text-md-end text-start"><strong>Teléfono:</strong></label>
-                    <div class="col-md-6" style="line-height: 35px;">
-                        {{ $user->phone }}
-                    </div>
-                </div>
-
-                <div class="mb-3 row">
-                    <label for="birthdate" class="col-md-4 col-form-label text-md-end text-start"><strong>Fecha de Nacimiento:</strong></label>
-                    <div class="col-md-6" style="line-height: 35px;">
-                        {{ $user->birthdate ? \Carbon\Carbon::parse($user->birthdate)->format('d/m/Y') : 'N/A' }}
-                    </div>
-                </div>
-
-                <div class="mb-3 row">
-                    <label for="email" class="col-md-4 col-form-label text-md-end text-start"><strong>Email:</strong></label>
-                    <div class="col-md-6" style="line-height: 35px;">
-                        {{ $user->email }}
-                    </div>
-                </div>
-
-                <div class="mb-3 row">
-                    <label for="roles" class="col-md-4 col-form-label text-md-end text-start"><strong>Rol:</strong></label>
-                    <div class="col-md-6" style="line-height: 35px;">
-                        @forelse ($user->getRoleNames() as $role)
-                            <span class="badge bg-primary">{{ $role }}</span>
-                        @empty
-                        @endforelse
-                    </div>
-                </div>
-
-            </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="float-start">Información del Usuario</div>
+          <div class="float-end">
+            <a href="{{ route('users.index') }}" class="btn btn-light btn-sm">&larr; Volver</a>
+          </div>
         </div>
+        <div class="card-body">
+          <div class="mb-3 row">
+            <label class="col-md-4 col-form-label">Nombre:</label>
+            <div class="col-md-6">{{ $user->name }}</div>
+          </div>
+          <div class="mb-3 row">
+            <label class="col-md-4 col-form-label">DNI:</label>
+            <div class="col-md-6">{{ $user->dni }}</div>
+          </div>
+          <div class="mb-3 row">
+            <label class="col-md-4 col-form-label">Teléfono:</label>
+            <div class="col-md-6">{{ $user->phone }}</div>
+          </div>
+          <div class="mb-3 row">
+            <label class="col-md-4 col-form-label">Fecha de Nacimiento:</label>
+            <div class="col-md-6">
+              {{ $user->birthdate
+                   ? \Carbon\Carbon::parse($user->birthdate)->format('d/m/Y')
+                   : 'N/A' }}
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label class="col-md-4 col-form-label">Email:</label>
+            <div class="col-md-6">{{ $user->email }}</div>
+          </div>
+          <div class="mb-3 row">
+            <label class="col-md-4 col-form-label">Rol:</label>
+            <div class="col-md-6">
+              @foreach($user->getRoleNames() as $role)
+                <span class="badge bg-primary">{{ $role }}</span>
+              @endforeach
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
 @endsection

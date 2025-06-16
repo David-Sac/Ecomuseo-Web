@@ -33,7 +33,7 @@ class ComponentsController extends Controller
     public function index(): View
     {
         return view('components.index', [
-            'components' => Components::latest()->paginate(4)
+            'components' => Components::latest()->paginate(10)
         ]);
     }
 

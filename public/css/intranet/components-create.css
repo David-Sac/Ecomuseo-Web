@@ -14,13 +14,14 @@ html, body {
 /* 2. Dejamos espacio bajo el header fijo */
 .intranet-main {
   flex: 1 0 auto;
-  padding-top: 60px;
+  padding-top: 80px; /* un poco más de espacio arriba */
 }
 
 /* 3. Card centrada y espaciada */
 .intranet-main .card {
-  max-width: 800px;
-  margin: 80px auto 40px;
+  max-width: 1000px;          /* ampliamos ancho máximo */
+  width: 95%;                 /* ocupa el 95% del viewport */
+  margin: 60px auto 40px;     /* menos top, aplica el padding-top */
   border-radius: 1rem;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   overflow: hidden;
@@ -41,43 +42,59 @@ html, body {
 
 /* 5. Body con padding generoso */
 .intranet-main .card-body {
-  padding: 2rem;
+  padding: 2rem 3rem; /* más padding horizontal */
 }
 
 /* 6. Formularios alineados en grid */
 .intranet-main .card-body .row {
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
 }
 .intranet-main .card-body .col-form-label {
   text-align: right;
   font-weight: 500;
 }
 .intranet-main .card-body .form-control {
-  border-radius: .375rem;
+  border-radius: 0.5rem;
 }
 
-/* 7. Botón “Add Component” */
-.intranet-main .card-body .btn-primary {
-  display: block;
-  margin: 1.5rem auto 0;
-  padding: .6rem 1.5rem;
-  border-radius: .5rem;
-}
-
-/* 8. EasyMDE full width */
+/* 7. EasyMDE al 100% del contenedor */
 .intranet-main .EasyMDEContainer {
-  margin-top: .5rem;
+  margin-top: 0.75rem;
+  width: 100% !important;
 }
 .intranet-main textarea#contentComponente {
-  min-height: 300px;
+  min-height: 350px;
+  width: 100% !important;
 }
 
-/* 9. Enlace “Back” */
+/* 8. Selector de archivos centrado */
+.intranet-main .card-body input[type="file"] {
+  display: block;
+  width: auto;
+  margin: 1rem auto;
+}
+
+/* 9. Botón “Añadir Componente” */
+.intranet-main .card-body .btn-primary {
+  display: block;
+  margin: 2rem auto 0;
+  padding: 0.75rem 2rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+}
+
+/* 10. Enlace “Back” */
 .intranet-main .card-header .btn-sm {
   margin: 0;
+  background: #fff;
+  color: #315530;
+  border: 1px solid #315530;
+}
+.intranet-main .card-header .btn-sm:hover {
+  background: #eaeaea;
 }
 
-/* 10. Footer “pegado” al final */
+/* 11. Footer “pegado” al final */
 footer {
   flex-shrink: 0;
 }

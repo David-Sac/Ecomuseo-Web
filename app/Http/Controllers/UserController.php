@@ -33,7 +33,7 @@ class UserController extends Controller
     public function index(): View
     {
         return view('users.index', [
-            'users' => User::latest('id')->paginate(5)
+            'users' => User::latest('id')->paginate(10)
         ]);
     }
 
@@ -114,7 +114,7 @@ class UserController extends Controller
             $volunteer->update(['status' => 'active', 'approved_date' => now()]);
         }
 
-        return redirect()->back()
+        return redirect()->route('users.index')
                 ->withSuccess('El usuario ha sido actualizado correctamente');
     }
 

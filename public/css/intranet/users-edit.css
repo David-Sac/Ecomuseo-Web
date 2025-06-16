@@ -1,0 +1,60 @@
+/* public/css/intranet/users.css */
+
+/* 1. Layout: footer “pegado” y espacio bajo header fijo */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+/* Espacio bajo el header fijo */
+.intranet-main {
+  flex: 1 0 auto;
+  padding-top: 60px;
+}
+
+/* 2. Card centrada y con sombra */
+.intranet-main .card {
+  max-width: 800px;
+  margin: 80px auto 40px;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+/* 3. Header en verde */
+.intranet-main .card-header {
+  background-color: #315530;
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-align: center;
+  padding: 1rem;
+  border-bottom: none;
+}
+
+/* 4. Body con padding generoso */
+.intranet-main .card-body {
+  padding: 2rem;
+}
+
+/* 5. Filas de formulario: etiqueta alineada a la derecha y control a la izquierda */
+.intranet-main .mb-3.row {
+  margin-bottom: 1.5rem;
+}
+.intranet-main .mb-3.row label {
+  text-align: right;
+  font-weight: 500;
+}
+.intranet-main .mb-3.row .col-md-6 {
+  line-height: 35px;
+}
+
+/* 6. Botón “Volver” */
+.intranet-main .btn-light.btn-sm {
+  display: inline-block;
+}
