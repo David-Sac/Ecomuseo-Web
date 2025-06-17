@@ -1,0 +1,123 @@
+/* public/css/intranet/profile.css */
+
+/* 1) Wrapper principal: reducimos espacio sobre el header */
+main.intranet-main {
+  /* Antes 160px, ahora 80px para acercar el contenido */
+  padding-top: 80px !important;
+  padding-bottom: 60px;
+  background-color: #f2f2f2;
+  min-height: calc(100vh - 60px); /* altura mínima menos header fijo */
+  box-sizing: border-box;
+}
+
+/* 2) Centramos y espaciamos las cards */
+main.intranet-main .card {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  background: #fff;
+  overflow: hidden;
+}
+
+/* 3) Cabecera verde de cada sección */
+main.intranet-main .card-header {
+  background-color: #315530;
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 600;
+  padding: 1rem 1.5rem;
+  border-bottom: none;
+}
+
+/* 4) Cuerpo con padding */
+main.intranet-main .card-body {
+  padding: 2rem;
+}
+
+/* 5) Inputs a ancho completo */
+main.intranet-main .card-body input,
+main.intranet-main .card-body textarea,
+main.intranet-main .card-body select {
+  width: 100%;
+  padding: .5rem;
+  border: 1px solid #ccc;
+  border-radius: .5rem;
+  margin-top: .25rem;
+  box-sizing: border-box;
+}
+
+/* 6) Botones “Guardar” y primarios en verde */
+main.intranet-main .card-body button,
+main.intranet-main .card-body .btn,
+main.intranet-main .card-body x-primary-button {
+  background-color: #315530 !important;
+  border-color:    #315530 !important;
+  color:           #fff !important;
+  padding: .6rem 1.2rem;
+  border-radius: .5rem;
+  cursor: pointer;
+  font-size: 1rem;
+}
+main.intranet-main .card-body button:hover,
+main.intranet-main .card-body .btn:hover,
+main.intranet-main .card-body x-primary-button:hover {
+  background-color: #27ae60 !important;
+  border-color:    #27ae60 !important;
+}
+
+/* 7) Botones “Eliminar cuenta” en rojo */
+main.intranet-main .card-body x-danger-button,
+main.intranet-main .card-body .btn-danger {
+  background-color: #c0392b !important;
+  border-color:    #c0392b !important;
+  color:           #fff !important;
+  padding: .6rem 1.2rem;
+  border-radius: .5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  display: inline-block;
+  text-align: center;
+}
+main.intranet-main .card-body x-danger-button:hover,
+main.intranet-main .card-body .btn-danger:hover {
+  background-color: #e74c3c !important;
+  border-color:    #e74c3c !important;
+}
+
+/* 7b) En caso de que <x-danger-button> renderice internamente un <button> */
+main.intranet-main x-danger-button button {
+  background-color: #c0392b !important;
+  border-color:    #c0392b !important;
+  color:           #fff !important;
+}
+main.intranet-main x-danger-button button:hover {
+  background-color: #e74c3c !important;
+  border-color:    #e74c3c !important;
+}
+
+/* 8) Mensajes de éxito en verde brillante */
+main.intranet-main .text-sm.text-green-600 {
+  color: #2ecc71 !important;
+}
+
+/* 9) Asegurar que el footer quede pegado abajo */
+footer {
+  flex-shrink: 0;
+}
+main.intranet-main .btn-danger {
+  background-color: #c0392b !important;
+  border-color:    #c0392b !important;
+  color:           #fff !important;
+  padding: .6rem 1.2rem;
+  border-radius: .5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  display: inline-block;
+  text-align: center;
+}
+main.intranet-main .btn-danger:hover {
+  background-color: #e74c3c !important;
+  border-color:    #e74c3c !important;
+}

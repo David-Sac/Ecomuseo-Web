@@ -1,29 +1,42 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Profile') }}
-        </h2>
-    </x-slot>
+{{-- resources/views/profile/edit.blade.php --}}
+@extends('layouts.app_new')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-profile-information-form')
-                </div>
-            </div>
+@section('styles')
+  <link rel="stylesheet" href="{{ asset('css/intranet/profile.css') }}">
+@endsection
 
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-password-form')
-                </div>
-            </div>
+@section('content')
+<main class="intranet-main">
 
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.delete-user-form')
-                </div>
-            </div>
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+
+      {{-- Información de Perfil --}}
+      <div class="card mb-4">
+        <div class="card-header">Información de Perfil</div>
+        <div class="card-body">
+          @include('profile.partials.update-profile-information-form')
         </div>
+      </div>
+
+      {{-- Cambiar Contraseña --}}
+      <div class="card mb-4">
+        <div class="card-header">Cambiar Contraseña</div>
+        <div class="card-body">
+          @include('profile.partials.update-password-form')
+        </div>
+      </div>
+
+      {{-- Eliminar Cuenta --}}
+      <div class="card mb-4">
+        <div class="card-header">Eliminar Cuenta</div>
+        <div class="card-body">
+          @include('profile.partials.delete-user-form')
+        </div>
+      </div>
+
     </div>
-</x-app-layout>
+  </div>
+
+</main>
+@endsection
