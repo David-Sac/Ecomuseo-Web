@@ -8,18 +8,24 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::table('components', function (Blueprint $table) {
-            // añadimos la columna para almacenar la ruta de la imagen
-            $table->string('rutaImagenComponente')
-                  ->nullable()
-                  ->after('contentComponente');
-        });
+        if (Schema::hasTable('components') 
+            && ! Schema::hasColumn('components', 'rutaImagenComponente')) {
+            
+            Schema::table('components', function (Blueprint $table) {
+                // añadimos la columna para almacenar la ruta de la imagen
+                $table->string('rutaImagenComponente')
+                      ->nullable()
+                      ->after('contentComponente');
+            });
+        }
     }
 
     public function down(): void
     {
-        Schema::table('components', function (Blueprint $table) {
-            $table->dropColumn('rutaImagenComponente');
-        });
+        if (Schema::hasColumn('components', 'rutaImagenComponente')) {
+            Schema::table('components', function (Blueprint $table) {
+                $table->dropColumn('rutaImagenComponente');
+            });
+        }
     }
 };

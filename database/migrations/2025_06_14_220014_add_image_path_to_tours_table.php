@@ -6,21 +6,25 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-        */
-    public function up()
+    public function up(): void
     {
-        Schema::table('tours', function (Blueprint $table) {
-            $table->string('image_path')->nullable()->after('visibility_period');
-        });
+        if (Schema::hasTable('tours') 
+            && ! Schema::hasColumn('tours', 'image_path')) {
+            
+            Schema::table('tours', function (Blueprint $table) {
+                $table->string('image_path')
+                      ->nullable()
+                      ->after('visibility_period');
+            });
+        }
     }
 
-    public function down()
+    public function down(): void
     {
-        Schema::table('tours', function (Blueprint $table) {
-            $table->dropColumn('image_path');
-        });
+        if (Schema::hasColumn('tours', 'image_path')) {
+            Schema::table('tours', function (Blueprint $table) {
+                $table->dropColumn('image_path');
+            });
+        }
     }
-
 };
