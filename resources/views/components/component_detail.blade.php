@@ -1,34 +1,47 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{{ asset('css/component_detail.css') }}">
-    <script src="{{ asset('js/welcome.js') }}"></script>
-    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
-    <link rel="icon" type="image/svg+xml" href="{{ asset('images/logo_vectorizado.svg') }}">
-    <title>Ecomuseo LLAQTA AMARU -YOYEN KUWA</title>
-</head>
-<body>
-    <header>
-        @include('partials.header_new')
-    </header>
+@extends('layouts.app_new')
 
-    <main>
-        <article class="component-detail">
+@section('styles')
+  <link rel="stylesheet" href="{{ asset('css/public_show_blog.css') }}">
+@endsection
 
-            <section class="component-body">
-                <img src="{{ asset($component->rutaImagenComponente) }}" alt="Imagen de {{ $component->titleComponente }}" class="component-image">
-                <h1 class="component-title">{{ $component->titleComponente }}</h1>
-                <p class="component-description">{{ $component->description }}</p>
-                <div class="component-content">
-                    {!! $component->contentComponente !!}
-                </div>
-            </section>
-        </article>
-    </main>
+@section('content')
+<main class="blog-detail-container">
 
-    <!-- Footer -->
-    @include('partials.footer')
-</body>
-</html>
+  {{-- 1) Botón de volver --}}
+  <div class="back-to-list">
+ <a href="{{ url('/') }}" class="btn-back">&larr; Volver al inicio</a>  </div>
+
+  {{-- 2) Imagen principal --}}
+  <div class="blog-detail-image-wrapper">
+    <img 
+      src="{{ asset($component->rutaImagenComponente) }}" 
+      alt="Imagen de {{ $component->titleComponente }}" 
+      class="blog-detail-image"
+    >
+  </div>
+
+  {{-- 3) Título --}}
+  <h1 class="blog-detail-title">{{ $component->titleComponente }}</h1>
+
+  {{-- 4) Descripción breve --}}
+  @if($component->description)
+    <p class="blog-detail-meta">{{ $component->description }}</p>
+  @endif
+
+  {{-- 5) Contenido HTML --}}
+  <article class="blog-detail-content markdown-body">
+    {!! $component->contentComponente !!}
+  </article>
+
+  {{-- 6) Etiquetas relacionadas --}}
+  @if(isset($component->tags) && $component->tags->isNotEmpty())
+    <div class="blog-components">
+      <h2>Etiquetas</h2>
+      @foreach($component->tags as $tag)
+        <span class="blog-component-badge">{{ $tag->name }}</span>
+      @endforeach
+    </div>
+  @endif
+
+</main>
+@endsection

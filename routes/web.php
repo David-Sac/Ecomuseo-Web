@@ -62,6 +62,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
 });
 
 // Rutas accesibles sin autenticación
@@ -117,3 +118,5 @@ Route::get('/complete-profile', [CompleteProfileController::class, 'create'])->n
 Route::post('/complete-profile', [CompleteProfileController::class, 'store'])->name('complete-profile.store')->middleware('auth');
 
 require __DIR__ . '/auth.php';
+Route::middleware('auth')->post('/visits/check-duplicate', [\App\Http\Controllers\VisitController::class, 'checkDuplicate'])
+     ->name('visits.checkDuplicate');

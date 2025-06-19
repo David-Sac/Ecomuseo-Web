@@ -1,10 +1,12 @@
+/* public/css/intranet/footer.css */
+/* 1. Reset básico */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* 2. Tipografía global para footer */
+/* 2. Footer general */
 .footer {
   background: linear-gradient(135deg, #2B4A36 0%, #315530 100%);
   color: #e0e0e0;
@@ -31,7 +33,7 @@
   flex: 1 1 250px;
 }
 
-/* 5. Títulos de sección */
+/* 5. Títulos */
 .footer-section h4 {
   font-size: 1.25rem;
   margin-bottom: 1rem;
@@ -40,7 +42,7 @@
   padding-bottom: 0.5rem;
 }
 
-/* 6. Enlaces y párrafos */
+/* 6. Enlaces */
 .footer-links a,
 .footer-section p a {
   color: #d0f0d0;
@@ -55,7 +57,28 @@
   padding-left: 0.5rem;
 }
 
-/* 7. Iconos sociales */
+/* 7. Correo como texto clicable */
+.footer-email {
+  display: inline-block;
+  color: #d0f0d0;
+  cursor: pointer;
+  margin-bottom: 0.75rem;
+  position: relative;
+  transition: color 0.3s ease, padding-left 0.3s ease;
+}
+.footer-email:hover {
+  color: #ffffff;
+  padding-left: 0.5rem;
+}
+
+/* pequeña etiqueta “copiado” */
+.copy-tip {
+  font-size: 0.85rem;
+  color: #2ecc71;
+  margin-left: 0.3rem;
+}
+
+/* 8. Iconos sociales */
 .social-link {
   display: inline-block;
   margin-right: 0.75rem;
@@ -70,15 +93,7 @@
   filter: brightness(1.2);
 }
 
-/* 8. Párrafos de contacto */
-.footer-section p {
-  margin-bottom: 0.75rem;
-}
-.footer-section p a {
-  display: inline-block;
-}
-
-/* 9. Mobile */
+/* 9. Responsive */
 @media (max-width: 768px) {
   .footer-container {
     flex-direction: column;

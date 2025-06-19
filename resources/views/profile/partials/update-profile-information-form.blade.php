@@ -38,8 +38,24 @@
         </p>
       @endif
     @endif
-  </div>
-
+<div class="mb-3">
+  <label for="phone" class="form-label">Teléfono</label>
+  <input
+    id="phone"
+    name="phone"
+    type="tel"
+    class="form-control @error('phone') is-invalid @enderror"
+    value="{{ old('phone', $user->phone) }}"
+    autocomplete="tel"
+    inputmode="numeric"
+    pattern="[0-9]*"
+    title="Sólo números"
+    onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+  >
+  @error('phone')
+    <div class="invalid-feedback">{{ $message }}</div>
+  @enderror
+</div>
   <div class="flex items-center gap-4">
     <x-primary-button>{{ __('Guardar') }}</x-primary-button>
     @if (session('status') === 'profile-updated')

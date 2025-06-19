@@ -185,6 +185,7 @@ body {
 ---------------------------------*/
 
 .testimonials {
+  font-size: 1.5rem;
   max-width: 600px;
   margin: 2rem auto;
   font-style: italic;
@@ -324,4 +325,24 @@ body {
   .encuentranos-container .info h2 {
     font-size: 1.75rem;
   }
+}
+
+/*---------------------------------------------------
+  ❶ Forzar que el botón “Más información”
+     sólo mida lo que necesita y no se estire
+---------------------------------------------------*/
+.actividades .component-card .card-body > .btn-dark {
+  /* Evita que el flex item se estire en cross‐axis */
+  align-self: center !important;
+
+  /* Anula cualquier flex o ancho fijo */
+  flex: none !important;
+  max-width: none !important;
+
+  /* Que el botón sólo ocupe lo que su texto necesita */
+  display: inline-block !important;
+  width: auto !important;
+
+  /* Ajuste cómodo de padding */
+  padding: 0.75rem 1.5rem !important;
 }

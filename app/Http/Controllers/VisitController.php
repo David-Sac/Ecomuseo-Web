@@ -9,6 +9,7 @@ use App\Http\Requests\StoreVisitRequest;
 use App\Http\Requests\UpdateVisitRequest;
 use Illuminate\View\View;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Http\Request;  // al inicio del fichero
 
 class VisitController extends Controller
 {
@@ -141,4 +142,23 @@ class VisitController extends Controller
         return redirect()->route('visits.index')
             ->withSuccess('Visita eliminada con éxito.');
     }
+/**
+ * Comprueba si el usuario ya solicitó este tour en cualquier horario.
+ */
+    public function checkDuplicate(Request $request)
+    {
+        $userId = auth()->id();
+        $tourId = $request->input('tour_id');
+
+        // Obtenemos todos los horarios de ese tour
+        $scheduleIds = TourSchedule::where('tour_id', $tourId)->pluck('id');
+
+        $exists = Visit::where('user_id', $userId)
+            ->whereIn('tour_schedule_id', $scheduleIds)
+            ->whereIn('status', ['pending', 'approved'])
+            ->exists();
+
+        return response()->json(['exists' => $exists]);
+    }
+
 }

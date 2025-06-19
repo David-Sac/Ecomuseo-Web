@@ -1,266 +1,154 @@
 /* ================================
-   tour.css (modificado según solicitud)
+   tour.css con header alineado
    ================================ */
 
-/*---------------------------------
-  1. Estilos generales para contenedor de tours
----------------------------------*/
+/* 0. Header de sección con título + botón alineados */
+.tours-header {
+  position: relative;
+  display: flex;
+  align-items: center;      /* Alinea verticalmente */
+  justify-content: center;  /* Mantiene el h1 centrado */
+  margin-bottom: 0.5rem;
+}
+
+/* Reposiciona el botón sin afectar al h1 */
+.tours-header .custom-button-container {
+  position: absolute;
+  right: 1rem;              /* Ajusta separación del borde */
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* 1. Estilos generales para contenedor de tours */
 .tours {
-  margin-top: 100px; /* Ajusta este valor según la altura de tu header */
+  margin-top: 100px; /* Ajusta según la altura de tu header */
 }
 
-/*---------------------------------
-  2. Contenedor principal centrado
----------------------------------*/
+/* 2. Subtítulo */
+.tours .subtitle {
+  text-align: center;
+  color: #555;
+  margin-bottom: 2rem;
+}
+
+/* 3. Contenedor principal centrado */
 .box-container {
-  max-width: 1000px;      /* Ancho máximo del conjunto de tarjetas */
-  margin: 0 auto;         /* Centra horizontalmente */
-  padding: 0 15px;        /* Espacio lateral para no pegarse al borde */
-  box-sizing: border-box; /* Incluye el padding dentro del ancho */
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 15px;
+  box-sizing: border-box;
 }
 
-/*---------------------------------
-  3. “Tarjeta” de tour (tour-box):
-     - se estira según contenido de <p> y botón
-     - mantiene imagen y texto alineados a la misma altura
----------------------------------*/
+/* 4. Tour box */
 .tour-box {
-  max-width: 100%;                         /* Ocupará el ancho de .box-container, pero no más */
-  background-color: #ffffff;               /* Fondo blanco */
-  border: 1px solid #ddd;                  /* Borde gris claro */
-  border-radius: 6px;                      /* Esquinas redondeadas */
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);   /* Sombra suave */
-  margin: 20px auto;                       /* Separación vertical + centrado */
-  display: flex;                           /* Imagen a la izquierda, texto a la derecha */
-  flex-wrap: wrap;                         /* En móvil apila vertical */
-  align-items: stretch;                    /* Imagen y texto comparten la misma altura */
-  overflow: visible;                       /* Permitimos que el contenedor crezca con el contenido */
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  margin: 20px auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  overflow: visible;
 }
 
-/*---------------------------------
-  4. En pantallas estrechas (<768px),
-     la tarjeta se apila verticalmente
----------------------------------*/
+/* 5. Responsive tour box */
 @media (max-width: 767px) {
-  .tour-box {
-    flex-direction: column;
-  }
+  .tour-box { flex-direction: column; }
 }
 
-/*---------------------------------
-  5. Contenedor de la imagen (tour-image):
-     - define solo el ancho mínimo/máximo
-     - se estira verticalmente igual que el texto
----------------------------------*/
+/* 6. Imagen */
 .tour-image {
-  flex: 1 1 250px;       /* Ocupa al menos 250px de ancho */
-  min-width: 250px;      /* Nunca más estrecha que 250px */
-  max-width: 350px;      /* Nunca más ancha que 350px */
-  overflow: hidden;
+  flex: 1 1 250px;
+  min-width: 250px;
+  max-width: 350px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #000; /* Para cubrir espacios mientras carga */
+  background: #000;
 }
-
-/*---------------------------------
-  6. Imagen dentro de .tour-image:
-     - cubrir todo el contenedor en ancho y alto con object-fit:cover
----------------------------------*/
 .tour-image img {
-  width: 100%;
-  height: 100%;         /* Ahora se estira para llenar la altura de .tour-image */
-  object-fit: cover;    /* Recorta y centra la imagen sin deformar */
-  display: block;
-  transition: transform 0.3s ease;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
 }
 .tour-image img:hover {
   transform: scale(1.05);
 }
 
-/*---------------------------------
-  7. Área de texto (tour-info):
-     - se estira para ocupar la altura total que deje la imagen
-     - sin scroll interno; el contenedor crece según el contenido
----------------------------------*/
+/* 7. Info */
 .tour-info {
-  flex: 2 1 450px;       /* Ocupa el resto del espacio, con mínimo de 450px */
-  padding: 20px;         /* Padding uniforme */
-  box-sizing: border-box;
-  overflow: visible;     /* Quitamos scroll interno */
+  flex: 2 1 450px;
+  padding: 20px; box-sizing: border-box;
 }
 
-/*---------------------------------
-  8. Título dentro de .tour-info
----------------------------------*/
+/* 8. Título */
 .tour-info h3 {
   color: #2c4910;
-  font-size: 1.75rem;   /* ≈ 28px */
+  font-size: 1.75rem;
   margin-bottom: 0.75rem;
   font-weight: bold;
   text-decoration: underline;
-  font-family: 'Times New Roman', Times, serif;
 }
 
-/*---------------------------------
-  9. Párrafos con estilos generales
----------------------------------*/
+/* 9. Párrafos */
 .tour-info p {
   margin: 5px 0;
 }
+.tour-info .tour-desc { font-size: 1.125rem; margin-bottom: .5rem; }
+.tour-info .tour-capacity,
+.tour-info .tour-dates,
+.tour-info .tour-components { font-size: 1.0625rem; margin-bottom: .4rem; }
+.tour-info .tour-days,
+.tour-info .tour-hours { font-size: 1rem; margin-bottom: .4rem; }
+.tour-info .tour-guide { font-size: 1.0625rem; margin-bottom: 1rem; }
 
-/*---------------------------------
-  10. Párrafos con tamaños distintos según su clase
----------------------------------*/
-.tour-info .tour-desc {
-  font-size: 1.125rem;  /* 18px */
-  margin-bottom: 0.5rem;
-}
-.tour-info .tour-capacity {
-  font-size: 1.0625rem; /* 17px */
-  margin-bottom: 0.4rem;
-}
-.tour-info .tour-dates {
-  font-size: 1.0625rem; /* 17px */
-  margin-bottom: 0.4rem;
-}
-.tour-info .tour-days {
-  font-size: 1rem;      /* 16px */
-  margin-bottom: 0.4rem;
-}
-.tour-info .tour-hours {
-  font-size: 1rem;      /* 16px */
-  margin-bottom: 0.4rem;
-}
-.tour-info .tour-components {
-  font-size: 1.0625rem; /* 17px */
-  margin-bottom: 0.4rem;
-}
-.tour-info .tour-guide {
-  font-size: 1.0625rem; /* 17px */
-  margin-bottom: 1rem;
-}
-
-/*---------------------------------
-  11. Botón “Quiero reservar” dentro de .reserve-button-container
----------------------------------*/
-.reserve-button-container .reserve-button {
-  display: inline-block;
-  padding: 0.5rem 1rem;
-  background-color: #2d7710;  /* Verde oscuro */
-  color: #ffffff !important;
-  text-decoration: none !important;
-  font-weight: 700;
-  border-radius: 5px;
-  border: none;
-  transition: background-color 0.2s ease;
-  margin-top: 10px;
-}
-.reserve-button-container .reserve-button:hover,
-.reserve-button-container .reserve-button:focus {
-  background-color: #45a049;  /* Verde más claro en hover */
-  color: #0a3f1b !important;
-  text-decoration: none !important;
-}
-.reserve-button-container .reserve-button:active {
-  background-color: #36723a;  /* Verde aún más oscuro en clic */
-  color: #0a3f1b !important;
-}
-
-/*---------------------------------
-  12. Botón “Quiero reservar” (estilos compartidos)
----------------------------------*/
+/* 10. Botón “Quiero reservar” */
+.reserve-button-container .reserve-button,
 .reserve-button {
   display: inline-block;
-  padding: 10px 20px;
+  padding: .5rem 1rem;
   background-color: #2d7710;
-  color: #ffffff !important;       /* Blanco forzado */
-  text-align: center;
-  text-decoration: none !important;/* Sin subrayado en normal */
+  color: #fff !important;
   font-weight: 700;
   border-radius: 5px;
+  text-decoration: none !important;
   margin-top: 10px;
-  outline: none;
-  border: none;
+  transition: background-color 0.2s;
 }
 .reserve-button:hover,
 .reserve-button:focus {
-  background-color: #45a049;       /* Verde más claro en hover */
-  color: #0a3f1b !important;       /* Texto oscuro forzado */
-  text-decoration: none !important;/* Quitamos subrayado residual */
-  cursor: pointer;
-  outline: none;
+  background-color: #45a049;
+  color: #0a3f1b !important;
 }
 .reserve-button:active {
-  background-color: #36723a;       /* Verde aún más oscuro */
-  color: #0a3f1b !important;       /* Texto oscuro */
-  text-decoration: none !important;
+  background-color: #36723a;
 }
 
-/*---------------------------------
-  13. Botones “Mis Tours” (custom-button-container)
----------------------------------*/
+/* 11. Botón “Mis Tours” */
 .custom-button-container {
-  text-align: right;  /* Alinea el botón a la derecha */
-  padding: 20px;      /* Ajusta el espaciado alrededor del botón */
+  padding: 10px 20px;
 }
 .custom-button {
-  background-color: #ffcc00; /* Color amarillo */
-  color: #000;               /* Texto en negro */
-  padding: 10px 20px;        /* Ajusta el tamaño del botón */
-  border-radius: 20px;       /* Bordes curveados */
-  text-decoration: none;     /* Elimina el subrayado del enlace */
-  font-weight: bold;         /* Texto en negrita */
-  transition: background-color 0.3s ease; /* Transición suave al cambiar el color de fondo */
+  background-color: #ffcc00;
+  color: #000;
+  padding: 10px 20px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color .3s;
 }
 .custom-button:hover {
-  background-color: #e6b800; /* Color amarillo más oscuro al pasar el mouse */
+  background-color: #e6b800;
 }
 
-/*---------------------------------
-  14. Componentes de la lista y estilo de enlaces
----------------------------------*/
-a {
-  text-transform: none;
-}
-
-/*---------------------------------
-  15. Texto indicativo “Agotado” si no hay cupos
----------------------------------*/
+/* 12. “Agotado” */
 .sold-out {
-  color: red;
-  font-weight: bold;
+  color: red; font-weight: bold;
 }
 
-/*---------------------------------
-  16. Adaptaciones en móvil para imagen y texto
----------------------------------*/
+/* 13. Ajustes responsive */
 @media (max-width: 767px) {
-  .tour-image {
-    width: 100% !important;
-    max-width: 100% !important;
-    min-width: auto !important;
-    margin-bottom: 1rem;
-    height: auto;       /* La imagen ajusta su alto naturalmente en móvil */
-    max-height: 300px;  /* Opcional: para no volverse gigantes en móvil */
-  }
-  .tour-info {
-    overflow: visible;
-  }
-}
-
-/*---------------------------------
-  17. Estilos de subtítulos dentro de .tour-info
----------------------------------*/
-.tours h1 {
-  text-align: center;
-  color: #2c4910;
-  font-size: 50px;
-  font-weight: bold;
-  font-style: italic;
-}
-.tours a {
-  color: #333;
-  font-size: 20px;
-  font-weight: 500;
+  .tour-image { width: 100% !important; }
+  .tour-info { overflow: visible; }
 }

@@ -16,8 +16,8 @@
             </div>
             <div class="footer-section">
                 <h4>Contacto</h4>
-                <p><a href="tel:992 585 999">992-585-999</a></p>
-                <p><a href="ecomuseollaqtaamaruyorenkuwai@gmail.com">ecomuseollaqtaamaruyorenkuwai@gmail.com</a></p>
+                <p><a href="#">992-585-999</a></p>
+                <p class="footer-email" id="footerEmail">ecomuseollaqtaamaruyorenkuwai@gmail.com</p>
                 <p><a href="#">Facultad de agronomía UNAP</a></p>
             </div>
             <div class="footer-section">
