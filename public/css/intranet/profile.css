@@ -1,6 +1,10 @@
 /* public/css/intranet/profile.css */
 
-/* 1) Wrapper principal: reducimos espacio sobre el header */
+/* -----------------------------------------------------------------------------
+   1) CONTENEDOR PRINCIPAL
+   Afecta al HTML: <main class="intranet-main">…</main>
+   Ajusta padding top/bottom, fondo y altura mínima.
+----------------------------------------------------------------------------- */
 main.intranet-main {
   /* Antes 160px, ahora 80px para acercar el contenido */
   padding-top: 80px !important;
@@ -10,7 +14,11 @@ main.intranet-main {
   box-sizing: border-box;
 }
 
-/* 2) Centramos y espaciamos las cards */
+/* -----------------------------------------------------------------------------
+   2) TARJETA SECCIÓN
+   Afecta al HTML: <div class="card mb-4">…</div>
+   Controla ancho, centrado, sombra, bordes redondeados y fondo.
+----------------------------------------------------------------------------- */
 main.intranet-main .card {
   width: 100%;
   max-width: 900px;
@@ -21,7 +29,11 @@ main.intranet-main .card {
   overflow: hidden;
 }
 
-/* 3) Cabecera verde de cada sección */
+/* -----------------------------------------------------------------------------
+   3) CABECERA DE TARJETA
+   Afecta al HTML: <div class="card-header">Título</div>
+   Define fondo verde, texto blanco, tamaño y padding.
+----------------------------------------------------------------------------- */
 main.intranet-main .card-header {
   background-color: #315530;
   color: #fff;
@@ -31,12 +43,23 @@ main.intranet-main .card-header {
   border-bottom: none;
 }
 
-/* 4) Cuerpo con padding */
+/* -----------------------------------------------------------------------------
+   4) CUERPO DE TARJETA
+   Afecta al HTML: <div class="card-body">…</div>
+   Añade padding interno para separar campos y botones.
+----------------------------------------------------------------------------- */
 main.intranet-main .card-body {
   padding: 2rem;
 }
 
-/* 5) Inputs a ancho completo */
+/* -----------------------------------------------------------------------------
+   5) INPUTS, TEXTAREAS Y SELECTS
+   Afecta al HTML:
+     <input ...>
+     <textarea ...></textarea>
+     <select>…</select>
+   Los hace full-width con padding y bordes redondeados.
+----------------------------------------------------------------------------- */
 main.intranet-main .card-body input,
 main.intranet-main .card-body textarea,
 main.intranet-main .card-body select {
@@ -48,7 +71,13 @@ main.intranet-main .card-body select {
   box-sizing: border-box;
 }
 
-/* 6) Botones “Guardar” y primarios en verde */
+/* -----------------------------------------------------------------------------
+   6) BOTONES “GUARDAR” Y PRIMARIOS
+   Afecta al HTML:
+     <button class="btn">Guardar</button>
+     <x-primary-button>Guardar</x-primary-button>
+   Pinta de verde, texto blanco, padding y hover.
+----------------------------------------------------------------------------- */
 main.intranet-main .card-body button,
 main.intranet-main .card-body .btn,
 main.intranet-main .card-body x-primary-button {
@@ -67,7 +96,13 @@ main.intranet-main .card-body x-primary-button:hover {
   border-color:    #27ae60 !important;
 }
 
-/* 7) Botones “Eliminar cuenta” en rojo */
+/* -----------------------------------------------------------------------------
+   7) BOTÓN “ELIMINAR CUENTA”
+   Afecta al HTML:
+     <x-danger-button>Eliminar Cuenta</x-danger-button>
+     <button class="btn btn-danger">Eliminar Cuenta</button>
+   Pinta de rojo, padding y hover.
+----------------------------------------------------------------------------- */
 main.intranet-main .card-body x-danger-button,
 main.intranet-main .card-body .btn-danger {
   background-color: #c0392b !important;
@@ -86,7 +121,7 @@ main.intranet-main .card-body .btn-danger:hover {
   border-color:    #e74c3c !important;
 }
 
-/* 7b) En caso de que <x-danger-button> renderice internamente un <button> */
+/* En caso de que <x-danger-button> renderice internamente un <button> */
 main.intranet-main x-danger-button button {
   background-color: #c0392b !important;
   border-color:    #c0392b !important;
@@ -97,15 +132,29 @@ main.intranet-main x-danger-button button:hover {
   border-color:    #e74c3c !important;
 }
 
-/* 8) Mensajes de éxito en verde brillante */
+/* -----------------------------------------------------------------------------
+   8) MENSAJES DE ÉXITO
+   Afecta al HTML:
+     <span class="text-sm text-green-600">…</span>
+   Pinta de verde brillante.
+----------------------------------------------------------------------------- */
 main.intranet-main .text-sm.text-green-600 {
   color: #2ecc71 !important;
 }
 
-/* 9) Asegurar que el footer quede pegado abajo */
+/* -----------------------------------------------------------------------------
+   9) FOOTER
+   Afecta al HTML: <footer>…</footer>
+   Evita que el footer se reduzca si usas flex en el layout.
+----------------------------------------------------------------------------- */
 footer {
   flex-shrink: 0;
 }
+
+/* -----------------------------------------------------------------------------
+   10) BOTÓN DE PELIGRO GENERAL (btn-danger en card-body)
+   Repite estilos para asegurar consistencia.
+----------------------------------------------------------------------------- */
 main.intranet-main .btn-danger {
   background-color: #c0392b !important;
   border-color:    #c0392b !important;

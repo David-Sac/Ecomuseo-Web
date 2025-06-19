@@ -52,7 +52,7 @@
     title="Sólo números"
     onkeypress="return event.charCode >= 48 && event.charCode <= 57"
   >
-  @error('phone')
+  @error('phone') 
     <div class="invalid-feedback">{{ $message }}</div>
   @enderror
 </div>

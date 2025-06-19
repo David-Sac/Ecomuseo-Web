@@ -54,12 +54,26 @@
           </p>
           <div class="reserve-button-container">
             @if ($tour->available)
-              <a href="#" class="reserve-button" data-tour-id="{{ $tour->id }}"
-                 data-tour-name="{{ $tour->name }}"
-                 data-tour-schedules="{{ $tour->schedules->map(fn($s)=> $s->id.'|'.$s->day_of_week.' '.date('g:i A',strtotime($s->start_time)).' a '.date('g:i A',strtotime($s->end_time)).'|'.$s->available_seats)->join(',') }}"
-                 data-tour-components="{{ $tour->components->pluck('titleComponente')->join(', ') }}">
-                Quiero reservar
-              </a>
+              @auth
+                <a href="#"
+                   class="reserve-button"
+                   data-tour-id="{{ $tour->id }}"
+                   data-tour-name="{{ $tour->name }}"
+                   data-tour-schedules="{{ $tour->schedules->map(fn($s)=>
+                     $s->id.'|'
+                     .$s->day_of_week.' '
+                     .date('g:i A',strtotime($s->start_time))
+                     .' a '.date('g:i A',strtotime($s->end_time))
+                     .'|'.$s->available_seats
+                   )->join(',') }}"
+                   data-tour-components="{{ $tour->components->pluck('titleComponente')->join(', ') }}">
+                  Quiero reservar
+                </a>
+              @else
+                <a href="{{ route('login') }}" class="reserve-button">
+                  Quiero reservar
+                </a>
+              @endauth
             @else
               <span class="sold-out">Agotado</span>
             @endif
@@ -71,86 +85,87 @@
 </section>
 
 @include('tours.reservationModal')
+@endsection
 
 @section('scripts')
   {{-- SweetAlert2 --}}
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script>
-  document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function() {
       $('.reserve-button').click(function(e) {
-          e.preventDefault();
-          const btn = $(this);
+        e.preventDefault();
+        const btn = $(this);
 
-          // 1) petición AJAX para comprobar duplicado (lo tienes funcionando)
+        @auth
+          // 1) petición AJAX para comprobar duplicado
           $.post("{{ route('visits.checkDuplicate') }}", {
-              _token: "{{ csrf_token() }}",
-              tour_id: btn.data('tour-id')
+            _token: "{{ csrf_token() }}",
+            tour_id: btn.data('tour-id')
           }).done(function(resp) {
-              if (resp.exists) {
-                  return Swal.fire({
-                      icon: 'warning',
-                      title: '¡Atención!',
-                      text: 'Ya realizaste una reserva para "'+ btn.data('tour-name') +'". Ya no se aceptaran más reservas.',
-                  });
-              }
-
-              // 2) leemos la lista completa de horarios con .attr()
-              const rawSchedules = btn.attr('data-tour-schedules');
-              const schedules    = rawSchedules.split(',');
-
-              // ya no usamos btn.data para schedules
-              const components = btn.data('tour-components');
-
-              $('#tour_id').val(btn.data('tour-id'));
-              $('#reservationModalLabel').text('Reservar Tour: ' + btn.data('tour-name'));
-              $('#modal-tour-components').text(components);
-
-              const container = $('#modal-tour-schedules-container');
-              container.empty();
-
-              schedules.forEach((item, idx) => {
-                  const [id, time, seats] = item.split('|');
-                  container.append(`
-                    <div class="form-check">
-                      <input class="form-check-input selected-schedule"
-                             type="radio"
-                             name="selected_schedule"
-                             id="schedule${idx}"
-                             value="${id}">
-                      <label class="form-check-label" for="schedule${idx}">
-                        ${time} (Cupos disponibles: ${seats})
-                      </label>
-                    </div>`);
+            if (resp.exists) {
+              return Swal.fire({
+                icon: 'warning',
+                title: '¡Atención!',
+                text: 'Ya realizaste una reserva para "' + btn.data('tour-name') + '".',
               });
+            }
 
-              $('#reservationModal').modal('show');
+            // 2) abrimos el modal si no hay duplicado
+            const schedules = btn.attr('data-tour-schedules').split(',');
+            const components = btn.data('tour-components');
+
+            $('#tour_id').val(btn.data('tour-id'));
+            $('#reservationModalLabel').text('Reservar Tour: ' + btn.data('tour-name'));
+            $('#modal-tour-components').text(components);
+
+            const container = $('#modal-tour-schedules-container');
+            container.empty();
+
+            schedules.forEach((item, idx) => {
+              const [id, time, seats] = item.split('|');
+              container.append(`
+                <div class="form-check">
+                  <input class="form-check-input selected-schedule"
+                         type="radio"
+                         name="selected_schedule"
+                         id="schedule${idx}"
+                         value="${id}">
+                  <label class="form-check-label" for="schedule${idx}">
+                    ${time} (Cupos disponibles: ${seats})
+                  </label>
+                </div>`);
+            });
+
+            $('#reservationModal').modal('show');
           });
+        @endauth
       });
 
-        $('#add-companion').off('click').on('click', function() {
-            var container = $('#companions-container');
-            var newCompanion = `
-                <div class="companion-group">
-                    <input type="text" class="form-control" placeholder="Nombre" name="companions[]">
-                    <button type="button" class="btn btn-outline-secondary age-button">Adulto</button>
-                    <button type="button" class="btn btn-outline-secondary age-button">Menor de edad</button>
-                    <button type="button" class="btn btn-outline-danger remove-companion">-</button>
-                </div>`;
-            container.append(newCompanion);
-        });
+      // resto de tus handlers: agregar/quitar acompañantes, edad, selección…
+      $('#add-companion').off('click').on('click', function() {
+        var container = $('#companions-container');
+        var newCompanion = `
+          <div class="companion-group">
+            <input type="text" class="form-control" placeholder="Nombre" name="companions[]">
+            <button type="button" class="btn btn-outline-secondary age-button">Adulto</button>
+            <button type="button" class="btn btn-outline-secondary age-button">Menor de edad</button>
+            <button type="button" class="btn btn-outline-danger remove-companion">-</button>
+          </div>`;
+        container.append(newCompanion);
+      });
 
-        $(document).on('click', '.remove-companion', function() {
-            $(this).closest('.companion-group').remove();
-        });
+      $(document).on('click', '.remove-companion', function() {
+        $(this).closest('.companion-group').remove();
+      });
 
-        $(document).on('click', '.age-button', function() {
-            $(this).siblings('.age-button').removeClass('selected');
-            $(this).addClass('selected');
-        });
+      $(document).on('click', '.age-button', function() {
+        $(this).siblings('.age-button').removeClass('selected');
+        $(this).addClass('selected');
+      });
 
-        $(document).on('change', '.selected-schedule', function() {
-            $('#tour_schedule_id').val($(this).val());
-        });
+      $(document).on('change', '.selected-schedule', function() {
+        $('#tour_schedule_id').val($(this).val());
+      });
     });
-</script>
+  </script>
 @endsection

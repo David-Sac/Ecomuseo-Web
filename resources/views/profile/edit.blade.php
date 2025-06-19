@@ -8,6 +8,11 @@
 @section('content')
 <main class="intranet-main">
 
+  {{-- Mensaje de error genérico --}}
+  @if(session('error'))
+    <div class="alert alert-danger">{{ session('error') }}</div>
+  @endif
+
   <div class="row justify-content-center">
     <div class="col-lg-8">
 
@@ -27,13 +32,15 @@
         </div>
       </div>
 
-      {{-- Eliminar Cuenta --}}
-      <div class="card mb-4">
-        <div class="card-header">Eliminar Cuenta</div>
-        <div class="card-body">
-          @include('profile.partials.delete-user-form')
+      {{-- Eliminar Cuenta: solo si NO es Super Admin --}}
+      @if (! auth()->user()->hasRole('Super Admin'))
+        <div class="card mb-4">
+          <div class="card-header">Eliminar Cuenta</div>
+          <div class="card-body">
+            @include('profile.partials.delete-user-form')
+          </div>
         </div>
-      </div>
+      @endif
 
     </div>
   </div>

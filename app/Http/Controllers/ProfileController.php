@@ -48,8 +48,15 @@ class ProfileController extends Controller
 
         $user = $request->user();
 
-        Auth::logout();
+        // ◀── BLOQUEO: si es Super Admin no permitimos eliminarse ──▶
+        if ($user->hasRole('Super Admin')) {
+            return redirect()
+                ->route('profile.edit')
+                ->with('error', 'La cuenta de Super Admin no puede eliminarse.');
+        }
+        // ───────────────────────────────────────────────────────────
 
+        Auth::logout();
         $user->delete();
 
         $request->session()->invalidate();
