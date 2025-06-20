@@ -17,7 +17,6 @@ body {
   background-color: #f9f9f9;
 }
 
-
 .main-content {
   margin-top: 60px; /* espacio para el header fijo */
 }
@@ -84,13 +83,14 @@ body {
   margin-bottom: 1.5rem;
   color: #315530;
   font-weight: bold;
-  font-size:x-large
+  font-size: x-large;
 }
 .components-benefits li::before {
   content: "✔︎";
   margin-right: .5rem;
   color: #2f4032;
 }
+
 /* --- Tarjetas de Carrusel --- */
 .component-card {
   width: 28rem;
@@ -153,7 +153,7 @@ body {
   background-color: #243f25;
 }
 
-/* --- Controles de Carrusel --- */
+/* --- Controles de Carrusel de Componentes --- */
 #carouselComponentes .carousel-control-prev,
 #carouselComponentes .carousel-control-next {
   width: 6%;
@@ -183,7 +183,6 @@ body {
 /*---------------------------------
   6. Otros Bloques (Mapa, etc.)
 ---------------------------------*/
-
 .testimonials {
   font-size: 1.5rem;
   max-width: 600px;
@@ -228,42 +227,6 @@ body {
   border: 0;
 }
 
-.encuentranos-container .info {
-  flex: 1;
-}
-.encuentranos-container .info .item {
-  display: flex;
-  align-items: flex-start;
-  margin-bottom: 1.25rem;
-}
-
-.encuentranos-container .info .item p {
-  margin: 0;
-  color: #333;
-  line-height: 1.4;
-}
-.encuentranos-container .info .item p strong {
-  color: #315530;
-}
-.encuentranos-container .item svg.icon,
-.encuentranos-container .item svg {
-  width: 1.25rem;    /* prueba 1.25rem o incluso 1rem */
-  height: 1.25rem;
-  margin-right: 0.5rem;
-  flex-shrink: 0;
-}
-
-.mapa {
-    margin: 2rem auto;
-    max-width: 500px;
-    width: 100%;  /* centrar horizontalmente y espacio arriba/abajo */
-}
-.contenedor .carousel-inner img,
-.mapa iframe {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-}
 /*---------------------------------
   7. Responsive Breakpoints
 ---------------------------------*/
@@ -312,7 +275,6 @@ body {
     height: 200px;
   }
 }
-
 @media (max-width: 768px) {
   .encuentranos-container {
     flex-direction: column;
@@ -332,17 +294,30 @@ body {
      sólo mida lo que necesita y no se estire
 ---------------------------------------------------*/
 .actividades .component-card .card-body > .btn-dark {
-  /* Evita que el flex item se estire en cross‐axis */
   align-self: center !important;
-
-  /* Anula cualquier flex o ancho fijo */
   flex: none !important;
   max-width: none !important;
-
-  /* Que el botón sólo ocupe lo que su texto necesita */
   display: inline-block !important;
   width: auto !important;
-
-  /* Ajuste cómodo de padding */
   padding: 0.75rem 1.5rem !important;
+}
+
+/*---------------------------------------------------
+  Carrusel dinámico de componentes:
+  fondo semitransparente y leyenda sobre la imagen
+---------------------------------------------------*/
+#carouselExampleIndicators .carousel-caption {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  bottom: 1.25rem;
+}
+#carouselExampleIndicators .carousel-caption h5 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+#carouselExampleIndicators .carousel-caption p {
+  font-size: 1rem;
+  margin: 0;
 }
