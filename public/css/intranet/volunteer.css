@@ -2,11 +2,10 @@
    Estilos para la Vista de Voluntarios (intranet)
    ============================================ */
 
-/* 1) Layout general para “pegado” de footer */
+/* 1) Footer “pegado” y espacio bajo header */
 html, body {
   height: 100%;
-  margin: 0;
-  padding: 0;
+  margin: 0; padding: 0;
 }
 #app {
   display: flex;
@@ -15,19 +14,19 @@ html, body {
 }
 .intranet-main {
   flex: 1 0 auto;
-  padding-top: 60px; /* espacio bajo header fijo */
+  padding-top: 60px;
 }
 
-/* 2) Card centrada y espaciada */
+/* 2) Card centrada */
 .intranet-main .card {
-  max-width: 1500px;
+  max-width: 1200px;
   margin: 80px auto 40px;
   border-radius: 1rem;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   overflow: hidden;
 }
 
-/* 3) Header de la card en verde oscuro */
+/* 3) Header de la card */
 .intranet-main .card-header {
   background-color: #315530;
   color: #fff;
@@ -38,20 +37,20 @@ html, body {
   border-bottom: none;
 }
 
-/* 4) Body con padding generoso */
+/* 4) Body con padding */
 .intranet-main .card-body {
   padding: 2rem;
 }
 
-/* 5) Contenedor de tabla para añadir espacio sobre ella */
+/* 5) Contenedor de tabla */
 .table-container {
   margin-top: 2rem;
 }
 
-/* 6) Tabla de voluntarios */
+/* 6) Tabla */
 #table {
   width: 100%;
-  table-layout: auto; /* columnas ajustan su ancho al contenido */
+  table-layout: auto;
   border-collapse: collapse;
   margin-bottom: 1rem;
 }
@@ -77,20 +76,13 @@ html, body {
   word-wrap: break-word;
 }
 
-/* 9) Centrar la columna “#” */
+/* 9) Centrar primera columna “#” */
 #table th:first-child,
 #table td:first-child {
   text-align: center;
 }
 
-/* 10) Ajuste mínima de la última columna de acciones */
-#table th:last-child,
-#table td:last-child {
-  white-space: nowrap;
-  width: 1%;
-}
-
-/* 11) Franjas alternas y hover */
+/* 10) Franjas alternas y hover */
 #table tbody tr:nth-of-type(odd) {
   background-color: #fafafa;
 }
@@ -98,7 +90,7 @@ html, body {
   background-color: #eef7ec;
 }
 
-/* 12) Badges de roles */
+/* 11) Badges de rol */
 .role-badge {
   display: inline-block;
   margin: 0 0.25rem 0.25rem 0;
@@ -111,29 +103,16 @@ html, body {
   white-space: nowrap;
 }
 
-/* 13) Colores por estado */
-#table tbody tr.pending {
-  background-color: #fff3cd !important;
-}
-#table tbody tr.active {
-  background-color: #d4edda !important;
-}
-#table tbody tr.inactive {
-  background-color: #f8d7da !important;
-}
-
-/* 14) Botones pequeños espaciados */
-.intranet-main .btn-sm {
-  margin-right: 0.25rem;
-}
-
-/* 15) Paginación centrada */
+/* 12) Paginación centrada */
 .intranet-main .pagination {
   justify-content: center;
   margin-top: 1rem;
 }
 
-/* 16) Footer pegado */
+/* 13) Footer pegado */
 footer {
   flex-shrink: 0;
 }
+
+/* ———————— Elimina cualquier regla de colores de estado ———————— */
+/* .pending, .active, .inactive { background-color: transparent !important; } */

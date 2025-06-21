@@ -33,7 +33,7 @@ class VolunteerController extends Controller
     {
         // ① Renombra $volunteers a $users
         $users = User::role(['Visitor','Volunteer junior','Volunteer senior'])
-            ->with('volunteer')
+            ->with('volunteer','roles')
             ->orderBy('name')
             ->paginate(20);
 

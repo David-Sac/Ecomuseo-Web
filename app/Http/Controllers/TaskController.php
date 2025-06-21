@@ -45,22 +45,23 @@ class TaskController extends Controller
 
 
 
+// app/Http/Controllers/TaskController.php
+
+// app/Http/Controllers/TaskController.php
 
     public function create(): View
     {
         $components = Components::all();
 
-        // Solo usuarios que tengan en la tabla volunteers un status = 'active'
-                // Mostrar únicamente los usuarios que están registrados
-        // como voluntarios en la tabla "volunteers"
-        $volunteerIds = Volunteer::pluck('user_id');
-        $volunteers = User::whereIn('id', $volunteerIds)
-            ->role(['Volunteer junior', 'Volunteer senior'])
-            ->with(['roles.permissions'])
+        // Sólo usuarios con rol ‘Volunteer junior’ o ‘Volunteer senior’
+        // y cuya solicitud (volunteer) esté activa
+        $volunteers = User::role(['Volunteer junior','Volunteer senior'])
+            ->whereHas('volunteer', fn($q) => $q->where('status','active'))
             ->get();
 
         return view('tasks.create', compact('components','volunteers'));
     }
+
 
 
 
