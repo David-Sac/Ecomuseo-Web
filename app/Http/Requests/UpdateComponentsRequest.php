@@ -23,7 +23,7 @@ class UpdateComponentsRequest extends FormRequest
     {
         return [
             'titleComponente' => 'sometimes|required|string|max:255',
-            'description' => 'sometimes|required|string|max:1000',
+            'description' => 'sometimes|required|string|max:250',
             'contentComponente' => 'nullable|string',
             'rutaImagenComponente' => 'sometimes|required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];

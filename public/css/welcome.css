@@ -321,3 +321,39 @@ body {
   font-size: 1rem;
   margin: 0;
 }
+.encuentranos-container .info {
+  flex: 1;
+}
+.encuentranos-container .info .item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 1.25rem;
+}
+
+.encuentranos-container .info .item p {
+  margin: 0;
+  color: #333;
+  line-height: 1.4;
+}
+.encuentranos-container .info .item p strong {
+  color: #315530;
+}
+.encuentranos-container .item svg.icon,
+.encuentranos-container .item svg {
+  width: 1.25rem;    /* prueba 1.25rem o incluso 1rem */
+  height: 1.25rem;
+  margin-right: 0.5rem;
+  flex-shrink: 0;
+}
+
+.mapa {
+    margin: 2rem auto;
+    max-width: 500px;
+    width: 100%;  /* centrar horizontalmente y espacio arriba/abajo */
+}
+.contenedor .carousel-inner img,
+.mapa iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}

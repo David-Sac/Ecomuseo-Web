@@ -15,7 +15,8 @@
     @extends('layouts.app_new')
 
 
-    <div class="container">
+    <div class="register-container">
+        <div class="register-card">
         <div class="left-side">
             <div class="register-form">
 
@@ -101,6 +102,7 @@
         <div class="right-side">
                 <div class="carousel"></div>
         </div>
+    </div>
     </div>
     <script>
         var setMaxDate = function () {

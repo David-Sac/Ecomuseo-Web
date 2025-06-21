@@ -1,0 +1,95 @@
+/* public/css/intranet/complete-profile.css */
+
+/* 1. Layout principal: hacen que el <main> crezca y quede espacio para el header */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+main {
+  flex: 1;
+  margin-top: 150px; /* coincide con tu inline-style */
+}
+
+/* 2. Caja blanca alrededor del formulario */
+.main-content .container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  background: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* 3. Título grande y verde */
+.main-content h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2.5rem;
+  color: #315530;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+/* 4. Etiquetas y campos */
+.main-content .form-group {
+  margin-bottom: 1.5rem;
+}
+.main-content .form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #2c4910;
+}
+.main-content .form-group input.form-control {
+  width: 100%;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+  padding: 0.75rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.main-content .form-group input.form-control:focus {
+  border-color: #315530;
+  box-shadow: 0 0 0 2px rgba(49,85,48,0.2);
+}
+
+/* 5. Botón Guardar a todo ancho */
+.main-content .btn-primary {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 1.5rem;
+  background-color: #315530;
+  border-color: #315530;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+.main-content .btn-primary:hover {
+  background-color: #27ae60;
+  border-color: #27ae60;
+}
+
+/* 6. Mensajes de error */
+.main-content .invalid-feedback {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: #c0392b;
+}
+
+/* 7. Adaptaciones móviles */
+@media (max-width: 576px) {
+  main {
+    margin-top: 120px;
+  }
+  .main-content .container {
+    padding: 1rem;
+  }
+  .main-content h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  .main-content .btn-primary {
+    padding: 0.65rem 1rem;
+  }
+}
