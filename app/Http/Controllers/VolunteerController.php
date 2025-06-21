@@ -31,13 +31,14 @@ class VolunteerController extends Controller
 
     public function show(): View
     {
-        $volunteers = Volunteer::with(['user'])
-            ->orderByRaw("FIELD(status, 'active', 'pending', 'inactive') ASC")
-            ->orderBy('requested_date', 'desc')
-            ->latest()
-            ->paginate(10);
+        // ① Renombra $volunteers a $users
+        $users = User::role(['Visitor','Volunteer junior','Volunteer senior'])
+            ->with('volunteer')
+            ->orderBy('name')
+            ->paginate(20);
 
-        return view('volunteers.show', compact('volunteers'));
+        // ② Compacta 'users' (igual al nombre de la variable)
+        return view('volunteers.show', compact('users'));
     }
 
     public function store(Request $request): RedirectResponse
@@ -111,14 +112,5 @@ class VolunteerController extends Controller
         // }
 
         // return redirect()->route('volunteers.show')->with('success', 'Voluntario rechazado con éxito.');
-    }
-
-
-    public function destroy($id): RedirectResponse
-    {
-        $volunteer = Volunteer::findOrFail($id);
-        $volunteer->delete();
-
-        return redirect()->route('volunteers.show')->with('success', 'Solicitud de voluntariado eliminada con éxito.');
     }
 }

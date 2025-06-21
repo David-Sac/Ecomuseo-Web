@@ -1,168 +1,166 @@
-<link rel="stylesheet" href="{{ asset('css/volunteer.css') }}">
-
 @extends('layouts.app_new')
+
 @section('styles')
   <link rel="stylesheet" href="{{ asset('css/intranet/volunteer.css') }}">
 @endsection 
+
 @section('content')
-<div class="card">
+<div class="intranet-main">
+
+  <div class="card">
     <div class="card-header">Lista de Voluntarios</div>
     <div class="card-body">
-        
-    @canany(['create-task', 'edit-task', 'delete-task'])
-        <a class="btn btn-warning btn-sm my-2" href="{{ route('tasks.index') }}">
-        <i class="bi bi-journal"></i> Asignar Tareas</a>
-    @endcanany
-        <table id="table">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Estado</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">DNI</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Fono</th>
-                    <th scope="col">Fecha Nacimiento</th>
-                    <th scope="col">CV</th>
-                    <th scope="col">Info</th>
-                    <th scope="col">Rol</th> <!-- Nueva columna para Rol -->
-                    <th scope="col" style="width: 250px;">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse ($volunteers as $volunteer)
-                <tr class="{{ $volunteer->status }}">
-                    <th scope="row">{{ $loop->iteration }}</th>
-                    <td>{{ ucfirst($volunteer->status) }}</td>
-                    <td>{{ $volunteer->user->name }}</td>
-                    <td>{{ $volunteer->user->dni }}</td>
-                    <td>{{ $volunteer->user->email }}</td>
-                    <td>{{ $volunteer->user->phone }}</td>
-                    <td>{{ \Carbon\Carbon::parse($volunteer->user->birthdate)->format('d/m/Y') }}</td>
-                    <td><a href="{{ asset('storage/'.$volunteer->cv_path) }}" download class="btn btn-sm btn-secondary"><i class="bi bi-download"></i></a></td>
-                    <td>{{ $volunteer->additional_info }}</td>
-                    <td>
-                        @foreach ($volunteer->user->roles as $role)
-                            <span class="role-badge">{{ $role->name }}</span>
-                        @endforeach
-                    </td>
-                    <td>
-                        @if ($volunteer->status == 'pending')
-                            <button type="button" class="btn btn-sm btn-success bi-check-lg approve-btn" data-id="{{ $volunteer->id }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Aprobar"></button>
-                            <button type="button" class="btn btn-sm btn-danger bi-x-lg decline-btn" data-id="{{ $volunteer->id }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Rechazar"></button>
-                        @endif
-                        @if ($volunteer->status == 'active')
-                            <button type="button" class="btn btn-sm btn-danger bi-x-lg decline-btn" data-id="{{ $volunteer->id }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Rechazar"></button>
-                        @endif
-                        @if ($volunteer->status == 'inactive')
-                            <button type="button" class="btn btn-sm btn-success bi-check-lg approve-btn" data-id="{{ $volunteer->id }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Aprobar"></button>
-                        @endif
-                        <!-- Botón de eliminación -->
-                        <form method="POST" action="{{ route('volunteers.destroy', $volunteer->id) }}" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger bi-trash" onclick="return confirm('¿Está seguro de que desea eliminar esta solicitud de voluntariado?');" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar"></button>
-                        </form>
-                    </td>
-                </tr>
-                @empty
-                    <td colspan="10"><span class="text-danger"><strong>No Volunteers Found!</strong></span></td>
-                @endforelse
-            </tbody>
-        </table>
-        {{ $volunteers->links() }}
-    </div>
-</div>
 
-@include('volunteers.partials.volunteer_type_modal')
+      @canany(['create-task', 'edit-task', 'delete-task'])
+        <a class="btn btn-warning btn-sm my-2" href="{{ route('tasks.index') }}">
+          <i class="bi bi-journal"></i> Asignar Tareas
+        </a>
+      @endcanany
+
+      <div class="table-container">
+        <table id="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Estado</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">DNI</th>
+              <th scope="col">Email</th>
+              <th scope="col">Fono</th>
+              <th scope="col">Fecha Nacimiento</th>
+              <th scope="col">CV</th>
+              <th scope="col">Info</th>
+              <th scope="col">Rol</th>
+              <th scope="col" style="width:250px">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @forelse ($users as $user)
+              @php $vol = $user->volunteer; @endphp
+              <tr class="{{ $vol->status ?? 'pending' }}">
+                <th scope="row">{{ $loop->iteration }}</th>
+                <td>
+                  @if(!$vol)
+                    Sin solicitud
+                  @elseif($vol->status == 'pending')
+                    Pendiente
+                  @elseif($vol->status == 'active')
+                    Activo
+                  @else
+                    Rechazado
+                  @endif
+                </td>
+                <td>{{ $user->name }}</td>
+                <td>{{ $user->dni }}</td>
+                <td>{{ $user->email }}</td>
+                <td>{{ $user->phone }}</td>
+                <td>{{ $user->birthdate
+                      ? \Carbon\Carbon::parse($user->birthdate)->format('d/m/Y')
+                      : '—' }}</td>
+                <td>
+                  @if($vol)
+                    <a href="{{ asset('storage/'.$vol->cv_path) }}" download
+                       class="btn btn-sm btn-secondary">
+                      <i class="bi bi-download"></i>
+                    </a>
+                  @endif
+                </td>
+                <td>{{ $vol->additional_info ?? '—' }}</td>
+                <td>
+                  @foreach($user->roles as $role)
+                    <span class="role-badge">{{ $role->name }}</span>
+                  @endforeach
+                </td>
+                <td>
+                  @if(!$vol || $vol->status=='pending')
+                    <button class="btn btn-sm btn-success approve-btn" data-id="{{ $user->id }}"
+                            title="Aprobar"><i class="bi bi-check-lg"></i>
+                    </button>
+                    <button class="btn btn-sm btn-danger decline-btn" data-id="{{ $user->id }}"
+                            title="Rechazar"><i class="bi bi-x-lg"></i>
+                    </button>
+                  @elseif($vol->status=='active')
+                    <button class="btn btn-sm btn-danger decline-btn" data-id="{{ $user->id }}"
+                            title="Rechazar"><i class="bi bi-x-lg"></i>
+                    </button>
+                  @elseif($vol->status=='inactive')
+                    <button class="btn btn-sm btn-success approve-btn" data-id="{{ $user->id }}"
+                            title="Aprobar"><i class="bi bi-check-lg"></i>
+                    </button>
+                  @endif
+                </td>
+              </tr>
+            @empty
+              <tr>
+                <td colspan="11" class="text-center text-danger">
+                  ¡No se encontró ningún voluntario!
+                </td>
+              </tr>
+            @endforelse
+          </tbody>
+        </table>
+      </div>
+
+      {{ $users->links() }}
+
+    </div>
+  </div>
+
+  @include('volunteers.partials.volunteer_type_modal')
+
+</div>
 @endsection
 
 @section('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const modalElement = document.getElementById('volunteerTypeModal');
-    const volunteerTypeModal = new bootstrap.Modal(modalElement);
-    const saveButton = document.getElementById('saveVolunteerType');
+  const modalElement = document.getElementById('volunteerTypeModal');
+  const volunteerTypeModal = new bootstrap.Modal(modalElement);
+  const saveButton = document.getElementById('saveVolunteerType');
 
-    // Manejo de botones de aprobación
-    document.querySelectorAll('.approve-btn').forEach(button => {
-        button.addEventListener('click', function() {
-            const volunteerId = this.getAttribute('data-id');
-            modalElement.setAttribute('data-id', volunteerId);
-            volunteerTypeModal.show();
-        });
-    });
+  // Aprobar
+  document.querySelectorAll('.approve-btn').forEach(btn =>
+    btn.addEventListener('click', () => {
+      modalElement.setAttribute('data-id', btn.dataset.id);
+      volunteerTypeModal.show();
+    })
+  );
 
-    // Manejo de botones de declinación
-    document.querySelectorAll('.decline-btn').forEach(button => {
-        button.addEventListener('click', function() {
-            const volunteerId = this.getAttribute('data-id');
-            console.log('Attempting to decline volunteer with ID:', volunteerId);
+  // Rechazar
+  document.querySelectorAll('.decline-btn').forEach(btn =>
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.id;
+      if (!confirm('¿Seguro quieres rechazar?')) return;
+      fetch(`/volunteers/${id}/decline`, {
+        method: 'POST',
+        headers: {
+          'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(r => r.json())
+      .then(() => location.reload())
+      .catch(e => alert('Error al rechazar: '+e));
+    })
+  );
 
-            if (confirm('¿Estás seguro de que quieres rechazar a este voluntario?')) {
-                fetch('{{ url("/volunteers") }}/' + volunteerId + '/decline', {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ id: volunteerId })
-                })
-                .then(response => {
-                    if (!response.ok) throw new Error('Network response was not ok');
-                    return response.json();
-                })
-                .then(data => {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Hecho',
-                        text: 'Voluntario rechazado con éxito',
-                    });
-                    location.reload(); // Recargar la página para reflejar los cambios
-                })
-                .catch(error => {
-                    console.error('Error al rechazar el voluntario:', error);
-                    alert('Hubo un problema al rechazar al voluntario: ' + error.message);
-                });
-            }
-        });
-    });
-
-    // Guardar tipo de voluntario
-    saveButton.addEventListener('click', function() {
-        const volunteerId = modalElement.getAttribute('data-id');
-        const type = document.getElementById('volunteerType').value;
-        volunteerTypeModal.hide();
-
-        fetch('{{ url("/volunteers") }}/' + volunteerId + '/approve', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-            },
-            body: JSON.stringify({ type: type })
-        })
-        .then(response => {
-            if (!response.ok) throw new Error('Network response was not ok');
-            return response.json();
-        })
-        .then(data => {
-            Swal.fire({
-                icon: 'success',
-                title: 'Hecho',
-                text: 'Voluntario aprobado con éxito.',
-            });
-            location.reload();
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'Hubo un problema al aprobar el voluntario.',
-            });
-        });
-    });
+  // Guardar tipo al aprobar
+  saveButton.addEventListener('click', () => {
+    const id   = modalElement.getAttribute('data-id');
+    const type = document.getElementById('volunteerType').value;
+    volunteerTypeModal.hide();
+    fetch(`/volunteers/${id}/approve`, {
+      method: 'POST',
+      headers: {
+        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ type })
+    })
+    .then(r => r.json())
+    .then(() => location.reload())
+    .catch(e => Swal.fire('Error','No se pudo aprobar','error'));
+  });
 });
 </script>
 @endsection

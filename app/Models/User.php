@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use App\Models\Volunteer;
 
 class User extends Authenticatable
 {
@@ -68,5 +69,10 @@ class User extends Authenticatable
     public function tours()
     {
         return $this->belongsToMany(Tour::class, 'tour_volunteer', 'volunteer_id', 'tour_id');
+    }
+
+    public function volunteer()
+    {
+        return $this->hasOne(Volunteer::class);
     }
 }

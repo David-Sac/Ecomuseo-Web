@@ -62,34 +62,40 @@
               @empty
                 N/A
               @endforelse
-            </td>
-            @if($v = $task->volunteers->first()->pivot)
-              <td>{{ ucfirst($v->status) }}</td>
-              <td>{{ \Carbon\Carbon::parse($v->assigned_date)->format('d/m/Y') }}</td>
-              <td>{{ $v->completed_date
-                      ? \Carbon\Carbon::parse($v->completed_date)->format('d/m/Y')
-                      : 'N/A' }}</td>
-              <td>{{ $task->volunteers->first()->name }}</td>
-            @else
-              <td colspan="4">No asignado</td>
-            @endif
             <td>
-              @if(isset($v) && $v->status==='pending')
-                @can('edit-task')
-                  <a href="{{ route('tasks.edit',$task->id) }}" class="btn btn-primary btn-sm">Editar</a>
-                @endcan
+              @php $pivot = $task->volunteers->first()->pivot; @endphp
+
+              {{-- Si está pendiente: un botón “Cancelar” --}}
+              @if($pivot->status === 'pending')
                 @can('delete-task')
-                  <form action="{{ route('tasks.destroy',$task->id) }}"
-                        method="post" class="d-inline">
-                    @csrf @method('DELETE')
-                    <button class="btn btn-danger btn-sm"
-                            onclick="return confirm('Cancelar tarea?')">
+                  <form action="{{ route('tasks.destroy', $task->id) }}" method="POST" class="d-inline">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit"
+                            class="btn btn-warning btn-sm"
+                            onclick="return confirm('¿Seguro que quieres cancelar esta tarea?')">
                       Cancelar
+                    </button>
+                  </form>
+                @endcan
+
+              {{-- Si está completada o ya cancelada: un botón “Eliminar” definitivo --}}
+              @else
+                @can('delete-task')
+                  <form action="{{ route('tasks.destroy', $task->id) }}" method="POST" class="d-inline">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit"
+                            class="btn btn-danger btn-sm"
+                            onclick="return confirm('¿Eliminar esta tarea de forma permanente?')">
+                      Eliminar
                     </button>
                   </form>
                 @endcan
               @endif
             </td>
+
+
           </tr>
         @empty
           <tr>
@@ -108,51 +114,31 @@
 @endsection
 
 @section('scripts')
-  <script src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-  <script>
-    $(function() {
-      // Configuración del date range picker
-      var start = moment().subtract(6, 'days'),
-          end = moment();
-      function cb(start, end) {
-        $('#reportrange').html(start.format('DD/MM/YYYY') + ' - ' + end.format('DD/MM/YYYY)');
-        $('#start_date').val(start.format('YYYY-MM-DD'));
-        $('#end_date').val(end.format('YYYY-MM-DD'));
-      }
-      $('#reportrange').daterangepicker({
-        startDate: start,
-        endDate: end,
-        alwaysShowCalendars: true,
-        locale: {
-          format: 'DD/MM/YYYY',
-          applyLabel: 'Aplicar',
-          cancelLabel: 'Cancelar',
-          firstDay: 1
-        },
-        ranges: {
-          'Hoy': [moment(), moment()],
-          'Ayer': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-          'Últimos 7 días': [moment().subtract(6, 'days'), moment()],
-          'Últimos 15 días': [moment().subtract(14, 'days'), moment()],
-          'Este mes': [moment().startOf('month'), moment().endOf('month')],
-          'Mes pasado': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
-        }
-      }, cb);
-      cb(start, end);
+<script src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script>
+$(function(){
+  // Cancelar tarea (pending → cancelled + task inactive)
+  $('.cancel-btn').on('click', function(){
+    const id = $(this).data('id');
+    if (!confirm('¿Seguro que quieres cancelar esta tarea?')) return;
+    $.ajax({
+      url: `/tasks/${id}`,
+      method: 'DELETE',
+      data: { _token: '{{ csrf_token() }}' }
+    }).done(() => location.reload());
+  });
 
-      // Aprobar / rechazar tareas vía AJAX
-      $('.approve-btn').on('click', function() {
-        var id = $(this).data('id');
-        $.post('/tasks/'+id+'/approve', {_token:'{{csrf_token()}}'})
-          .done(() => location.reload());
-      });
-      $('.decline-btn').on('click', function() {
-        var id = $(this).data('id');
-        $.post('/tasks/'+id+'/decline', {_token:'{{csrf_token()}}'})
-          .done(() => location.reload());
-      });
-    });
-  </script>
+  // Eliminar tarea (completed/cancelled → borrado lógico)
+  $('.delete-btn').on('click', function(){
+    const id = $(this).data('id');
+    if (!confirm('¿Eliminar definitivamente esta tarea?')) return;
+    $.ajax({
+      url: `/tasks/${id}`,
+      method: 'DELETE',
+      data: { _token: '{{ csrf_token() }}' }
+    }).done(() => location.reload());
+  });
+});
+</script>
 @endsection
+

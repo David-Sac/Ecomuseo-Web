@@ -112,6 +112,8 @@ Route::middleware(['auth', 'profile.complete'])->group(function () {
     Route::get('/volunteers/manage', [VolunteerController::class, 'show'])->name('volunteers.show');
     Route::post('/volunteers/{volunteer}/approve', [VolunteerController::class, 'approve'])->name('volunteers.approve');
     Route::post('/volunteers/{volunteer}/decline', [VolunteerController::class, 'decline'])->name('volunteers.decline');
+    Route::delete('tasks/{task}', [TaskController::class, 'destroy'])
+     ->name('tasks.destroy');
 });
 
 Route::get('/complete-profile', [CompleteProfileController::class, 'create'])->name('complete-profile.create')->middleware('auth');

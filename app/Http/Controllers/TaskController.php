@@ -179,22 +179,22 @@ class TaskController extends Controller
 
     public function complete(Task $task): RedirectResponse
     {
-        $task = Task::findOrFail($task->id);
-
-        $assignedDate = $task->volunteers->first()->pivot->assigned_date;
-
-        $volunteerId = $task->volunteers->first()->pivot->volunteer_id;
-
+        $pivot = $task->volunteers->first()->pivot;
         $task->volunteers()->sync([
-            $volunteerId => ['status' => 'completed', 'completed_date' => now(), 'assigned_date' => $assignedDate],
+        $pivot->volunteer_id => [
+            'status'         => 'completed',
+            'completed_date' => now(),
+            'assigned_date'  => $pivot->assigned_date
+        ]
         ]);
 
         return back();
-        //return redirect()->route('home')->withSuccess('success', 'Task completed successfully.');
     }
+
 
     public function destroy(Task $task): RedirectResponse
     {
+        // marca la tarea inactiva y su pivot como 'cancelled'
         $task->update(['status' => 'inactive']);
         $task->volunteers->first()->pivot->update(['status' => 'cancelled']);
 

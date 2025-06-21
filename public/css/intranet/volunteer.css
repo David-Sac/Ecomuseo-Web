@@ -1,6 +1,8 @@
-/* public/css/intranet/volunteer.css */
+/* ============================================
+   Estilos para la Vista de Voluntarios (intranet)
+   ============================================ */
 
-/* 1. Asegurarnos de que el main empuje el footer abajo */
+/* 1) Layout general para “pegado” de footer */
 html, body {
   height: 100%;
   margin: 0;
@@ -13,19 +15,19 @@ html, body {
 }
 .intranet-main {
   flex: 1 0 auto;
-  padding-top: 60px; /* deja espacio bajo el header fijo */
+  padding-top: 60px; /* espacio bajo header fijo */
 }
 
-/* 2. Card centrada y espaciada */
+/* 2) Card centrada y espaciada */
 .intranet-main .card {
-  max-width: 1200px;
+  max-width: 1500px;
   margin: 80px auto 40px;
   border-radius: 1rem;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   overflow: hidden;
 }
 
-/* 3. Header de la card en verde */
+/* 3) Header de la card en verde oscuro */
 .intranet-main .card-header {
   background-color: #315530;
   color: #fff;
@@ -34,79 +36,104 @@ html, body {
   text-align: center;
   padding: 1rem;
   border-bottom: none;
-  position: relative;
 }
 
-/* 4. Body con padding generoso */
+/* 4) Body con padding generoso */
 .intranet-main .card-body {
   padding: 2rem;
 }
 
-/* 5. Botón “Asignar Tareas” */
-.intranet-main .btn-warning {
+/* 5) Contenedor de tabla para añadir espacio sobre ella */
+.table-container {
+  margin-top: 2rem;
+}
+
+/* 6) Tabla de voluntarios */
+#table {
+  width: 100%;
+  table-layout: auto; /* columnas ajustan su ancho al contenido */
+  border-collapse: collapse;
   margin-bottom: 1rem;
 }
 
-/* 6. Tabla full-width y encabezados ligeros */
-.intranet-main .table {
-  width: 100%;
-  margin-top: 0.5rem;
-}
-.intranet-main .table th {
-  background-color: #f5f5f5;
-  font-weight: 500;
+/* 7) Encabezados */
+#table thead th {
+  background-color: #315530;
+  color: #fff;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: .5px;
-}
-.intranet-main .table th,
-.intranet-main .table td {
-  vertical-align: middle;
-  padding: .75rem 1rem;
-  border: 1px solid #dee2e6;
+  padding: 1rem;
+  border: 1px solid #222;
+  text-align: left;
 }
 
-/* 7. Franjas y hover */
-.intranet-main .table tbody tr:nth-of-type(odd) {
+/* 8) Celdas */
+#table tbody td,
+#table tbody th {
+  padding: 0.75rem 1rem;
+  vertical-align: top;
+  border: 1px solid #ddd;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+/* 9) Centrar la columna “#” */
+#table th:first-child,
+#table td:first-child {
+  text-align: center;
+}
+
+/* 10) Ajuste mínima de la última columna de acciones */
+#table th:last-child,
+#table td:last-child {
+  white-space: nowrap;
+  width: 1%;
+}
+
+/* 11) Franjas alternas y hover */
+#table tbody tr:nth-of-type(odd) {
   background-color: #fafafa;
 }
-.intranet-main .table tbody tr:hover {
+#table tbody tr:hover {
   background-color: #eef7ec;
 }
 
-/* 8. Pequeño espaciado entre botones de acción */
-.intranet-main .table .btn-sm {
-  margin-right: 0.25rem;
-}
-
-/* 9. Badges de rol */
+/* 12) Badges de roles */
 .role-badge {
   display: inline-block;
-  background-color: #0c7426;
+  margin: 0 0.25rem 0.25rem 0;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
   color: #fff;
-  padding: .25rem .5rem;
-  border-radius: .25rem;
-  font-size: .85rem;
-  margin-right: .25rem;
+  background-color: #00BFFF;
+  border-radius: 0.5rem;
+  white-space: nowrap;
 }
 
-/* 10. Colores de fila según estado */
-.intranet-main .table tbody tr.pending {
+/* 13) Colores por estado */
+#table tbody tr.pending {
   background-color: #fff3cd !important;
 }
-.intranet-main .table tbody tr.active {
+#table tbody tr.active {
   background-color: #d4edda !important;
 }
-.intranet-main .table tbody tr.inactive {
+#table tbody tr.inactive {
   background-color: #f8d7da !important;
 }
 
-/* 11. Paginación centrada */
+/* 14) Botones pequeños espaciados */
+.intranet-main .btn-sm {
+  margin-right: 0.25rem;
+}
+
+/* 15) Paginación centrada */
 .intranet-main .pagination {
   justify-content: center;
   margin-top: 1rem;
 }
 
-/* 12. Footer “pegado” al final */
+/* 16) Footer pegado */
 footer {
   flex-shrink: 0;
 }
