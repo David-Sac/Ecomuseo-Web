@@ -34,7 +34,7 @@ class TourController extends Controller
     public function create(): View
     {
         $components = Components::all();
-        $volunteers = User::role('Volunteer junior')->get();
+        $volunteers = User::role('Volunteer senior')->get();
         return view('tours.create', compact('components', 'volunteers'));
     }
 
@@ -129,7 +129,7 @@ class TourController extends Controller
     public function edit(Tour $tour): View
     {
         $components = Components::all();
-        $volunteers = User::role(['Volunteer junior', 'Volunteer senior'])->get();
+        $volunteers = User::role(['Volunteer senior'])->get();
         $assignedVolunteer = $tour->volunteers->first();
 
         return view('tours.edit', compact('tour', 'components', 'volunteers', 'assignedVolunteer'));

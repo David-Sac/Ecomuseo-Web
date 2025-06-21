@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use App\Models\User;
 
 class LoginRequest extends FormRequest
 {
@@ -39,18 +40,32 @@ class LoginRequest extends FormRequest
      */
     public function authenticate(): void
     {
+        // 1) Rate-limit
         $this->ensureIsNotRateLimited();
 
+        // 2) Recuperar usuario por email
+        $user = User::where('email', $this->input('email'))->first();
+
+        // 3) Si existe y su password está vacío (o fue creado con Google)
+        if ($user && (empty($user->password) && $user->google_id)) {
+            RateLimiter::hit($this->throttleKey());
+            throw ValidationException::withMessages([
+                'email' => 'Esta cuenta fue creada con Google. Usa el botón "Iniciar sesión con Google" o restablece tu contraseña.',
+            ]);
+        }
+
+        // 4) Intentar login normal
         if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
-
             throw ValidationException::withMessages([
                 'email' => trans('auth.failed'),
             ]);
         }
 
+        // 5) Si pasa, se limpia el rate-limiter
         RateLimiter::clear($this->throttleKey());
     }
+
 
     /**
      * Ensure the login request is not rate limited.
