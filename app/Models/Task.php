@@ -28,7 +28,7 @@ class Task extends Model
     public function volunteers()
     {
         return $this->belongsToMany(User::class, 'task_volunteer', 'task_id', 'volunteer_id')
-                    ->withPivot('assigned_date', 'completed_date', 'status')
+                    ->withPivot(['assigned_date','completed_date','status'])
                     ->withTimestamps();
     }
 }

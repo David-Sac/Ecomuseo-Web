@@ -70,26 +70,14 @@
             <div class="mb-3 row">
               <label for="volunteer_id" class="col-md-4 col-form-label text-md-end">Asignar a</label>
               <div class="col-md-6">
-                <select id="volunteer_id" name="volunteer_id"
-                        class="form-control @error('volunteer_id') is-invalid @enderror">
-                  <option value="">Seleccione un voluntario</option>
-                  @foreach ($volunteers as $volunteer)
-                    @php
-                      $permissions = $volunteer->roles
-                        ->flatMap->permissions
-                        ->pluck('name')->unique();
-                      $roles = $volunteer->roles->pluck('name');
-                    @endphp
-                    <option value="{{ $volunteer->id }}"
-                            data-permissions="{{ $permissions->join(',') }}"
-                            data-roles="{{ $roles->join(',') }}">
-                      {{ $volunteer->name }}
-                    </option>
+                <select id="volunteer_id" name="volunteer_id" class="form-control @error('volunteer_id') is-invalid @enderror">
+                  <option value="">Seleccione un voluntario aprobado</option>
+                  @foreach($volunteers as $vol)
+                    <option value="{{ $vol->id }}">{{ $vol->name }}</option>
                   @endforeach
                 </select>
-                @error('volunteer_id')
-                  <span class="text-danger">{{ $message }}</span>
-                @enderror
+                @error('volunteer_id') <span class="text-danger">{{ $message }}</span> @enderror
+
               </div>
             </div>
 

@@ -129,7 +129,8 @@ class TourController extends Controller
     public function edit(Tour $tour): View
     {
         $components = Components::all();
-        $volunteers = User::role(['Volunteer senior'])->get();
+        // Allow selecting only volunteers with the "Volunteer senior" role
+        $volunteers = User::role('Volunteer senior')->get();
         $assignedVolunteer = $tour->volunteers->first();
 
         return view('tours.edit', compact('tour', 'components', 'volunteers', 'assignedVolunteer'));

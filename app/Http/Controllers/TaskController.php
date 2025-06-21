@@ -49,16 +49,20 @@ class TaskController extends Controller
     public function create(): View
     {
         $components = Components::all();
-        // Cargar todos los voluntarios con sus roles y permisos
-        // Mostrar únicamente los usuarios que están registrados
+
+        // Solo usuarios que tengan en la tabla volunteers un status = 'active'
+                // Mostrar únicamente los usuarios que están registrados
         // como voluntarios en la tabla "volunteers"
         $volunteerIds = Volunteer::pluck('user_id');
         $volunteers = User::whereIn('id', $volunteerIds)
+            ->role(['Volunteer junior', 'Volunteer senior'])
             ->with(['roles.permissions'])
             ->get();
 
-        return view('tasks.create', compact('components', 'volunteers'));
+        return view('tasks.create', compact('components','volunteers'));
     }
+
+
 
 
     public function show(Task $task): View
@@ -105,8 +109,10 @@ class TaskController extends Controller
         // "volunteers" (es decir, quienes aparecen en la Lista de Voluntarios)
         $volunteerIds = Volunteer::pluck('user_id');
         $volunteers = User::whereIn('id', $volunteerIds)
+            ->role(['Volunteer junior', 'Volunteer senior'])
             ->with(['roles.permissions'])
             ->get();
+
 
         // Obtener el primer voluntario asignado a la tarea, si existe
         $volunteerId = $task->volunteers->isNotEmpty() ? $task->volunteers->first()->pivot->volunteer_id : null;

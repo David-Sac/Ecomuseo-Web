@@ -24,7 +24,8 @@
                         <td>{{ ucfirst($task->type) }}</td>
                         <td>{{ $task->title }}</td>
                         <td>{{ $task->content }}</td>
-                        <td>{{ $task->volunteers->first()->user->name }}</td>
+                        <td>{{ $task->volunteers->first()->name }}</td>
+
                         <td>{{ ucfirst($task->volunteers->first()->pivot->status) }}</td>
                         <td>
                             @if ($task->componentDetails->isNotEmpty())
