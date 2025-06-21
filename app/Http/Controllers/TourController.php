@@ -34,6 +34,8 @@ class TourController extends Controller
     public function create(): View
     {
         $components = Components::all();
+       // Only show volunteers with the "Volunteer senior" role when
+        // assigning a tour at creation time
         $volunteers = User::role('Volunteer senior')->get();
         return view('tours.create', compact('components', 'volunteers'));
     }

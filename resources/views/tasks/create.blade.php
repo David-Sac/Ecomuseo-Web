@@ -1,4 +1,3 @@
-{{-- resources/views/tasks/create.blade.php --}}
 @extends('layouts.app_new')
 
 @section('styles')
@@ -18,11 +17,12 @@
           <form action="{{ route('tasks.store') }}" method="post">
             @csrf
 
-            {{-- Tipo de tarea --}}
+            {{-- Tipo --}}
             <div class="mb-3 row">
               <label for="type" class="col-md-4 col-form-label text-md-end">Tipo</label>
               <div class="col-md-6">
-                <select id="type" name="type" class="form-control @error('type') is-invalid @enderror">
+                <select id="type" name="type"
+                        class="form-control @error('type') is-invalid @enderror">
                   <option value="">Seleccione tipo</option>
                   <option value="create-blog">Blog</option>
                   <option value="create-tour">Tour</option>
@@ -33,7 +33,7 @@
               </div>
             </div>
 
-            {{-- Componentes (solo para create-component) --}}
+            {{-- Componentes (solo create-component) --}}
             <div id="componentChecklist" class="mb-3 row" style="display:none;">
               <label class="col-md-4 col-form-label text-md-end">Componentes</label>
               <div class="col-md-6">
@@ -49,21 +49,18 @@
               </div>
             </div>
 
-            {{-- Voluntario (solo juniors/seniors ya activos) --}}
+            {{-- Usuario --}}
             <div class="mb-3 row">
-              <label for="volunteer_id" class="col-md-4 col-form-label text-md-end">Asignar a</label>
+              <label for="user_id" class="col-md-4 col-form-label text-md-end">Asignar a</label>
               <div class="col-md-6">
-                <select id="volunteer_id" name="volunteer_id"
-                        class="form-control @error('volunteer_id') is-invalid @enderror">
-                  <option value="">Seleccione un voluntario</option>
-                  @foreach($volunteers as $vol)
-                    {{-- $vol->volunteer->id es el id de la tabla volunteers --}}
-                    <option value="{{ $vol->volunteer->id }}">
-                      {{ $vol->name }}
-                    </option>
+                <select id="user_id" name="user_id"
+                        class="form-control @error('user_id') is-invalid @enderror">
+                  <option value="">Seleccione un usuario</option>
+                  @foreach($users as $u)
+                    <option value="{{ $u->id }}">{{ $u->name }}</option>
                   @endforeach
                 </select>
-                @error('volunteer_id') <span class="text-danger">{{ $message }}</span> @enderror
+                @error('user_id') <span class="text-danger">{{ $message }}</span> @enderror
               </div>
             </div>
 

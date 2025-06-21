@@ -49,17 +49,16 @@ class TaskController extends Controller
 
 // app/Http/Controllers/TaskController.php
 
+    // app/Http/Controllers/TaskController.php
+
     public function create(): View
     {
         $components = Components::all();
 
-        // Sólo usuarios con rol ‘Volunteer junior’ o ‘Volunteer senior’
-        // y cuya solicitud (volunteer) esté activa
-        $volunteers = User::role(['Volunteer junior','Volunteer senior'])
-            ->whereHas('volunteer', fn($q) => $q->where('status','active'))
-            ->get();
+        // Ahora cargamos TODOS los usuarios (sin filtro)
+        $users = User::all();
 
-        return view('tasks.create', compact('components','volunteers'));
+        return view('tasks.create', compact('components','users'));
     }
 
 
@@ -104,15 +103,8 @@ class TaskController extends Controller
         // Cargar todos los componentes disponibles
         $components = Components::all();
 
-        // Cargar todos los voluntarios, suponiendo que estos son usuarios con un rol específico
-        // Modifica esto si usas un nombre de rol diferente o si tienes una lógica diferente para seleccionar voluntarios
-        // Solo mostrar usuarios que tengan una solicitud en la tabla
-        // "volunteers" (es decir, quienes aparecen en la Lista de Voluntarios)
-        $volunteerIds = Volunteer::pluck('user_id');
-        $volunteers = User::whereIn('id', $volunteerIds)
-            ->role(['Volunteer junior', 'Volunteer senior'])
-            ->with(['roles.permissions'])
-            ->get();
+                // Listar todos los usuarios para poder reasignar la tarea
+        $volunteers = User::with(['roles.permissions'])->get();
 
 
         // Obtener el primer voluntario asignado a la tarea, si existe
