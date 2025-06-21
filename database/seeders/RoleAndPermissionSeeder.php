@@ -38,6 +38,7 @@ class RoleAndPermissionSeeder extends Seeder
             'create-donation',
             'edit-donation',
             'delete-donation',
+            'create-task', 'edit-task', 'delete-task',
          ];
 
           // Looping and Inserting Array's Permissions into Permission Table
@@ -69,7 +70,9 @@ class RoleAndPermissionSeeder extends Seeder
             'create-blog',
             'edit-blog',
             'delete-blog',
-            'approve_post'
+            'approve_post',
+                'create-task', 'edit-task', 'delete-task',
+
 
         ]);
 
@@ -85,7 +88,9 @@ class RoleAndPermissionSeeder extends Seeder
             'create-blog',
             'edit-blog',
             'delete-blog',
-            'approve_post'
+            'approve_post',
+                'create-task', 'edit-task', 'delete-task',
+
         ]);
 
         $volunteerSeniorRole->givePermissionTo([

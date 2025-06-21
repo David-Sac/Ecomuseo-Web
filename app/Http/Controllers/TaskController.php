@@ -12,6 +12,7 @@ use App\Models\Task;
 use App\Models\User;
 use App\Models\Components;
 use Carbon\Carbon;
+use App\Models\Volunteer;
 
 class TaskController extends Controller
 {
@@ -49,7 +50,12 @@ class TaskController extends Controller
     {
         $components = Components::all();
         // Cargar todos los voluntarios con sus roles y permisos
-        $volunteers = User::with(['roles.permissions'])->get();
+        // Mostrar únicamente los usuarios que están registrados
+        // como voluntarios en la tabla "volunteers"
+        $volunteerIds = Volunteer::pluck('user_id');
+        $volunteers = User::whereIn('id', $volunteerIds)
+            ->with(['roles.permissions'])
+            ->get();
 
         return view('tasks.create', compact('components', 'volunteers'));
     }
@@ -95,9 +101,12 @@ class TaskController extends Controller
 
         // Cargar todos los voluntarios, suponiendo que estos son usuarios con un rol específico
         // Modifica esto si usas un nombre de rol diferente o si tienes una lógica diferente para seleccionar voluntarios
-        $volunteers = User::whereHas('roles', function ($query) {
-            $query->where('name', 'like', '%volunteer%'); // Ajusta según tus nombres de roles
-        })->get();
+        // Solo mostrar usuarios que tengan una solicitud en la tabla
+        // "volunteers" (es decir, quienes aparecen en la Lista de Voluntarios)
+        $volunteerIds = Volunteer::pluck('user_id');
+        $volunteers = User::whereIn('id', $volunteerIds)
+            ->with(['roles.permissions'])
+            ->get();
 
         // Obtener el primer voluntario asignado a la tarea, si existe
         $volunteerId = $task->volunteers->isNotEmpty() ? $task->volunteers->first()->pivot->volunteer_id : null;
